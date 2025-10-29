@@ -1,6 +1,6 @@
 
 import 'package:exam_app/core/routes/routes.dart';
-import 'package:exam_app/features/Auth/presentation/screens/forget_password_screen.dart';
+import 'package:exam_app/features/auth/forget_password/presentation/views/screens/forget_password_screen.dart';
 import 'package:exam_app/features/auth/login/presentation/views/screens/login_screen.dart';
 import 'package:exam_app/features/auth/register/presentation/views/screens/register_screen.dart';
 import 'package:exam_app/features/home/presentation/views/screens/home_screen.dart';
