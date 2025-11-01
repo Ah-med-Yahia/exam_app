@@ -73,7 +73,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             autovalidateMode: AutovalidateMode.onUserInteraction,
             decoration: InputDecoration(
               labelText: widget.label,
-              labelStyle: getRegularStyle(color: ColorManager.darkGrey),
+              labelStyle: getRegularStyle(color: ColorManager.darkGrey,fontFamily: "roboto"),
               floatingLabelBehavior: FloatingLabelBehavior.always,
               floatingLabelStyle: TextStyle(
                 fontSize: 18.sp,

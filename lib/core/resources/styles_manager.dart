@@ -28,6 +28,12 @@ TextStyle _getTextStyle(
         color: color,
         fontWeight: fontWeight,
       );
+      case 'inter':
+      return GoogleFonts.inter(
+        fontSize: fontSize,
+        color: color,
+        fontWeight: fontWeight,
+      );
     default:
       return GoogleFonts.poppins(
         fontSize: fontSize,

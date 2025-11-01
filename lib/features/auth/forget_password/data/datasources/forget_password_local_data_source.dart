@@ -6,7 +6,7 @@ import 'package:exam_app/features/auth/forget_password/data/models/reset_passwor
 import 'package:exam_app/features/auth/forget_password/data/models/verify_reset_code_request.dart';
 import 'package:exam_app/features/auth/forget_password/data/models/verify_reset_code_response.dart';
 
-abstract class ForgetPasswordRemoteDataSource {
+abstract class ForgetPasswordLocalDataSource {
   Future<BaseResponse<ForgetPasswordResponse>> forgetPassword(ForgetPasswordRequest forgetPasswordRequest);
   Future<BaseResponse<VerifyResetCodeResponse>> verifyResetCode(VerifyResetCodeRequest verifyResetCodeRequest);
   Future<BaseResponse<ResetPasswordResponse>> resetPassword(ResetPasswordRequest resetPasswordRequest);

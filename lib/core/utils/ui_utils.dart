@@ -35,7 +35,7 @@ class UIUtils {
           Navigator.pop(context);
           posAction?.call();
         }, 
-        child: Text(posActionName,style: getMediumStyle(color: ColorManager.black,fontSize: 18.sp),)
+        child: Text(posActionName,style: getMediumStyle(color: ColorManager.black,fontSize: 18.sp,fontFamily:"roboto"),)
       )
       );
     }
@@ -45,15 +45,15 @@ class UIUtils {
           Navigator.pop(context);
           negAction?.call();
         }, 
-        child: Text(negActionName,style: getMediumStyle(color: ColorManager.black,fontSize: 18.sp),)
+        child: Text(negActionName,style: getMediumStyle(color: ColorManager.black,fontSize: 18.sp,fontFamily:"roboto"),)
       )
       );
     }
     showDialog(
       context: context, 
       builder: (context) => AlertDialog(
-        title: Text(title?? '',style: getMediumStyle(color: ColorManager.black,fontSize: 18.sp),),
-        content: Text(message,style: getMediumStyle(color: ColorManager.black,fontSize: 18.sp),),
+        title: Text(title?? '',style: getMediumStyle(color: ColorManager.black,fontSize: 18.sp,fontFamily:"roboto"),),
+        content: Text(message,style: getMediumStyle(color: ColorManager.black,fontSize: 18.sp,fontFamily:"roboto"),),
         actions: actions,
       ),
     );
