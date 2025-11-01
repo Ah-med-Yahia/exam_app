@@ -40,7 +40,7 @@ TextStyle _getTextStyle(
 TextStyle getLightStyle({
   double? fontSize,
   required Color color,
-  required String fontFamily,
+  String fontFamily = 'roboto',
 }) => _getTextStyle(
   fontSize ?? FontSize.s14.sp,
   FontWeightManager.light,
@@ -51,7 +51,7 @@ TextStyle getLightStyle({
 TextStyle getRegularStyle({
   double? fontSize,
   required Color color,
-  required String fontFamily,
+  String fontFamily = 'roboto',
 }) => _getTextStyle(
   fontSize ?? FontSize.s14.sp,
   FontWeightManager.regular,
@@ -62,7 +62,7 @@ TextStyle getRegularStyle({
 TextStyle getMediumStyle({
   double? fontSize,
   required Color color,
-  required String fontFamily,
+  String fontFamily = 'roboto',
 }) => _getTextStyle(
   fontSize ?? FontSize.s14.sp,
   FontWeightManager.medium,
@@ -73,7 +73,7 @@ TextStyle getMediumStyle({
 TextStyle getSemiBoldStyle({
   double? fontSize,
   required Color color,
-  required String fontFamily,
+  String fontFamily = 'roboto',
 }) => _getTextStyle(
   fontSize ?? FontSize.s14.sp,
   FontWeightManager.semiBold,
@@ -84,7 +84,7 @@ TextStyle getSemiBoldStyle({
 TextStyle getBoldStyle({
   double? fontSize,
   required Color color,
-  required String fontFamily,
+  String fontFamily = 'roboto',
 }) => _getTextStyle(
   fontSize ?? FontSize.s14.sp,
   FontWeightManager.bold,

@@ -27,33 +27,55 @@ class UIUtils {
 
   static void showMessage(String message) =>
       Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_SHORT);
-  static void showMessageWithNav({required BuildContext context,String? title,required String message,String? posActionName,Function? posAction,String? negActionName,Function? negAction}){
-    List<Widget>? actions=[];
-    if(posActionName!=null){
-      actions.add(TextButton(
-        onPressed: () {
-          Navigator.pop(context);
-          posAction?.call();
-        }, 
-        child: Text(posActionName,style: getMediumStyle(color: ColorManager.black,fontSize: 18.sp),)
-      )
+  static void showMessageWithNav({
+    required BuildContext context,
+    String? title,
+    required String message,
+    String? posActionName,
+    Function? posAction,
+    String? negActionName,
+    Function? negAction,
+  }) {
+    List<Widget>? actions = [];
+    if (posActionName != null) {
+      actions.add(
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+            posAction?.call();
+          },
+          child: Text(
+            posActionName,
+            style: getMediumStyle(color: ColorManager.black, fontSize: 18.sp),
+          ),
+        ),
       );
     }
-    if(negActionName!=null){
-      actions.add(TextButton(
-        onPressed: () {
-          Navigator.pop(context);
-          negAction?.call();
-        }, 
-        child: Text(negActionName,style: getMediumStyle(color: ColorManager.black,fontSize: 18.sp),)
-      )
+    if (negActionName != null) {
+      actions.add(
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+            negAction?.call();
+          },
+          child: Text(
+            negActionName,
+            style: getMediumStyle(color: ColorManager.black, fontSize: 18.sp),
+          ),
+        ),
       );
     }
     showDialog(
-      context: context, 
+      context: context,
       builder: (context) => AlertDialog(
-        title: Text(title?? '',style: getMediumStyle(color: ColorManager.black,fontSize: 18.sp),),
-        content: Text(message,style: getMediumStyle(color: ColorManager.black,fontSize: 18.sp),),
+        title: Text(
+          title ?? '',
+          style: getMediumStyle(color: ColorManager.black, fontSize: 18.sp),
+        ),
+        content: Text(
+          message,
+          style: getMediumStyle(color: ColorManager.black, fontSize: 18.sp),
+        ),
         actions: actions,
       ),
     );
