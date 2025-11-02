@@ -25,7 +25,7 @@ class ExamApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           onGenerateRoute: RouteGenerator.getRoute,
-          initialRoute: Routes.signUp,
+          initialRoute: Routes.home,
           theme: AppTheme.lightTheme,
           themeMode: ThemeMode.light,
           home: child,

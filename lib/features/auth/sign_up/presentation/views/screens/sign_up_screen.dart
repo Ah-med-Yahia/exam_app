@@ -3,6 +3,7 @@ import 'package:exam_app/core/resources/color_managar.dart';
 import 'package:exam_app/core/resources/font_managar.dart';
 import 'package:exam_app/core/resources/styles_manager.dart';
 import 'package:exam_app/core/resources/values_managar.dart';
+import 'package:exam_app/core/routes/routes.dart';
 import 'package:exam_app/core/utils/ui_utils.dart';
 import 'package:exam_app/core/utils/validator.dart';
 import 'package:exam_app/core/widgets/custom_elevated_button.dart';
@@ -195,6 +196,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         backGroundColor: ColorManager.green,
                         textColor: ColorManager.white,
                       );
+                      Navigator.of(context).pushReplacementNamed(Routes.home);
                     }
                   },
                   builder: (context, state) {
