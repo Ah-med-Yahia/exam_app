@@ -25,8 +25,17 @@ class UIUtils {
 
   static void hideLoading(BuildContext context) => Navigator.of(context).pop();
 
-  static void showMessage(String message) =>
-      Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_SHORT);
+  static void showMessage(
+    String message, {
+    required Color backGroundColor,
+    required Color textColor,
+  }) => Fluttertoast.showToast(
+    msg: message,
+    toastLength: Toast.LENGTH_LONG,
+    backgroundColor: backGroundColor,
+    textColor: textColor,
+  );
+
   static void showMessageWithNav({
     required BuildContext context,
     String? title,

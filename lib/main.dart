@@ -18,16 +18,20 @@ class ExamApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: Size(375, 812),
+      designSize: const Size(375, 812),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        onGenerateRoute: RouteGenerator.getRoute,
-        initialRoute: Routes.register,
-        theme: AppTheme.lightTheme,
-        themeMode: ThemeMode.light,
-      ),
+      builder: (context, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          onGenerateRoute: RouteGenerator.getRoute,
+          initialRoute: Routes.signUp,
+          theme: AppTheme.lightTheme,
+          themeMode: ThemeMode.light,
+          home: child,
+        );
+      },
     );
   }
 }
+

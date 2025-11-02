@@ -32,79 +32,62 @@ class CustomTextFormField extends StatefulWidget {
 }
 
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
-  bool isFocused = false;
-  late FocusNode _focusNode;
-
-  @override
-  void initState() {
-    super.initState();
-    _focusNode = FocusNode();
-    _focusNode.addListener(_handleFocusChange);
-  }
-
-  void _handleFocusChange() {
-    setState(() {
-      isFocused = _focusNode.hasFocus;
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _focusNode.removeListener(_handleFocusChange);
-    _focusNode.dispose();
-  }
+  bool hasError = false;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        SizedBox(
-          height: 70.h,
-          child: TextFormField(
-            focusNode: _focusNode,
-            obscureText: widget.obscureText,
-            maxLines: widget.maxLines,
-            keyboardType: widget.keyboardType,
-            validator: widget.validator,
-            onChanged: widget.onChanged,
-            controller: widget.controller,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            decoration: InputDecoration(
-              labelText: widget.label,
-              labelStyle: getRegularStyle(color: ColorManager.darkGrey),
-              floatingLabelBehavior: FloatingLabelBehavior.always,
-              floatingLabelStyle: TextStyle(
-                fontSize: 18.sp,
-                fontWeight: FontWeightManager.regular,
-                color: ColorManager.darkGrey,
-              ),
-              hintText: widget.hintText,
-              hintStyle: TextStyle(
-                fontSize: FontSize.s12.sp,
-                fontWeight: FontWeightManager.regular,
-                color: ColorManager.lightGrey,
-              ),
-              contentPadding: EdgeInsets.only(
-                left: Insets.s16.sp,
-                top: Insets.s16.sp,
-                bottom: Insets.s16.sp,
-              ),
-              errorBorder: _buildBorder(color: ColorManager.red),
-              border: _buildBorder(color: ColorManager.black),
-              enabledBorder: _buildBorder(color: ColorManager.black),
-              focusedErrorBorder: _buildBorder(
-                color: ColorManager.red,
-                width: 2,
-              ),
-              focusedBorder: _buildBorder(color: ColorManager.black, width: 2),
-            ),
-            cursorColor: ColorManager.black,
-            onTapOutside: (event) => FocusScope.of(context).unfocus(),
+    return SizedBox(
+      height: 70.h,
+      child: TextFormField(
+        obscureText: widget.obscureText,
+        maxLines: widget.maxLines,
+        keyboardType: widget.keyboardType,
+        validator: (value) {
+          final result = widget.validator?.call(value);
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (mounted && hasError != (result != null)) {
+              setState(() => hasError = result != null);
+            }
+          });
+          return result;
+        },
+        onChanged: widget.onChanged,
+        controller: widget.controller,
+        autovalidateMode: AutovalidateMode.onUnfocus,
+        decoration: InputDecoration(
+          labelText: widget.label,
+          labelStyle: getRegularStyle(
+            color: hasError ? ColorManager.red : ColorManager.darkGrey,
+          ),
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          floatingLabelStyle: TextStyle(
+            fontSize: 18.sp,
+            fontWeight: FontWeightManager.regular,
+            color: hasError ? ColorManager.red : ColorManager.darkGrey,
+          ),
+          hintText: widget.hintText,
+          hintStyle: TextStyle(
+            fontSize: FontSize.s14,
+            fontWeight: FontWeightManager.regular,
+            color: ColorManager.lightGrey,
+          ),
+          contentPadding: EdgeInsets.only(
+            left: Insets.s16.sp,
+            top: Insets.s16.sp,
+            bottom: Insets.s16.sp,
+          ),
+          border: _buildBorder(color: ColorManager.black),
+          enabledBorder: _buildBorder(color: ColorManager.black),
+          errorBorder: _buildBorder(color: ColorManager.red),
+          focusedErrorBorder: _buildBorder(color: ColorManager.red, width: 2),
+          focusedBorder: _buildBorder(
+            color: hasError ? ColorManager.red : ColorManager.black,
+            width: 2,
           ),
         ),
-      ],
+        cursorColor: ColorManager.black,
+        onTapOutside: (event) => FocusScope.of(context).unfocus(),
+      ),
     );
   }
 
