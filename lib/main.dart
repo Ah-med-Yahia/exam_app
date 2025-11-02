@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
   runApp(ExamApp());
 }
@@ -22,7 +23,7 @@ class ExamApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         onGenerateRoute: RouteGenerator.getRoute,
-        initialRoute: Routes.login,
+        initialRoute: Routes.register,
         theme: AppTheme.lightTheme,
         themeMode: ThemeMode.light,
       ),
