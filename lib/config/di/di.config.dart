@@ -32,6 +32,8 @@ import '../../features/auth/sign_up/domain/repositories/sign_up_repository_contr
     as _i100;
 import '../../features/auth/sign_up/domain/use_cases/sign_up_use_case.dart'
     as _i45;
+import '../../features/auth/sign_up/presentation/cubit/sign_up_cubit.dart'
+    as _i809;
 import '../dio_modules/dio_module.dart' as _i365;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -80,6 +82,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i45.SignUpUseCase>(
       () =>
           _i45.SignUpUseCase(repository: gh<_i100.SignUpRepositoryContract>()),
+    );
+    gh.singleton<_i809.SignUpCubit>(
+      () => _i809.SignUpCubit(gh<_i45.SignUpUseCase>()),
     );
     return this;
   }

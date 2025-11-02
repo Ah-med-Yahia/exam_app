@@ -1,5 +1,6 @@
 import 'package:exam_app/config/base_response/base_response.dart';
 import 'package:exam_app/core/constants/api_constants.dart';
+import 'package:exam_app/core/errors/exception.dart';
 import 'package:exam_app/features/auth/sign_up/data/datasources/sign_up_local_data_source_contract.dart';
 import 'package:exam_app/features/auth/sign_up/data/models/user_model.dart';
 import 'package:hive/hive.dart';
@@ -20,7 +21,7 @@ class SignUpLocalDataSourceImpl implements SignUpLocalDataSourceContract {
       await tokenBox.put(CacheConstants.tokenKey, token);
       return SuccessResponse<void>(data: null);
     } catch (e) {
-      return ErrorResponse<void>(error: e as Exception);
+      return ErrorResponse<void>(error: LocalException(message: 'Falied to save user locally'));
     }
   }
 }
