@@ -59,16 +59,15 @@ TextStyle getLightStyle({
   TextDecoration? decoration,
   Color? decorationColor,
   double? decorationThickness,
-}) =>
-    _getTextStyle(
-      fontSize ?? FontSize.s14.sp,
-      FontWeightManager.light,
-      color,
-      fontFamily: fontFamily,
-      decoration: decoration,
-      decorationColor: decorationColor,
-      decorationThickness: decorationThickness,
-    );
+}) => _getTextStyle(
+  fontSize ?? FontSize.s14.sp,
+  FontWeightManager.light,
+  color,
+  fontFamily: fontFamily,
+  decoration: decoration,
+  decorationColor: decorationColor,
+  decorationThickness: decorationThickness,
+);
 
 TextStyle getRegularStyle({
   double? fontSize,
@@ -77,16 +76,15 @@ TextStyle getRegularStyle({
   TextDecoration? decoration,
   Color? decorationColor,
   double? decorationThickness,
-}) =>
-    _getTextStyle(
-      fontSize ?? FontSize.s14.sp,
-      FontWeightManager.regular,
-      color,
-      fontFamily: fontFamily,
-      decoration: decoration,
-      decorationColor: decorationColor,
-      decorationThickness: decorationThickness,
-    );
+}) => _getTextStyle(
+  fontSize ?? FontSize.s14.sp,
+  FontWeightManager.regular,
+  color,
+  fontFamily: fontFamily,
+  decoration: decoration,
+  decorationColor: decorationColor,
+  decorationThickness: decorationThickness,
+);
 
 TextStyle getMediumStyle({
   double? fontSize,
@@ -95,16 +93,15 @@ TextStyle getMediumStyle({
   TextDecoration? decoration,
   Color? decorationColor,
   double? decorationThickness,
-}) =>
-    _getTextStyle(
-      fontSize ?? FontSize.s14.sp,
-      FontWeightManager.medium,
-      color,
-      fontFamily: fontFamily,
-      decoration: decoration,
-      decorationColor: decorationColor,
-      decorationThickness: decorationThickness,
-    );
+}) => _getTextStyle(
+  fontSize ?? FontSize.s14.sp,
+  FontWeightManager.medium,
+  color,
+  fontFamily: fontFamily,
+  decoration: decoration,
+  decorationColor: decorationColor,
+  decorationThickness: decorationThickness,
+);
 
 TextStyle getSemiBoldStyle({
   double? fontSize,
@@ -113,16 +110,15 @@ TextStyle getSemiBoldStyle({
   TextDecoration? decoration,
   Color? decorationColor,
   double? decorationThickness,
-}) =>
-    _getTextStyle(
-      fontSize ?? FontSize.s14.sp,
-      FontWeightManager.semiBold,
-      color,
-      fontFamily: fontFamily,
-      decoration: decoration,
-      decorationColor: decorationColor,
-      decorationThickness: decorationThickness,
-    );
+}) => _getTextStyle(
+  fontSize ?? FontSize.s14.sp,
+  FontWeightManager.semiBold,
+  color,
+  fontFamily: fontFamily,
+  decoration: decoration,
+  decorationColor: decorationColor,
+  decorationThickness: decorationThickness,
+);
 
 TextStyle getBoldStyle({
   double? fontSize,
@@ -131,13 +127,12 @@ TextStyle getBoldStyle({
   TextDecoration? decoration,
   Color? decorationColor,
   double? decorationThickness,
-}) =>
-    _getTextStyle(
-      fontSize ?? FontSize.s14.sp,
-      FontWeightManager.bold,
-      color,
-      fontFamily: fontFamily,
-      decoration: decoration,
-      decorationColor: decorationColor,
-      decorationThickness: decorationThickness,
-    );
+}) => _getTextStyle(
+  fontSize ?? FontSize.s14.sp,
+  FontWeightManager.bold,
+  color,
+  fontFamily: fontFamily,
+  decoration: decoration,
+  decorationColor: decorationColor,
+  decorationThickness: decorationThickness,
+);

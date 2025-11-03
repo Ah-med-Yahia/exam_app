@@ -10,4 +10,7 @@ class UiConstants {
   static const String rememberMe = "Remember me";
   static const String signUp = "Sign Up";
   static const String dontHaveAccount = "Don't have an account?";
+  static const String loginsuccessful = "Login successful";
+  static const String failedToLogin = "Failed To Login";
+
 }
