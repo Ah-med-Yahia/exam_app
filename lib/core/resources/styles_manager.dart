@@ -8,6 +8,9 @@ TextStyle _getTextStyle(
   FontWeight fontWeight,
   Color color, {
   required String fontFamily,
+  TextDecoration? decoration,
+  Color? decorationColor,
+  double? decorationThickness,
 }) {
   switch (fontFamily.toLowerCase()) {
     case 'poppins':
@@ -15,24 +18,36 @@ TextStyle _getTextStyle(
         fontSize: fontSize,
         color: color,
         fontWeight: fontWeight,
+        decoration: decoration,
+        decorationColor: decorationColor,
+        decorationThickness: decorationThickness,
       );
     case 'roboto':
       return GoogleFonts.roboto(
         fontSize: fontSize,
         color: color,
         fontWeight: fontWeight,
+        decoration: decoration,
+        decorationColor: decorationColor,
+        decorationThickness: decorationThickness,
       );
     case 'cairo':
       return GoogleFonts.cairo(
         fontSize: fontSize,
         color: color,
         fontWeight: fontWeight,
+        decoration: decoration,
+        decorationColor: decorationColor,
+        decorationThickness: decorationThickness,
       );
     default:
       return GoogleFonts.poppins(
         fontSize: fontSize,
         color: color,
         fontWeight: fontWeight,
+        decoration: decoration,
+        decorationColor: decorationColor,
+        decorationThickness: decorationThickness,
       );
   }
 }
@@ -41,53 +56,82 @@ TextStyle getLightStyle({
   double? fontSize,
   required Color color,
   String fontFamily = 'roboto',
+  TextDecoration? decoration,
+  Color? decorationColor,
+  double? decorationThickness,
 }) => _getTextStyle(
   fontSize ?? FontSize.s14.sp,
   FontWeightManager.light,
   color,
   fontFamily: fontFamily,
+  decoration: decoration,
+  decorationColor: decorationColor,
+  decorationThickness: decorationThickness,
 );
 
 TextStyle getRegularStyle({
   double? fontSize,
   required Color color,
   String fontFamily = 'roboto',
+  TextDecoration? decoration,
+  Color? decorationColor,
+  double? decorationThickness,
 }) => _getTextStyle(
   fontSize ?? FontSize.s14.sp,
   FontWeightManager.regular,
   color,
   fontFamily: fontFamily,
+  decoration: decoration,
+  decorationColor: decorationColor,
+  decorationThickness: decorationThickness,
 );
 
 TextStyle getMediumStyle({
   double? fontSize,
   required Color color,
   String fontFamily = 'roboto',
+  TextDecoration? decoration,
+  Color? decorationColor,
+  double? decorationThickness,
 }) => _getTextStyle(
   fontSize ?? FontSize.s14.sp,
   FontWeightManager.medium,
   color,
   fontFamily: fontFamily,
+  decoration: decoration,
+  decorationColor: decorationColor,
+  decorationThickness: decorationThickness,
 );
 
 TextStyle getSemiBoldStyle({
   double? fontSize,
   required Color color,
   String fontFamily = 'roboto',
+  TextDecoration? decoration,
+  Color? decorationColor,
+  double? decorationThickness,
 }) => _getTextStyle(
   fontSize ?? FontSize.s14.sp,
   FontWeightManager.semiBold,
   color,
   fontFamily: fontFamily,
+  decoration: decoration,
+  decorationColor: decorationColor,
+  decorationThickness: decorationThickness,
 );
-
 TextStyle getBoldStyle({
   double? fontSize,
   required Color color,
   String fontFamily = 'roboto',
+  TextDecoration? decoration,
+  Color? decorationColor,
+  double? decorationThickness,
 }) => _getTextStyle(
   fontSize ?? FontSize.s14.sp,
   FontWeightManager.bold,
   color,
   fontFamily: fontFamily,
+  decoration: decoration,
+  decorationColor: decorationColor,
+  decorationThickness: decorationThickness,
 );
