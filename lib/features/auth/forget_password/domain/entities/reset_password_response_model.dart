@@ -1,5 +1,6 @@
 class ResetPasswordResponseModel {
   String? message;
   String? token;
-  ResetPasswordResponseModel({this.message,this.token});
+  int? code;
+  ResetPasswordResponseModel({this.message,this.token,this.code});
 }

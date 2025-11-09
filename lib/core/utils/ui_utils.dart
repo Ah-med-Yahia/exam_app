@@ -1,5 +1,6 @@
 import 'package:exam_app/core/resources/color_managar.dart';
 import 'package:exam_app/core/resources/styles_manager.dart';
+import 'package:exam_app/core/resources/values_managar.dart';
 import 'package:exam_app/core/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -35,7 +36,7 @@ class UIUtils {
           Navigator.pop(context);
           posAction?.call();
         }, 
-        child: Text(posActionName,style: getMediumStyle(color: ColorManager.black,fontSize: 18.sp,fontFamily:"roboto"),)
+        child: Text(posActionName,style: getMediumStyle(color: ColorManager.black,fontSize: Sizes.s18.sp,),)
       )
       );
     }
@@ -45,16 +46,30 @@ class UIUtils {
           Navigator.pop(context);
           negAction?.call();
         }, 
-        child: Text(negActionName,style: getMediumStyle(color: ColorManager.black,fontSize: 18.sp,fontFamily:"roboto"),)
+        child: Text(negActionName,style: getMediumStyle(color: ColorManager.black,fontSize: Sizes.s18.sp,),)
       )
       );
     }
     showDialog(
       context: context, 
       builder: (context) => AlertDialog(
-        title: Text(title?? '',style: getMediumStyle(color: ColorManager.black,fontSize: 18.sp,fontFamily:"roboto"),),
-        content: Text(message,style: getMediumStyle(color: ColorManager.black,fontSize: 18.sp,fontFamily:"roboto"),),
+        title: Text(title?? '',style: getMediumStyle(color: ColorManager.black,fontSize: Sizes.s18.sp,)),
+        content: Text(message,style: getMediumStyle(color: ColorManager.black,fontSize: Sizes.s18.sp,),),
         actions: actions,
+      ),
+    );
+  }
+  static void showLoadingMessage({required BuildContext context,required String loadingText}){
+    showDialog(
+      context: context,
+      barrierDismissible: false, 
+      builder: (context) => AlertDialog(
+        content: Row(
+          children: [
+            CircularProgressIndicator(color: ColorManager.blue),
+            Text(loadingText,style: getSemiBoldStyle(color: ColorManager.blue,fontSize: Sizes.s16.sp),)
+          ],
+        ),
       ),
     );
   }

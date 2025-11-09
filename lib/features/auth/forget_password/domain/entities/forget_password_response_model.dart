@@ -1,5 +1,6 @@
 class ForgetPasswordResponseModel {
   String? message;
   String? info;
-  ForgetPasswordResponseModel({this.message,this.info});
+  int? code;
+  ForgetPasswordResponseModel({this.message,this.info,this.code});
 }

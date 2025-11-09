@@ -24,6 +24,7 @@ class ResetPasswordResponse {
     Map<String, dynamic> toJson() => _$ResetPasswordResponseToJson(this);
     ResetPasswordResponseModel toDomain()=>ResetPasswordResponseModel(
       message: message,
-      token: token
+      token: token,
+      code: code
     );
 }

@@ -24,6 +24,7 @@ class ForgetPasswordResponse {
     Map<String, dynamic> toJson() => _$ForgetPasswordResponseToJson(this);
     ForgetPasswordResponseModel toDomain()=>ForgetPasswordResponseModel(
       info: info,
-      message: message
+      message: message,
+      code: code
     );
 }

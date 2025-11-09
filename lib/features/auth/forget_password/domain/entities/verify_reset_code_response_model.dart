@@ -1,5 +1,6 @@
 class VerifyResetCodeResponseModel {
   String? status;
   String? message;
-  VerifyResetCodeResponseModel({this.status,this.message});
+  int? code;
+  VerifyResetCodeResponseModel({this.status,this.message,this.code});
 }

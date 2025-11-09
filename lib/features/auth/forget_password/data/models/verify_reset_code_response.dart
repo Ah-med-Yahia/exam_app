@@ -25,6 +25,7 @@ class VerifyResetCodeResponse {
     Map<String, dynamic> toJson() => _$VerifyResetCodeResponseToJson(this);
     VerifyResetCodeResponseModel toDomain()=>VerifyResetCodeResponseModel(
       message: message,
-      status: status
+      status: status,
+      code: code
     );
 }
