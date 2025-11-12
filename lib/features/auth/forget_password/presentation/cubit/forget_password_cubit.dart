@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:exam_app/config/base_response/base_response.dart';
 import 'package:exam_app/config/base_state/base_state.dart';
 import 'package:exam_app/features/auth/forget_password/domain/entities/forget_password_request_model.dart';
@@ -70,7 +69,7 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordStates>{
           ),
         ));
       case ErrorResponse<ForgetPasswordResponseModel>():
-        String errorMessage=_handleError(response.error);
+        String errorMessage=response.error.message;
         emit(state.copyWith(
           forgetPasswordState: BaseState<ForgetPasswordResponseModel>(
             isLoading: false,
@@ -98,7 +97,7 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordStates>{
           )
         ));
       case ErrorResponse<VerifyResetCodeResponseModel>():
-        String errorMessage=_handleError(response.error);
+        String errorMessage=response.error.message;
         emit(state.copyWith(
           verifyResetCodeState: BaseState<VerifyResetCodeResponseModel>(
             isLoading: false,
@@ -126,7 +125,7 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordStates>{
           ),
         ));
       case ErrorResponse<ResetPasswordResponseModel>():
-        String errorMessage=_handleError(response.error);
+        String errorMessage=response.error.message;
         emit(state.copyWith(
           resetPasswordState: BaseState<ResetPasswordResponseModel>(
             isLoading: false,
@@ -172,7 +171,7 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordStates>{
     emit(state.copyWith(
       resetPasswordState: BaseState<ResetPasswordResponseModel>(
         isLoading: false,
-        data: state.resetPasswordState?.data,
+        data: null,
         errorMessage: null,
       ),
     ));
@@ -183,36 +182,5 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordStates>{
       hasUserInteracted: false,
       isFormValid: true
     ));
-  }
-  String _handleError(Exception error) {
-    if (error is DioException) {
-      switch (error.type) {
-        case DioExceptionType.connectionTimeout:
-        case DioExceptionType.sendTimeout:
-        case DioExceptionType.receiveTimeout:
-          return 'Connection timeout. Please check your internet connection.';
-        case DioExceptionType.badCertificate:
-          return 'Certificate error. Please try again.';
-        case DioExceptionType.badResponse:
-          if (error.response?.statusCode == 400) {
-            return error.response?.data['message']??'Invalid input.';
-          } else if (error.response?.statusCode == 401) {
-            return error.response?.data?? 'Unauthorized access.';
-          } else if (error.response?.statusCode == 404) {
-            return error.response?.data['message']?? 'Resource not found.';
-          } else if (error.response?.statusCode == 500) {
-            return 'Server error. Please try again later.';
-          } else {
-            return 'Server error: ${error.response?.statusCode}';
-          }
-        case DioExceptionType.cancel:
-          return 'Request cancelled.';
-        case DioExceptionType.connectionError:
-          return 'No internet connection. Please check your network.';
-        case DioExceptionType.unknown:
-          return 'An unexpected error occurred. Please try again.';
-      }
-    }
-    return error.toString();
   }
 }

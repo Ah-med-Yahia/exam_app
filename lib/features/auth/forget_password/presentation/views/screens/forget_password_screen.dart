@@ -103,80 +103,82 @@ class ForgetPasswordScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                body: Form(
-                  key: _formKey,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: Insets.s16.w),
-                    child: Column(
-                      children: [
-                        Text(
-                          UiConstants.forgetPasswordHeadLine,
-                          style: getMediumStyle(
-                            color: ColorManager.black,
-                            fontSize: Sizes.s18.sp,
-                            fontFamily: GoogleFontsKeys.inter,
+                body: SingleChildScrollView(
+                  child: Form(
+                    key: _formKey,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: Insets.s16.w),
+                      child: Column(
+                        children: [
+                          Text(
+                            UiConstants.forgetPasswordHeadLine,
+                            style: getMediumStyle(
+                              color: ColorManager.black,
+                              fontSize: Sizes.s18.sp,
+                              fontFamily: GoogleFontsKeys.inter,
+                            ),
                           ),
-                        ),
-                        SizedBox(height: Sizes.s16.h),
-                        Text(
-                          UiConstants.providingEmailMessagePart1,
-                          style: getRegularStyle(
-                            color: ColorManager.darkGrey,
-                            fontFamily: GoogleFontsKeys.inter,
+                          SizedBox(height: Sizes.s16.h),
+                          Text(
+                            UiConstants.providingEmailMessagePart1,
+                            style: getRegularStyle(
+                              color: ColorManager.darkGrey,
+                              fontFamily: GoogleFontsKeys.inter,
+                            ),
                           ),
-                        ),
-                        Text(
-                          UiConstants.providingEmailMessagePart2,
-                          style: getRegularStyle(
-                            color: ColorManager.darkGrey,
-                            fontFamily: GoogleFontsKeys.inter,
+                          Text(
+                            UiConstants.providingEmailMessagePart2,
+                            style: getRegularStyle(
+                              color: ColorManager.darkGrey,
+                              fontFamily: GoogleFontsKeys.inter,
+                            ),
                           ),
-                        ),
-                        SizedBox(height: Sizes.s24.h),
-                        CustomTextFormField(
-                          controller: _emailController,
-                          borderColor: borderColor,
-                          label: UiConstants.emailLabel,
-                          labelColor: labelColor,
-                          hintText: UiConstants.emailHintText,
-                          validator: Validator.validateEmail,
-                          keyboardType: TextInputType.emailAddress,
-                          onChanged: (value) {
-                            if(state.forgetPasswordState?.errorMessage!=null){
-                              context.read<ForgetPasswordCubit>().doIntent(ClearForgetPasswordStateEvent(), null, null, null);
-                            }
-                            if(state.isFormValid==false){
-                              context.read<ForgetPasswordCubit>().doIntent(RefreshFormEvent(), null, null, null);
-                            }
-                          },
-                        ),
-                        if(errorText!=null) ...[
-                          SizedBox(height: Sizes.s8.h),
-                          Text(errorText,style: getRegularStyle(color: ColorManager.red,fontSize: Sizes.s13.sp,),),
+                          SizedBox(height: Sizes.s24.h),
+                          CustomTextFormField(
+                            controller: _emailController,
+                            borderColor: borderColor,
+                            label: UiConstants.emailLabel,
+                            labelColor: labelColor,
+                            hintText: UiConstants.emailHintText,
+                            validator: Validator.validateEmail,
+                            keyboardType: TextInputType.emailAddress,
+                            onChanged: (value) {
+                              if(state.forgetPasswordState?.errorMessage!=null){
+                                context.read<ForgetPasswordCubit>().doIntent(ClearForgetPasswordStateEvent(), null, null, null);
+                              }
+                              if(state.isFormValid==false){
+                                context.read<ForgetPasswordCubit>().doIntent(RefreshFormEvent(), null, null, null);
+                              }
+                            },
+                          ),
+                          if(errorText!=null) ...[
+                            SizedBox(height: Sizes.s8.h),
+                            Text(errorText,style: getRegularStyle(color: ColorManager.red,fontSize: Sizes.s13.sp,),),
+                          ],
+                          SizedBox(height: Sizes.s48.h),
+                          CustomElevatedButton(
+                            label: UiConstants.continueBut,
+                            backgroundColor: buttonColor,
+                            onTap: () {
+                              if(state.hasUserInteracted==false){
+                                final bool isValid=_formKey.currentState?.validate()==true;
+                                context.read<ForgetPasswordCubit>().doIntent(UserInteractedEvent(), null, null, null);
+                                context.read<ForgetPasswordCubit>().doIntent(UpdateFormValidationEvent(isValid: isValid), null, null, null);
+                              }
+                              if (_formKey.currentState?.validate() == true) {
+                                final viewModel = context
+                                    .read<ForgetPasswordCubit>();
+                                viewModel.doIntent(
+                                  ForgotPasswordEvent(),
+                                  _emailController.text,
+                                  null,
+                                  null,
+                                );
+                              }
+                            },
+                          ),
                         ],
-                        SizedBox(height: Sizes.s48.h),
-                        CustomElevatedButton(
-                          label: UiConstants.continueBut,
-                          backgroundColor: buttonColor,
-                          onTap: () {
-                            if(state.hasUserInteracted==false){
-                              final bool isValid=_formKey.currentState?.validate()==true;
-                              context.read<ForgetPasswordCubit>().doIntent(UserInteractedEvent(), null, null, null);
-                              context.read<ForgetPasswordCubit>().doIntent(UpdateFormValidationEvent(isValid: isValid), null, null, null);
-                            }
-                            if (_formKey.currentState?.validate() == true) {
-                              final viewModel = context
-                                  .read<ForgetPasswordCubit>();
-                              viewModel.doIntent(
-                                ForgotPasswordEvent(),
-                                _emailController.text,
-                                null,
-                                null,
-                              );
-                            }
-                          },
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),

@@ -1,4 +1,5 @@
 import 'package:exam_app/config/base_response/base_response.dart';
+import 'package:exam_app/core/errors/exception.dart';
 import 'package:exam_app/features/auth/forget_password/api/api_client/forget_password_api_client.dart';
 import 'package:exam_app/features/auth/forget_password/data/datasources/forget_password_remote_data_source.dart';
 import 'package:exam_app/features/auth/forget_password/data/models/forget_password_request.dart';
@@ -19,7 +20,7 @@ class ForgetPasswordRemoteDataSourceImpl implements ForgetPasswordRemoteDataSour
       ForgetPasswordResponse forgetPasswordResponse=await forgetPasswordApiClient.forgetPassword(forgetPasswordRequest);
       return SuccessResponse<ForgetPasswordResponse>(data: forgetPasswordResponse);
     }catch(e){
-      return ErrorResponse<ForgetPasswordResponse>(error: e as Exception);
+      return ErrorResponse<ForgetPasswordResponse>(error: RemoteException.fromDioError(e as Exception));
     }
   }
   
@@ -29,7 +30,7 @@ class ForgetPasswordRemoteDataSourceImpl implements ForgetPasswordRemoteDataSour
       ResetPasswordResponse resetPasswordResponse=await forgetPasswordApiClient.resetPassword(resetPasswordRequest);
       return SuccessResponse<ResetPasswordResponse>(data: resetPasswordResponse);
     }catch(e){
-      return ErrorResponse<ResetPasswordResponse>(error: e as Exception);
+      return ErrorResponse<ResetPasswordResponse>(error: RemoteException.fromDioError(e as Exception));
     }
   }
   
@@ -39,7 +40,7 @@ class ForgetPasswordRemoteDataSourceImpl implements ForgetPasswordRemoteDataSour
       VerifyResetCodeResponse verifyResetCodeResponse=await forgetPasswordApiClient.verifyResetCode(verifyResetCodeRequest);
       return SuccessResponse<VerifyResetCodeResponse>(data: verifyResetCodeResponse);
     }catch(e){
-      return ErrorResponse<VerifyResetCodeResponse>(error: e as Exception);
+      return ErrorResponse<VerifyResetCodeResponse>(error: RemoteException.fromDioError(e as Exception));
     }
   }
 }

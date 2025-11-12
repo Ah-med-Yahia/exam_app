@@ -80,8 +80,8 @@ class ResetPasswordScreen extends StatelessWidget {
                 buttonColor=ColorManager.blue;
                 borderColor=ColorManager.black;
               }else{
-                labelColor=hasAnyError?ColorManager.darkGrey:ColorManager.red;
-                buttonColor=hasAnyError?ColorManager.blue:ColorManager.grey;
+                labelColor=hasAnyError?ColorManager.red:ColorManager.darkGrey;
+                buttonColor=hasAnyError?ColorManager.grey:ColorManager.blue;
                 borderColor=hasAnyError?ColorManager.red:ColorManager.black;
                 errorText=!hasApiError?null:state.resetPasswordState!.errorMessage!;
               }
@@ -103,108 +103,110 @@ class ResetPasswordScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                body: Form(
-                  key: _formKey,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: Sizes.s16.w),
-                    child: Column(
-                      children: [
-                        Text(
-                          UiConstants.resetPasswordHeader,
-                          style: getMediumStyle(
-                            color: ColorManager.black,
-                            fontSize: Sizes.s18.sp,
-                            fontFamily: GoogleFontsKeys.inter,
+                body: SingleChildScrollView(
+                  child: Form(
+                    key: _formKey,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: Sizes.s16.w),
+                      child: Column(
+                        children: [
+                          Text(
+                            UiConstants.resetPasswordHeader,
+                            style: getMediumStyle(
+                              color: ColorManager.black,
+                              fontSize: Sizes.s18.sp,
+                              fontFamily: GoogleFontsKeys.inter,
+                            ),
                           ),
-                        ),
-                        SizedBox(height: Sizes.s16.h),
-                        Text(
-                          UiConstants.resetPasswordInstructionsPart1,
-                          style: getRegularStyle(
-                            color: ColorManager.darkGrey,
-                            fontFamily: GoogleFontsKeys.inter,
+                          SizedBox(height: Sizes.s16.h),
+                          Text(
+                            UiConstants.resetPasswordInstructionsPart1,
+                            style: getRegularStyle(
+                              color: ColorManager.darkGrey,
+                              fontFamily: GoogleFontsKeys.inter,
+                            ),
                           ),
-                        ),
-                        Text(
-                          UiConstants.resetPasswordInstructionsPart2,
-                          style: getRegularStyle(
-                            color: ColorManager.darkGrey,
-                            fontFamily: GoogleFontsKeys.inter,
+                          Text(
+                            UiConstants.resetPasswordInstructionsPart2,
+                            style: getRegularStyle(
+                              color: ColorManager.darkGrey,
+                              fontFamily: GoogleFontsKeys.inter,
+                            ),
                           ),
-                        ),
-                        Text(
-                          UiConstants.resetPasswordInstructionsPart3,
-                          style: getRegularStyle(
-                            color: ColorManager.darkGrey,
-                            fontFamily: GoogleFontsKeys.inter,
+                          Text(
+                            UiConstants.resetPasswordInstructionsPart3,
+                            style: getRegularStyle(
+                              color: ColorManager.darkGrey,
+                              fontFamily: GoogleFontsKeys.inter,
+                            ),
                           ),
-                        ),
-                        SizedBox(height: Sizes.s32.h),
-                        CustomTextFormField(
-                          controller: _passwordController,
-                          borderColor: borderColor,
-                          label: UiConstants.newPasswordLabel,
-                          labelColor: labelColor,
-                          hintText: UiConstants.passwordHintText,
-                          validator: Validator.validatePassword,
-                          onChanged: (value) {
-                            if(state.resetPasswordState?.errorMessage!=null){
-                              context.read<ForgetPasswordCubit>().doIntent(ClearResetPasswordErrorEvent(), null, null, null);
-                            }
-                            if(state.isFormValid==false){
-                              context.read<ForgetPasswordCubit>().doIntent(RefreshFormEvent(), null, null, null);
-                            }
-                          },
-                        ),
-                        SizedBox(height: Sizes.s16.h),
-                        CustomTextFormField(
-                          controller: _confirmPasswordController,
-                          borderColor: borderColor,
-                          label: UiConstants.confirmPasswordLabelAndHintText,
-                          labelColor: labelColor,
-                          hintText: UiConstants.confirmPasswordLabelAndHintText,
-                          validator: (text) {
-                            return Validator.validateConfirmPassword(
-                              text,
-                              _passwordController.text,
-                            );
-                          },
-                          onChanged: (value) {
-                            if(state.resetPasswordState?.errorMessage!=null){
-                              context.read<ForgetPasswordCubit>().doIntent(ClearResetPasswordErrorEvent(), null, null, null);
-                            }
-                            if(state.isFormValid==false){
-                              context.read<ForgetPasswordCubit>().doIntent(RefreshFormEvent(), null, null, null);
-                            }
-                          },
-                        ),
-                        if(errorText!=null) ...[
-                          SizedBox(height: Sizes.s8.h),
-                          Text(errorText,style: getRegularStyle(color: ColorManager.red,fontSize: Sizes.s13.sp,),),
-                        ],
-                        SizedBox(height: Sizes.s48.h),
-                        CustomElevatedButton(
-                          label: UiConstants.continueBut,
-                          backgroundColor: buttonColor,
-                          onTap: () {
-                            if(state.hasUserInteracted==false){
-                              final bool isValid=_formKey.currentState?.validate()==true;
-                              context.read<ForgetPasswordCubit>().doIntent(UserInteractedEvent(), null, null, null);
-                              context.read<ForgetPasswordCubit>().doIntent(UpdateFormValidationEvent(isValid: isValid), null, null, null);
-                            }
-                            if (_formKey.currentState?.validate() == true) {
-                              final viewModel = context
-                                  .read<ForgetPasswordCubit>();
-                              viewModel.doIntent(
-                                ResetPasswordEvent(),
-                                email,
-                                null,
+                          SizedBox(height: Sizes.s32.h),
+                          CustomTextFormField(
+                            controller: _passwordController,
+                            borderColor: borderColor,
+                            label: UiConstants.newPasswordLabel,
+                            labelColor: labelColor,
+                            hintText: UiConstants.passwordHintText,
+                            validator: Validator.validatePassword,
+                            onChanged: (value) {
+                              if(state.resetPasswordState?.errorMessage!=null){
+                                context.read<ForgetPasswordCubit>().doIntent(ClearResetPasswordErrorEvent(), null, null, null);
+                              }
+                              if(state.isFormValid==false){
+                                context.read<ForgetPasswordCubit>().doIntent(RefreshFormEvent(), null, null, null);
+                              }
+                            },
+                          ),
+                          SizedBox(height: Sizes.s16.h),
+                          CustomTextFormField(
+                            controller: _confirmPasswordController,
+                            borderColor: borderColor,
+                            label: UiConstants.confirmPasswordLabelAndHintText,
+                            labelColor: labelColor,
+                            hintText: UiConstants.confirmPasswordLabelAndHintText,
+                            validator: (text) {
+                              return Validator.validateConfirmPassword(
+                                text,
                                 _passwordController.text,
                               );
-                            }
-                          },
-                        ),
-                      ],
+                            },
+                            onChanged: (value) {
+                              if(state.resetPasswordState?.errorMessage!=null){
+                                context.read<ForgetPasswordCubit>().doIntent(ClearResetPasswordErrorEvent(), null, null, null);
+                              }
+                              if(state.isFormValid==false){
+                                context.read<ForgetPasswordCubit>().doIntent(RefreshFormEvent(), null, null, null);
+                              }
+                            },
+                          ),
+                          if(errorText!=null) ...[
+                            SizedBox(height: Sizes.s8.h),
+                            Text(errorText,style: getRegularStyle(color: ColorManager.red,fontSize: Sizes.s13.sp,),),
+                          ],
+                          SizedBox(height: Sizes.s48.h),
+                          CustomElevatedButton(
+                            label: UiConstants.continueBut,
+                            backgroundColor: buttonColor,
+                            onTap: () {
+                              if(state.hasUserInteracted==false){
+                                final bool isValid=_formKey.currentState?.validate()==true;
+                                context.read<ForgetPasswordCubit>().doIntent(UserInteractedEvent(), null, null, null);
+                                context.read<ForgetPasswordCubit>().doIntent(UpdateFormValidationEvent(isValid: isValid), null, null, null);
+                              }
+                              if (_formKey.currentState?.validate() == true) {
+                                final viewModel = context
+                                    .read<ForgetPasswordCubit>();
+                                viewModel.doIntent(
+                                  ResetPasswordEvent(),
+                                  email,
+                                  null,
+                                  _passwordController.text,
+                                );
+                              }
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

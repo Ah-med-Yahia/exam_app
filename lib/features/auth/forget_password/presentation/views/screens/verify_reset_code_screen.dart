@@ -111,138 +111,140 @@ class VerifyResetCodeScreen extends StatelessWidget {
                     style: getMediumStyle(color: ColorManager.black,fontSize: Sizes.s18.sp,fontFamily: 'inter'),
                   ),
                 ),
-                body: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: Insets.s16.w),
-                  child: Column(
-                    children: [
-                      Text(
-                        UiConstants.emailVerificationHeader,
-                        style: getMediumStyle(
-                          color: ColorManager.black,
-                          fontSize: Sizes.s18.sp,
-                          fontFamily: GoogleFontsKeys.inter,
-                        ),
-                      ),
-                      SizedBox(height: Sizes.s16.h),
-                      Text(
-                        UiConstants.enteringResetCodeInstructionsPart1,
-                        style: getRegularStyle(
-                          color: ColorManager.darkGrey,
-                          fontFamily: GoogleFontsKeys.inter,
-                        ),
-                      ),
-                      Text(
-                        UiConstants.enteringResetCodeInstructionsPart2,
-                        style: getRegularStyle(
-                          color: ColorManager.darkGrey,
-                          fontFamily: GoogleFontsKeys.inter,
-                        ),
-                      ),
-                      SizedBox(height: Sizes.s32.h),
-                      Pinput(
-                        length: 6,
-                        controller: _otpController,
-                        keyboardType: TextInputType.number,
-                        autofocus: true,
-                        autofillHints: const [AutofillHints.oneTimeCode],
-                        onChanged: (value) {
-                          if(value.isNotEmpty && verifyState?.errorMessage!=null){
-                            context.read<ForgetPasswordCubit>().doIntent(ClearVerifyResetCodeErrorEvent(), null, null, null);
-                          }
-                        },
-                        defaultPinTheme: PinTheme(
-                          width: Sizes.s37.w,
-                          height: Sizes.s68.h,
-                          textStyle: getSemiBoldStyle(
+                body: SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: Insets.s16.w),
+                    child: Column(
+                      children: [
+                        Text(
+                          UiConstants.emailVerificationHeader,
+                          style: getMediumStyle(
                             color: ColorManager.black,
-                            fontSize: Sizes.s16.sp,
-                          ),
-                          decoration: BoxDecoration(
-                            color: boxColor,
-                            borderRadius: BorderRadius.circular(Sizes.s10.r),
-                            border: Border.all(color: borderColor, width: Sizes.s2.w),
+                            fontSize: Sizes.s18.sp,
+                            fontFamily: GoogleFontsKeys.inter,
                           ),
                         ),
-                        focusedPinTheme: PinTheme(
-                          width: Sizes.s37.w,
-                          height: Sizes.s68.h,
-                          textStyle: getSemiBoldStyle(
-                            color: ColorManager.black,
-                            fontSize: Sizes.s16.sp,
+                        SizedBox(height: Sizes.s16.h),
+                        Text(
+                          UiConstants.enteringResetCodeInstructionsPart1,
+                          style: getRegularStyle(
+                            color: ColorManager.darkGrey,
+                            fontFamily: GoogleFontsKeys.inter,
                           ),
-                          decoration: BoxDecoration(
-                            color: ColorManager.blueGrey,
-                            borderRadius: BorderRadius.circular(Sizes.s10.r),
-                            border: Border.all(
-                              color: verifyState?.errorMessage != null
-                                  ? ColorManager.red
-                                  : ColorManager.blue,
-                              width: Sizes.s2.w,
+                        ),
+                        Text(
+                          UiConstants.enteringResetCodeInstructionsPart2,
+                          style: getRegularStyle(
+                            color: ColorManager.darkGrey,
+                            fontFamily: GoogleFontsKeys.inter,
+                          ),
+                        ),
+                        SizedBox(height: Sizes.s32.h),
+                        Pinput(
+                          length: 6,
+                          controller: _otpController,
+                          keyboardType: TextInputType.number,
+                          autofocus: true,
+                          autofillHints: const [AutofillHints.oneTimeCode],
+                          onChanged: (value) {
+                            if(value.isNotEmpty && verifyState?.errorMessage!=null){
+                              context.read<ForgetPasswordCubit>().doIntent(ClearVerifyResetCodeErrorEvent(), null, null, null);
+                            }
+                          },
+                          defaultPinTheme: PinTheme(
+                            width: Sizes.s37.w,
+                            height: Sizes.s68.h,
+                            textStyle: getSemiBoldStyle(
+                              color: ColorManager.black,
+                              fontSize: Sizes.s16.sp,
+                            ),
+                            decoration: BoxDecoration(
+                              color: boxColor,
+                              borderRadius: BorderRadius.circular(Sizes.s10.r),
+                              border: Border.all(color: borderColor, width: Sizes.s2.w),
                             ),
                           ),
+                          focusedPinTheme: PinTheme(
+                            width: Sizes.s37.w,
+                            height: Sizes.s68.h,
+                            textStyle: getSemiBoldStyle(
+                              color: ColorManager.black,
+                              fontSize: Sizes.s16.sp,
+                            ),
+                            decoration: BoxDecoration(
+                              color: ColorManager.blueGrey,
+                              borderRadius: BorderRadius.circular(Sizes.s10.r),
+                              border: Border.all(
+                                color: verifyState?.errorMessage != null
+                                    ? ColorManager.red
+                                    : ColorManager.blue,
+                                width: Sizes.s2.w,
+                              ),
+                            ),
+                          ),
+                          separatorBuilder: (index) {
+                            if (index == 1 || index == 3) {
+                              return SizedBox(width: Sizes.s20.w);
+                            } else if (index == 5) {
+                              return const SizedBox(width: 0);
+                            } else {
+                              return SizedBox(width: Sizes.s8.w);
+                            }
+                          },
+                          onCompleted: (value) {
+                            final viewModel = context.read<ForgetPasswordCubit>();
+                            viewModel.doIntent(VerifyResetCodeEvent(), null, value, null);
+                          },
                         ),
-                        separatorBuilder: (index) {
-                          if (index == 1 || index == 3) {
-                            return SizedBox(width: Sizes.s20.w);
-                          } else if (index == 5) {
-                            return const SizedBox(width: 0);
-                          } else {
-                            return SizedBox(width: Sizes.s8.w);
-                          }
-                        },
-                        onCompleted: (value) {
-                          final viewModel = context.read<ForgetPasswordCubit>();
-                          viewModel.doIntent(VerifyResetCodeEvent(), null, value, null);
-                        },
-                      ),
-                      if (errorText != null) ...[
-                        SizedBox(height: Sizes.s8.h),
+                        if (errorText != null) ...[
+                          SizedBox(height: Sizes.s8.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                errorText,
+                                style: getRegularStyle(
+                                  color: ColorManager.red,
+                                  fontSize: Sizes.s13.sp,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                        SizedBox(height: Sizes.s24.h),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              errorText,
+                              UiConstants.receivingOTPQuestion,
                               style: getRegularStyle(
-                                color: ColorManager.red,
-                                fontSize: Sizes.s13.sp,
+                                color: ColorManager.black,
+                                fontSize: Sizes.s16.sp,
+                                fontFamily: GoogleFontsKeys.inter,
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                final viewModel = context.read<ForgetPasswordCubit>();
+                                viewModel.doIntent(ForgotPasswordEvent(), email, null, null);
+                              },
+                              child: Text(
+                                UiConstants.resendOTP,
+                                style:
+                                    getRegularStyle(
+                                      color: ColorManager.blue,
+                                      fontSize: Sizes.s16.sp,
+                                      fontFamily: GoogleFontsKeys.inter,
+                                    ).copyWith(
+                                      decoration: TextDecoration.underline,
+                                      decorationColor: ColorManager.blue,
+                                    ),
                               ),
                             ),
                           ],
                         ),
                       ],
-                      SizedBox(height: Sizes.s24.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            UiConstants.receivingOTPQuestion,
-                            style: getRegularStyle(
-                              color: ColorManager.black,
-                              fontSize: Sizes.s16.sp,
-                              fontFamily: GoogleFontsKeys.inter,
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              final viewModel = context.read<ForgetPasswordCubit>();
-                              viewModel.doIntent(ForgotPasswordEvent(), email, null, null);
-                            },
-                            child: Text(
-                              UiConstants.resendOTP,
-                              style:
-                                  getRegularStyle(
-                                    color: ColorManager.blue,
-                                    fontSize: Sizes.s16.sp,
-                                    fontFamily: GoogleFontsKeys.inter,
-                                  ).copyWith(
-                                    decoration: TextDecoration.underline,
-                                    decorationColor: ColorManager.blue,
-                                  ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               );
