@@ -11,7 +11,9 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
+import 'package:hive/hive.dart' as _i979;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
 import '../../features/auth/forget_password/api/api_client/forget_password_api_client.dart'
     as _i478;
@@ -39,18 +41,30 @@ import '../dio_module/dio_module.dart' as _i773;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
-  _i174.GetIt init({
+  Future<_i174.GetIt> init({
     String? environment,
     _i526.EnvironmentFilter? environmentFilter,
-  }) {
+  }) async {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final dioModule = _$DioModule();
+    final sharedPrefModule = _$SharedPrefModule();
+    final hiveModule = _$HiveModule();
     gh.singleton<_i361.Dio>(() => dioModule.dio);
-    gh.factory<_i129.ForgetPasswordLocalDataSource>(
-      () => _i377.ForgetPasswordLocalDataSourceImpl(),
+    await gh.singletonAsync<_i460.SharedPreferences>(
+      () => sharedPrefModule.prefs,
+      preResolve: true,
+    );
+    await gh.singletonAsync<_i979.Box<String>>(
+      () => hiveModule.tokenBox,
+      preResolve: true,
     );
     gh.factory<_i478.ForgetPasswordApiClient>(
       () => _i478.ForgetPasswordApiClient(gh<_i361.Dio>()),
+    );
+    gh.factory<_i129.ForgetPasswordLocalDataSource>(
+      () => _i377.ForgetPasswordLocalDataSourceImpl(
+        tokenBox: gh<_i979.Box<String>>(),
+      ),
     );
     gh.factory<_i950.ForgetPasswordRemoteDataSource>(
       () => _i163.ForgetPasswordRemoteDataSourceImpl(
@@ -90,3 +104,7 @@ extension GetItInjectableX on _i174.GetIt {
 }
 
 class _$DioModule extends _i773.DioModule {}
+
+class _$SharedPrefModule extends _i773.SharedPrefModule {}
+
+class _$HiveModule extends _i773.HiveModule {}

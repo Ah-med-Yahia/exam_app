@@ -38,6 +38,8 @@ class ForgetPasswordRepositoryImpl implements ForgetPasswordRepository{
       
       case SuccessResponse<ResetPasswordResponse>():
         ResetPasswordResponse responseDTO=baseResponseDTO.data;
+        String token=responseDTO.token!;
+        localDataSource.saveToken(token: token);
         ResetPasswordResponseModel responseModel=responseDTO.toDomain();
         return SuccessResponse<ResetPasswordResponseModel>(data: responseModel);
       case ErrorResponse<ResetPasswordResponse>():
