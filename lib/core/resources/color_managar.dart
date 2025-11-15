@@ -11,5 +11,4 @@ class ColorManager {
   static const Color babyBlue = Color(0xffCCD7EB);
   static const Color black = Color(0xff0F0F0F);
   static const Color transparent = Colors.transparent;
-  static const Color blueGrey=Color(0xffDFE7F7);
 }
