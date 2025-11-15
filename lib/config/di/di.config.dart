@@ -11,7 +11,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
-
+import 'package:hive/hive.dart' as _i979;
+import 'package:hive_flutter/adapters.dart' as _i744;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
@@ -37,8 +38,6 @@ import '../../features/auth/forget_password/domain/use_cases/verify_reset_code_u
     as _i295;
 import '../../features/auth/forget_password/presentation/cubit/forget_password_cubit.dart'
     as _i231;
-import 'package:hive_flutter/adapters.dart' as _i744;
-
 import '../../features/auth/sign_up/api/api_client/api_client.dart' as _i413;
 import '../../features/auth/sign_up/api/datasources/sign_up_local_data_source_impl.dart'
     as _i138;
@@ -59,7 +58,6 @@ import '../../features/auth/sign_up/presentation/cubit/sign_up_cubit.dart'
     as _i809;
 import '../dio_modules/dio_module.dart' as _i365;
 
-
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
   Future<_i174.GetIt> init({
@@ -75,22 +73,45 @@ extension GetItInjectableX on _i174.GetIt {
       () => sharedPrefModule.prefs,
       preResolve: true,
     );
-
+    await gh.singletonAsync<_i744.Box<_i89.UserModel>>(
+      () => hiveModule.userBox,
+      preResolve: true,
+    );
     await gh.singletonAsync<_i744.Box<String>>(
       () => hiveModule.tokenBox,
       preResolve: true,
     );
+    gh.singleton<_i413.SignUpApiClient>(
+      () => _i413.SignUpApiClient(gh<_i361.Dio>()),
+    );
     gh.factory<_i478.ForgetPasswordApiClient>(
       () => _i478.ForgetPasswordApiClient(gh<_i361.Dio>()),
     );
+    gh.singleton<_i885.SignUpLocalDataSourceContract>(
+      () => _i138.SignUpLocalDataSourceImpl(
+        gh<_i979.Box<_i89.UserModel>>(),
+        gh<_i979.Box<String>>(),
+      ),
+    );
     gh.factory<_i129.ForgetPasswordLocalDataSource>(
       () => _i377.ForgetPasswordLocalDataSourceImpl(
-        tokenBox: gh<_i744.Box<String>>(),
+        tokenBox: gh<_i979.Box<String>>(),
+      ),
+    );
+    gh.singleton<_i645.SignUpRemoteDataSourceContract>(
+      () => _i522.SignUpRemoteDataSourceImpl(
+        apiClient: gh<_i413.SignUpApiClient>(),
       ),
     );
     gh.factory<_i950.ForgetPasswordRemoteDataSource>(
       () => _i163.ForgetPasswordRemoteDataSourceImpl(
         forgetPasswordApiClient: gh<_i478.ForgetPasswordApiClient>(),
+      ),
+    );
+    gh.singleton<_i100.SignUpRepositoryContract>(
+      () => _i442.SignUpRepositoryImpl(
+        remoteDataSource: gh<_i645.SignUpRemoteDataSourceContract>(),
+        localDataSource: gh<_i885.SignUpLocalDataSourceContract>(),
       ),
     );
     gh.factory<_i974.ForgetPasswordRepository>(
@@ -120,34 +141,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i22.ResetPasswordUseCase>(),
         gh<_i295.VerifyResetCodeUseCase>(),
       ),
-
-    await gh.singletonAsync<_i744.Box<_i89.UserModel>>(
-      () => hiveModule.userBox,
-      preResolve: true,
-    );
-    await gh.singletonAsync<_i744.Box<String>>(
-      () => hiveModule.tokenBox,
-      preResolve: true,
-    );
-    gh.singleton<_i413.SignUpApiClient>(
-      () => _i413.SignUpApiClient(gh<_i361.Dio>()),
-    );
-    gh.singleton<_i885.SignUpLocalDataSourceContract>(
-      () => _i138.SignUpLocalDataSourceImpl(
-        gh<_i744.Box<_i89.UserModel>>(),
-        gh<_i744.Box<String>>(),
-      ),
-    );
-    gh.singleton<_i645.SignUpRemoteDataSourceContract>(
-      () => _i522.SignUpRemoteDataSourceImpl(
-        apiClient: gh<_i413.SignUpApiClient>(),
-      ),
-    );
-    gh.singleton<_i100.SignUpRepositoryContract>(
-      () => _i442.SignUpRepositoryImpl(
-        remoteDataSource: gh<_i645.SignUpRemoteDataSourceContract>(),
-        localDataSource: gh<_i885.SignUpLocalDataSourceContract>(),
-      ),
     );
     gh.singleton<_i45.SignUpUseCase>(
       () =>
@@ -155,16 +148,13 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.singleton<_i809.SignUpCubit>(
       () => _i809.SignUpCubit(gh<_i45.SignUpUseCase>()),
-
     );
     return this;
   }
 }
-
 
 class _$DioModule extends _i365.DioModule {}
 
 class _$SharedPrefModule extends _i365.SharedPrefModule {}
 
 class _$HiveModule extends _i365.HiveModule {}
-
