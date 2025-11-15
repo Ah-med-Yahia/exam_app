@@ -8,4 +8,7 @@ class SvgAssets {
 
 class IconsAssets {
   static const String iconsPath = 'assets/icons';
+  static const String exploreIcon = '$iconsPath/explore.svg';
+  static const String resultIcon = '$iconsPath/result.svg';
+  static const String profileIcon = '$iconsPath/profile.svg';
 }
