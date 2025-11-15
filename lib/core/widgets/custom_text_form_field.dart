@@ -14,8 +14,6 @@ class CustomTextFormField extends StatefulWidget {
   final void Function(String)? onChanged;
   final TextInputType keyboardType;
   final int maxLines;
-  final Color labelColor;
-  final Color borderColor;
 
   const CustomTextFormField({
     super.key,
@@ -27,8 +25,6 @@ class CustomTextFormField extends StatefulWidget {
     this.onChanged,
     this.keyboardType = TextInputType.text,
     this.maxLines = 1,
-    this.labelColor=ColorManager.darkGrey,
-    this.borderColor=ColorManager.black
   });
 
   @override
@@ -77,12 +73,12 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             autovalidateMode: AutovalidateMode.onUserInteraction,
             decoration: InputDecoration(
               labelText: widget.label,
-              labelStyle: getRegularStyle(color: widget.labelColor,),
+              labelStyle: getRegularStyle(color: ColorManager.darkGrey),
               floatingLabelBehavior: FloatingLabelBehavior.always,
               floatingLabelStyle: TextStyle(
                 fontSize: 18.sp,
                 fontWeight: FontWeightManager.regular,
-                color: widget.labelColor,
+                color: ColorManager.darkGrey,
               ),
               hintText: widget.hintText,
               hintStyle: TextStyle(
@@ -96,13 +92,13 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                 bottom: Insets.s16.sp,
               ),
               errorBorder: _buildBorder(color: ColorManager.red),
-              border: _buildBorder(color: widget.borderColor),
-              enabledBorder: _buildBorder(color: widget.borderColor),
+              border: _buildBorder(color: ColorManager.black),
+              enabledBorder: _buildBorder(color: ColorManager.black),
               focusedErrorBorder: _buildBorder(
                 color: ColorManager.red,
                 width: 2,
               ),
-              focusedBorder: _buildBorder(color: widget.borderColor, width: 2),
+              focusedBorder: _buildBorder(color: ColorManager.black, width: 2),
             ),
             cursorColor: ColorManager.black,
             onTapOutside: (event) => FocusScope.of(context).unfocus(),
