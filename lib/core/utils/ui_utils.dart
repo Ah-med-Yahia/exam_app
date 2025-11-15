@@ -26,48 +26,96 @@ class UIUtils {
 
   static void hideLoading(BuildContext context) => Navigator.of(context).pop();
 
-  static void showMessage(String message) =>
-      Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_SHORT);
-  static void showMessageWithNav({required BuildContext context,String? title,required String message,String? posActionName,Function? posAction,String? negActionName,Function? negAction}){
-    List<Widget>? actions=[];
-    if(posActionName!=null){
-      actions.add(TextButton(
-        onPressed: () {
-          Navigator.pop(context);
-          posAction?.call();
-        }, 
-        child: Text(posActionName,style: getMediumStyle(color: ColorManager.black,fontSize: Sizes.s18.sp,),)
-      )
+  static void showMessage(
+    String message, {
+    required Color backGroundColor,
+    required Color textColor,
+  }) => Fluttertoast.showToast(
+    msg: message,
+    toastLength: Toast.LENGTH_LONG,
+    backgroundColor: backGroundColor,
+    textColor: textColor,
+  );
+
+  static void showMessageWithNav({
+    required BuildContext context,
+    String? title,
+    required String message,
+    String? posActionName,
+    Function? posAction,
+    String? negActionName,
+    Function? negAction,
+  }) {
+    List<Widget>? actions = [];
+    if (posActionName != null) {
+      actions.add(
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+            posAction?.call();
+          },
+          child: Text(
+            posActionName,
+            style: getMediumStyle(color: ColorManager.black, fontSize: 18.sp),
+          ),
+        ),
       );
     }
-    if(negActionName!=null){
-      actions.add(TextButton(
-        onPressed: () {
-          Navigator.pop(context);
-          negAction?.call();
-        }, 
-        child: Text(negActionName,style: getMediumStyle(color: ColorManager.black,fontSize: Sizes.s18.sp,),)
-      )
+    if (negActionName != null) {
+      actions.add(
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+            negAction?.call();
+          },
+          child: Text(
+            negActionName,
+            style: getMediumStyle(color: ColorManager.black, fontSize: 18.sp),
+          ),
+        ),
       );
     }
     showDialog(
-      context: context, 
+      context: context,
       builder: (context) => AlertDialog(
-        title: Text(title?? '',style: getMediumStyle(color: ColorManager.black,fontSize: Sizes.s18.sp,)),
-        content: Text(message,style: getMediumStyle(color: ColorManager.black,fontSize: Sizes.s18.sp,),),
+        title: Text(
+          title ?? '',
+          style: getMediumStyle(
+            color: ColorManager.black,
+            fontSize: Sizes.s18.sp,
+          ),
+        ),
+        content: Text(
+          message,
+          style: getMediumStyle(
+            color: ColorManager.black,
+            fontSize: Sizes.s18.sp,
+          ),
+        ),
+
         actions: actions,
       ),
     );
   }
-  static void showLoadingMessage({required BuildContext context,required String loadingText}){
+
+  static void showLoadingMessage({
+    required BuildContext context,
+    required String loadingText,
+  }) {
     showDialog(
       context: context,
-      barrierDismissible: false, 
+      barrierDismissible: false,
       builder: (context) => AlertDialog(
         content: Row(
           children: [
             CircularProgressIndicator(color: ColorManager.blue),
-            Text(loadingText,style: getSemiBoldStyle(color: ColorManager.blue,fontSize: Sizes.s16.sp),)
+            Text(
+              loadingText,
+              style: getSemiBoldStyle(
+                color: ColorManager.blue,
+                fontSize: Sizes.s16.sp,
+              ),
+            ),
           ],
         ),
       ),

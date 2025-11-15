@@ -8,6 +8,7 @@ abstract class AppException implements Exception {
 
 class RemoteException extends AppException {
   const RemoteException({required super.message});
+
   factory RemoteException.fromDioError(Exception e) {
     if (e is DioException) {
       switch (e.type) {

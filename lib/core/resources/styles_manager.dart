@@ -1,3 +1,4 @@
+import 'package:exam_app/core/constants/ui_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,19 +11,19 @@ TextStyle _getTextStyle(
   required String fontFamily,
 }) {
   switch (fontFamily.toLowerCase()) {
-    case 'poppins':
+    case GoogleFontsKeys.poppins:
       return GoogleFonts.poppins(
         fontSize: fontSize,
         color: color,
         fontWeight: fontWeight,
       );
-    case 'roboto':
+    case GoogleFontsKeys.roboto:
       return GoogleFonts.roboto(
         fontSize: fontSize,
         color: color,
         fontWeight: fontWeight,
       );
-    case 'cairo':
+    case GoogleFontsKeys.cairo:
       return GoogleFonts.cairo(
         fontSize: fontSize,
         color: color,
@@ -46,7 +47,9 @@ TextStyle _getTextStyle(
 TextStyle getLightStyle({
   double? fontSize,
   required Color color,
-  String fontFamily='roboto',
+
+  String fontFamily = GoogleFontsKeys.roboto,
+
 }) => _getTextStyle(
   fontSize ?? FontSize.s14.sp,
   FontWeightManager.light,
@@ -57,7 +60,9 @@ TextStyle getLightStyle({
 TextStyle getRegularStyle({
   double? fontSize,
   required Color color,
-  String fontFamily='roboto',
+
+  String fontFamily = GoogleFontsKeys.roboto,
+
 }) => _getTextStyle(
   fontSize ?? FontSize.s14.sp,
   FontWeightManager.regular,
@@ -68,7 +73,9 @@ TextStyle getRegularStyle({
 TextStyle getMediumStyle({
   double? fontSize,
   required Color color,
-  String fontFamily='roboto',
+
+  String fontFamily = GoogleFontsKeys.roboto,
+
 }) => _getTextStyle(
   fontSize ?? FontSize.s14.sp,
   FontWeightManager.medium,
@@ -79,7 +86,9 @@ TextStyle getMediumStyle({
 TextStyle getSemiBoldStyle({
   double? fontSize,
   required Color color,
-  String fontFamily='roboto',
+
+  String fontFamily = GoogleFontsKeys.roboto,
+
 }) => _getTextStyle(
   fontSize ?? FontSize.s14.sp,
   FontWeightManager.semiBold,
@@ -90,7 +99,9 @@ TextStyle getSemiBoldStyle({
 TextStyle getBoldStyle({
   double? fontSize,
   required Color color,
-  String fontFamily='roboto',
+
+  String fontFamily = GoogleFontsKeys.roboto,
+
 }) => _getTextStyle(
   fontSize ?? FontSize.s14.sp,
   FontWeightManager.bold,
