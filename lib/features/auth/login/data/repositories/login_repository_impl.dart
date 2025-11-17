@@ -12,8 +12,8 @@ class LoginRepositoryImpl implements LoginRepository {
 
   LoginRepositoryImpl(this.remoteDataSource);
   @override
-  Future<BaseResponse<LoginEntity>> login(LoginRequest body) async {
-    final response = await remoteDataSource.login(body);
+  Future<BaseResponse<LoginEntity>> login(LoginRequest request) async {
+    final response = await remoteDataSource.login(request);
     switch (response) {
       case SuccessResponse<LoginResponse>():
         final loginResponse = response.data;

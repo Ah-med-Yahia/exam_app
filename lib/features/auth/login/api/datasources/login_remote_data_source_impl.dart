@@ -1,4 +1,5 @@
 import 'package:exam_app/config/base_response/base_response.dart';
+import 'package:exam_app/core/errors/exception.dart';
 import 'package:exam_app/features/Auth/login/api/api_client/login_api_client.dart';
 import 'package:exam_app/features/Auth/login/data/datasources/login_remote_data_source.dart';
 import 'package:exam_app/features/Auth/login/data/models/login_request.dart';
@@ -17,7 +18,7 @@ class LoginRemoteDataSourceImpl implements LoginRemoteDataSource {
       return SuccessResponse<LoginResponse>(data: response);
     } catch (exception) {
       return ErrorResponse<LoginResponse>(
-        error: Exception(exception.toString()),
+        error: RemoteException(message: exception.toString()),
       );
     }
   }
