@@ -9,10 +9,10 @@ class ExploreTabLocalDataSourceImpl implements ExploreTabLocalDataSource{
   final Box<String> tokenBox;
   ExploreTabLocalDataSourceImpl({required this.tokenBox});
   @override
-  Future<BaseResponse<String>> getToken({required String token}) async{
+  Future<BaseResponse<String>> getToken() async{
     try{
-      tokenBox.get(CacheConstants.tokenBoxKey);
-      return SuccessResponse<String>(data: token);
+      String? token= tokenBox.get(CacheConstants.tokenKey);
+      return SuccessResponse<String>(data:token!);
     }catch(e){
       return ErrorResponse<String>(error: LocalException(message: 'Failed to Achieve token'));
     }

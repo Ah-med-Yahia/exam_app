@@ -72,6 +72,8 @@ import '../../features/home/presentation/views/screens/tabs/explore_tab/domain/r
     as _i762;
 import '../../features/home/presentation/views/screens/tabs/explore_tab/domain/use_cases/get_all_subjects_use_case.dart'
     as _i120;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/presentation/cubit/explore_tab_cubit.dart'
+    as _i695;
 import '../dio_modules/dio_module.dart' as _i365;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -147,6 +149,9 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i120.GetAllSubjectsUseCase(
         exploreTabRepository: gh<_i762.ExploreTabRepository>(),
       ),
+    );
+    gh.factory<_i695.ExploreTabCubit>(
+      () => _i695.ExploreTabCubit(gh<_i120.GetAllSubjectsUseCase>()),
     );
     gh.singleton<_i100.SignUpRepositoryContract>(
       () => _i442.SignUpRepositoryImpl(

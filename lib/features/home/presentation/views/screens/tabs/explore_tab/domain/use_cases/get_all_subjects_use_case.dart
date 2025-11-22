@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 class GetAllSubjectsUseCase {
   final ExploreTabRepository exploreTabRepository;
   GetAllSubjectsUseCase({required this.exploreTabRepository});
-  Future<BaseResponse<List<SubjectEntity>>> call(String token)async{
-    return exploreTabRepository.getAllSubjects(token);
+  Future<BaseResponse<List<SubjectEntity>>> call()async{
+    return exploreTabRepository.getAllSubjects();
   }
 }

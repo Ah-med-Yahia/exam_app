@@ -18,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int currrentIndex = 0;
 
   List<Widget> tabs = [
-    const ExploreTab(),
+    ExploreTab(),
     const ResultTab(),
     const ProfileTab(),
   ];

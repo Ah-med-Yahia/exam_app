@@ -47,6 +47,11 @@ class UiConstants {
   static const String enterPhoneNumber='Enter phone number';
   static const String alreadyHaveAccount='Already have an account? ';
   static const String login='Login';
+  static const String surveyHeader='Survey';
+  static const String searchText='Search';
+  static const String browsingText='Browse by subject';
+  static const String emptySubjects='No subjects Found';
+  static const String misMatchSearchResults="No results matching your query";
 }
 
 class GoogleFontsKeys {
