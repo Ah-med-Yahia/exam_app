@@ -31,7 +31,7 @@ class RemoteException extends AppException {
         case DioExceptionType.badCertificate:
           return const RemoteException(message: 'Bad certificate');
       }
-    }else{
+    } else {
       return RemoteException(message: 'Unexpected error: ${e.toString()}');
     }
   }

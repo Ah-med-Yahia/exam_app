@@ -13,7 +13,7 @@ class SignUpRemoteDataSourceImpl implements SignUpRemoteDataSourceContract {
   SignUpRemoteDataSourceImpl({required this.apiClient});
 
   @override
-  Future<BaseResponse<SignUpResponseModel>> singnUp(
+  Future<BaseResponse<SignUpResponseModel>> signUp(
     SignUpRequestModel request,
   ) async {
     try {

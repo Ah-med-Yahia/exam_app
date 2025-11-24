@@ -3,5 +3,5 @@ import 'package:exam_app/features/auth/sign_up/data/models/sign_up_request/sign_
 import 'package:exam_app/features/auth/sign_up/data/models/sign_up_response/sign_up_response_model.dart';
 
 abstract class SignUpRemoteDataSourceContract {
-  Future<BaseResponse<SignUpResponseModel>> singnUp(SignUpRequestModel request);
+  Future<BaseResponse<SignUpResponseModel>>signUp (SignUpRequestModel request);
 }

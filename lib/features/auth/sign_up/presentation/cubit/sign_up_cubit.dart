@@ -17,26 +17,41 @@ class SignUpCubit extends Cubit<SignUpStates> {
     switch (event) {
       case SignUpEvent(:final request):
         _signUp(request);
-      case CheckButtonValidation():
-        _validateForm(event);
+      case ValidateField():
+        _validateFormField(event);
     }
   }
 
-  void _validateForm(CheckButtonValidation event) {
-    final isValid =
-        Validator.validateUsername(event.userNameController.text) == null &&
-        Validator.validateFirstName(event.firstNameController.text) == null &&
-        Validator.validateLastName(event.lastNameController.text) == null &&
-        Validator.validateEmail(event.emailController.text) == null &&
-        Validator.validatePassword(event.passwordController.text) == null &&
-        Validator.validateConfirmPassword(
-              event.confirmPasswordController.text,
-              event.passwordController.text,
-            ) ==
-            null &&
-        Validator.validatePhoneNumber(event.phoneController.text) == null;
+  void _validateFormField(ValidateField event) {
+    final bool isValid;
 
-    emit(state.copyWith(isFormValid: isValid));
+    switch (event.fieldName) {
+      case 'username':
+        isValid = Validator.validateUsername(event.value) == null;
+        emit(state.copyWith(isUserNameValid: isValid));
+      case 'firstName':
+        isValid = Validator.validateFirstName(event.value) == null;
+        emit(state.copyWith(isFistNameValid: isValid));
+      case 'lastName':
+        isValid = Validator.validateLastName(event.value) == null;
+        emit(state.copyWith(isLastNameValid: isValid));
+      case 'email':
+        isValid = Validator.validateEmail(event.value) == null;
+        emit(state.copyWith(isEmailValid: isValid));
+      case 'password':
+        isValid = Validator.validatePassword(event.value) == null;
+        emit(state.copyWith(isPasswordValid: isValid));
+      case 'confirmPassword':
+        isValid =
+            Validator.validateConfirmPassword(event.value, event.password) ==
+            null;
+        emit(state.copyWith(isConfirmPasswordValid: isValid));
+      case 'phone':
+        isValid = Validator.validatePhoneNumber(event.value) == null;
+        emit(state.copyWith(isPhoneValid: isValid));
+      default:
+        break;
+    }
   }
 
   void _signUp(SignUpRequestEntity request) async {

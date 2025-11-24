@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CustomElevatedButton extends StatelessWidget {
   final String label;
   final Color backgroundColor;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   const CustomElevatedButton({
     super.key,
