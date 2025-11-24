@@ -14,6 +14,8 @@ class CustomTextFormField extends StatefulWidget {
   final void Function(String)? onChanged;
   final TextInputType keyboardType;
   final int maxLines;
+  final Color labelColor;
+  final Color borderColor;
 
   const CustomTextFormField({
     super.key,
@@ -25,6 +27,8 @@ class CustomTextFormField extends StatefulWidget {
     this.onChanged,
     this.keyboardType = TextInputType.text,
     this.maxLines = 1,
+    this.labelColor = ColorManager.darkGrey,
+    this.borderColor = ColorManager.black,
   });
 
   @override

@@ -58,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(height: 15.h),
                       CustomTextFormField(
                         label: UiConstants.email,
-                        hintText: UiConstants.enterEmail,
+                        hintText: UiConstants.emailHintText,
                         controller: _emailController,
                         validator: Validator.validateEmail,
                         onChanged: (value) {
@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       SizedBox(height: 15.h),
                       CustomTextFormField(
-                        label: UiConstants.passwordAppBarHeadLine,
+                        label: UiConstants.enterPassword,
                         hintText: UiConstants.enterPassword,
                         controller: _passwordController,
                         validator: Validator.validatePassword,
@@ -134,13 +134,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             UIUtils.hideLoading(context);
                           }
                           if (state.data != null) {
-                            UIUtils.showMessage(UiConstants.loginsuccessful);
+                            UIUtils.showMessage(UiConstants.loginsuccessful ,backGroundColor: ColorManager.green,textColor: ColorManager.white);
                             Navigator.of(
                               context,
                             ).pushReplacementNamed(Routes.home);
                           } else if (state.errorMessage != null &&
                               state.errorMessage!.isNotEmpty) {
-                            UIUtils.showMessage(state.errorMessage!);
+                            UIUtils.showMessage(state.errorMessage!,backGroundColor: ColorManager.red,textColor: ColorManager.white);
                           }
                         },
                         child: BlocBuilder<LoginCubit, LoginStates>(

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-abstract class BaseState<T> extends Equatable {
+ class BaseState<T> extends Equatable {
   final bool isLoading;
   final T? data;
   final String? errorMessage;

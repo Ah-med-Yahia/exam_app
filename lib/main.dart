@@ -5,10 +5,12 @@ import 'package:exam_app/core/utils/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-void main() {
-  configureDependencies();
-  runApp(ExamApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await configureDependencies(); 
+  runApp(const ExamApp());
 }
+
 
 class ExamApp extends StatelessWidget {
   const ExamApp({super.key});
@@ -16,16 +18,20 @@ class ExamApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: Size(375, 812),
+      designSize: const Size(375, 812),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        onGenerateRoute: RouteGenerator.getRoute,
-        initialRoute: Routes.login,
-        theme: AppTheme.lightTheme,
-        themeMode: ThemeMode.light,
-      ),
+      builder: (context, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          onGenerateRoute: RouteGenerator.getRoute,
+          initialRoute: Routes.home,
+          theme: AppTheme.lightTheme,
+          themeMode: ThemeMode.light,
+          home: child,
+        );
+      },
     );
   }
 }
+

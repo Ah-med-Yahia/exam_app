@@ -1,0 +1,40 @@
+import 'package:dio/dio.dart';
+import 'package:exam_app/core/constants/api_constants.dart';
+import 'package:exam_app/features/auth/sign_up/data/models/user_adapter.dart';
+import 'package:exam_app/features/auth/sign_up/data/models/user_model.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:injectable/injectable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+@module
+abstract class DioModule {
+  @singleton
+  Dio get dio => Dio(BaseOptions(baseUrl: ApiConstants.baseUrl));
+}
+
+@module
+abstract class SharedPrefModule {
+  @singleton
+  @preResolve
+  Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
+}
+
+@module
+abstract class HiveModule {
+  @preResolve
+  @singleton
+  Future<Box<UserModel>> get userBox async {
+    await Hive.initFlutter();
+    Hive.registerAdapter(UserAdapter());
+    return await Hive.openBox<UserModel>(CacheConstants.userBoxKey);
+  }
+
+  @preResolve
+  @singleton
+  Future<Box<String>> get tokenBox async {
+    if (!Hive.isBoxOpen(CacheConstants.tokenBoxKey)) {
+      return await Hive.openBox<String>(CacheConstants.tokenBoxKey);
+    }
+    return Hive.box<String>(CacheConstants.tokenBoxKey);
+  }
+}

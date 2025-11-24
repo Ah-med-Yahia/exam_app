@@ -1,11 +1,11 @@
-sealed class BaseResponse<T> {}
+import 'package:exam_app/core/errors/exception.dart';
 
+sealed class BaseResponse<T> {}
 class SuccessResponse<T> extends BaseResponse<T> {
   final T data;
   SuccessResponse({required this.data});
 }
-
 class ErrorResponse<T> extends BaseResponse<T> {
-  final Exception error;
+  final AppException error;
   ErrorResponse({required this.error});
 }

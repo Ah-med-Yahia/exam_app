@@ -1,5 +1,6 @@
 import 'package:exam_app/core/resources/color_managar.dart';
 import 'package:exam_app/core/resources/styles_manager.dart';
+import 'package:exam_app/core/resources/values_managar.dart';
 import 'package:exam_app/core/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,8 +26,17 @@ class UIUtils {
 
   static void hideLoading(BuildContext context) => Navigator.of(context).pop();
 
-  static void showMessage(String message) =>
-      Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_SHORT);
+  static void showMessage(
+    String message, {
+    required Color backGroundColor,
+    required Color textColor,
+  }) => Fluttertoast.showToast(
+    msg: message,
+    toastLength: Toast.LENGTH_LONG,
+    backgroundColor: backGroundColor,
+    textColor: textColor,
+  );
+
   static void showMessageWithNav({
     required BuildContext context,
     String? title,
@@ -70,13 +80,44 @@ class UIUtils {
       builder: (context) => AlertDialog(
         title: Text(
           title ?? '',
-          style: getMediumStyle(color: ColorManager.black, fontSize: 18.sp),
+          style: getMediumStyle(
+            color: ColorManager.black,
+            fontSize: Sizes.s18.sp,
+          ),
         ),
         content: Text(
           message,
-          style: getMediumStyle(color: ColorManager.black, fontSize: 18.sp),
+          style: getMediumStyle(
+            color: ColorManager.black,
+            fontSize: Sizes.s18.sp,
+          ),
         ),
+
         actions: actions,
+      ),
+    );
+  }
+
+  static void showLoadingMessage({
+    required BuildContext context,
+    required String loadingText,
+  }) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        content: Row(
+          children: [
+            CircularProgressIndicator(color: ColorManager.blue),
+            Text(
+              loadingText,
+              style: getSemiBoldStyle(
+                color: ColorManager.blue,
+                fontSize: Sizes.s16.sp,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
