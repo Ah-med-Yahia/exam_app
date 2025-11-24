@@ -25,10 +25,9 @@ class ExamApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           onGenerateRoute: RouteGenerator.getRoute,
-          initialRoute: Routes.home,
+          initialRoute: Routes.signUp,
           theme: AppTheme.lightTheme,
           themeMode: ThemeMode.light,
-          home: child,
         );
       },
     );
