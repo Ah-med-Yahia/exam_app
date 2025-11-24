@@ -8,5 +8,5 @@ class SignUpUseCase {
   final SignUpRepositoryContract repository;
   SignUpUseCase({required this.repository});
 
-  Future<BaseResponse<void>> call(SignUpRequestEntity request)=> repository.signUp(request);
+  Future<BaseResponse<void>> call(SignUpRequestEntity request) => repository.signUp(request);
 }

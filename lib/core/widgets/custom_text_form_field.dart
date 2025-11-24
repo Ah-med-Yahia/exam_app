@@ -37,22 +37,34 @@ class CustomTextFormField extends StatefulWidget {
 
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
   bool hasError = false;
+  late FocusNode _focusNode;
+  
+  @override
+void initState() {
+  super.initState();
+  _focusNode = FocusNode();
+
+  _focusNode.addListener(() {
+    if (!_focusNode.hasFocus) {
+      final result = widget.validator?.call(widget.controller?.text);
+      setState(() {
+        hasError = result != null;
+      });
+    }
+  });
+}
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 70.h,
       child: TextFormField(
+        focusNode: _focusNode,
         obscureText: widget.obscureText,
         maxLines: widget.maxLines,
         keyboardType: widget.keyboardType,
         validator: (value) {
           final result = widget.validator?.call(value);
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (mounted && hasError != (result != null)) {
-              setState(() => hasError = result != null);
-            }
-          });
           return result;
         },
         onChanged: widget.onChanged,
@@ -63,6 +75,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           labelStyle: getRegularStyle(
             color: hasError ? ColorManager.red : ColorManager.darkGrey,
           ),
+          errorMaxLines: 2,
           floatingLabelBehavior: FloatingLabelBehavior.always,
           floatingLabelStyle: TextStyle(
             fontSize: 18.sp,
