@@ -1,5 +1,5 @@
 import 'package:exam_app/config/base_state/base_state.dart';
-import 'package:exam_app/features/Auth/login/domain/entites/login_entity.dart';
+import 'package:exam_app/features/auth/login/domain/entites/login_entity.dart';
 
 class LoginStates extends BaseState<LoginEntity> {
   final bool rememberMe;

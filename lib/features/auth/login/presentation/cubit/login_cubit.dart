@@ -1,10 +1,10 @@
 import 'package:exam_app/config/base_response/base_response.dart';
 import 'package:exam_app/core/constants/ui_constants.dart';
 import 'package:exam_app/core/utils/validator.dart';
-import 'package:exam_app/features/Auth/login/data/models/login_request.dart';
-import 'package:exam_app/features/Auth/login/domain/use_cases/login_use_case.dart';
-import 'package:exam_app/features/Auth/login/presentation/cubit/login_intents.dart';
-import 'package:exam_app/features/Auth/login/presentation/cubit/login_states.dart';
+import 'package:exam_app/features/auth/login/data/models/login_request.dart';
+import 'package:exam_app/features/auth/login/domain/use_cases/login_use_case.dart';
+import 'package:exam_app/features/auth/login/presentation/cubit/login_intents.dart';
+import 'package:exam_app/features/auth/login/presentation/cubit/login_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 

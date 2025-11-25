@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:exam_app/core/constants/api_constants.dart';
-import 'package:exam_app/features/Auth/login/data/models/login_request.dart';
-import 'package:exam_app/features/Auth/login/data/models/login_response.dart';
+import 'package:exam_app/features/auth/login/data/models/login_request.dart';
+import 'package:exam_app/features/auth/login/data/models/login_response.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 

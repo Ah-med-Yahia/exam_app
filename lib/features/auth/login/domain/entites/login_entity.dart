@@ -1,4 +1,4 @@
-import 'package:exam_app/features/Auth/login/domain/entites/user_entity.dart';
+import 'package:exam_app/features/auth/login/domain/entites/user_entity.dart';
 
 class LoginEntity {
   final String? message;

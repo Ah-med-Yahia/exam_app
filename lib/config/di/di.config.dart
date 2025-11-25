@@ -58,19 +58,19 @@ import '../../features/auth/sign_up/presentation/cubit/sign_up_cubit.dart'
     as _i809;
 import '../dio_modules/dio_module.dart' as _i365;
 
-import '../../features/Auth/login/api/api_client/login_api_client.dart'
+import '../../features/auth/login/api/api_client/login_api_client.dart'
     as _i533;
-import '../../features/Auth/login/api/datasources/login_remote_data_source_impl.dart'
+import '../../features/auth/login/api/datasources/login_remote_data_source_impl.dart'
     as _i846;
-import '../../features/Auth/login/data/datasources/login_remote_data_source.dart'
+import '../../features/auth/login/data/datasources/login_remote_data_source.dart'
     as _i81;
-import '../../features/Auth/login/data/repositories/login_repository_impl.dart'
+import '../../features/auth/login/data/repositories/login_repository_impl.dart'
     as _i1071;
-import '../../features/Auth/login/domain/repositories/login_repository.dart'
+import '../../features/auth/login/domain/repositories/login_repository.dart'
     as _i87;
-import '../../features/Auth/login/domain/use_cases/login_use_case.dart'
+import '../../features/auth/login/domain/use_cases/login_use_case.dart'
     as _i937;
-import '../../features/Auth/login/presentation/cubit/login_cubit.dart' as _i620;
+import '../../features/auth/login/presentation/cubit/login_cubit.dart' as _i620;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
