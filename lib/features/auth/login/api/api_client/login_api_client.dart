@@ -12,6 +12,6 @@ part 'login_api_client.g.dart';
 abstract class LoginApiClient {
   @factoryMethod
   factory LoginApiClient(Dio dio) = _LoginApiClient;
-  @POST("auth/signin")
+  @POST(ApiConstants.loginEndPoint)
   Future<LoginResponse> login(@Body() LoginRequest body);
 }

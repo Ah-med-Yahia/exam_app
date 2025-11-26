@@ -15,7 +15,6 @@ class CustomTextFormField extends StatefulWidget {
   final TextInputType keyboardType;
   final int maxLines;
   final Color labelColor;
-  final Color borderColor;
 
   const CustomTextFormField({
     super.key,
@@ -28,7 +27,6 @@ class CustomTextFormField extends StatefulWidget {
     this.keyboardType = TextInputType.text,
     this.maxLines = 1,
     this.labelColor = ColorManager.darkGrey,
-    this.borderColor = ColorManager.black,
   });
 
   @override
@@ -38,21 +36,21 @@ class CustomTextFormField extends StatefulWidget {
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
   bool hasError = false;
   late FocusNode _focusNode;
-  
-  @override
-void initState() {
-  super.initState();
-  _focusNode = FocusNode();
 
-  _focusNode.addListener(() {
-    if (!_focusNode.hasFocus) {
-      final result = widget.validator?.call(widget.controller?.text);
-      setState(() {
-        hasError = result != null;
-      });
-    }
-  });
-}
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+
+    _focusNode.addListener(() {
+      if (!_focusNode.hasFocus) {
+        final result = widget.validator?.call(widget.controller?.text);
+        setState(() {
+          hasError = result != null;
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

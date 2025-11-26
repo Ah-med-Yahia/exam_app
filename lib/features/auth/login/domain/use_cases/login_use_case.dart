@@ -6,10 +6,10 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class LoginUseCase {
-  final LoginRepository loginRepository;
+  final LoginRepository _loginRepository;
 
-  LoginUseCase(this.loginRepository);
+  LoginUseCase(this._loginRepository);
 
   Future<BaseResponse<LoginEntity>> call(LoginRequest request) =>
-      loginRepository.login(request);
+      _loginRepository.login(request);
 }

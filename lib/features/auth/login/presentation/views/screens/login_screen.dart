@@ -25,9 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  bool rememberMe = false;
   late final LoginCubit loginCubit;
-  final ValueNotifier<bool> isFormValid = ValueNotifier(false);
 
   @override
   void initState() {
@@ -101,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               loginCubit.doIntent(RememberMeToggled());
                             },
                           ),
-                          Spacer(),
+                          const Spacer(),
                           TextButton(
                             child: Text(
                               UiConstants.forgetPasswordHeadLine,
@@ -134,13 +132,21 @@ class _LoginScreenState extends State<LoginScreen> {
                             UIUtils.hideLoading(context);
                           }
                           if (state.data != null) {
-                            UIUtils.showMessage(UiConstants.loginsuccessful ,backGroundColor: ColorManager.green,textColor: ColorManager.white);
+                            UIUtils.showMessage(
+                              UiConstants.loginSuccessful,
+                              backGroundColor: ColorManager.green,
+                              textColor: ColorManager.white,
+                            );
                             Navigator.of(
                               context,
                             ).pushReplacementNamed(Routes.home);
                           } else if (state.errorMessage != null &&
                               state.errorMessage!.isNotEmpty) {
-                            UIUtils.showMessage(state.errorMessage!,backGroundColor: ColorManager.red,textColor: ColorManager.white);
+                            UIUtils.showMessage(
+                              state.errorMessage!,
+                              backGroundColor: ColorManager.red,
+                              textColor: ColorManager.white,
+                            );
                           }
                         },
                         child: BlocBuilder<LoginCubit, LoginStates>(

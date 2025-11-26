@@ -19,6 +19,6 @@ class LoginResponse {
 
 extension LoginResponseMapper on LoginResponse {
   LoginEntity toEntity() {
-    return LoginEntity(message: message, token: token, user: user?.toEntity());
+    return LoginEntity(message: message, user: user?.toEntity());
   }
 }

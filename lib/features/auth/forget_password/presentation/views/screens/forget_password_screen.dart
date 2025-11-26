@@ -75,12 +75,11 @@ class ForgetPasswordScreen extends StatelessWidget {
               final bool hasAnyError = hasApiError || hasFormError;
               Color labelColor;
               Color buttonColor;
-              Color borderColor;
+              
               String? errorText;
               if (state.hasUserInteracted == false) {
                 labelColor = ColorManager.darkGrey;
                 buttonColor = ColorManager.blue;
-                borderColor = ColorManager.black;
               } else {
                 labelColor = hasAnyError
                     ? ColorManager.red
@@ -88,9 +87,6 @@ class ForgetPasswordScreen extends StatelessWidget {
                 buttonColor = hasAnyError
                     ? ColorManager.grey
                     : ColorManager.blue;
-                borderColor = hasAnyError
-                    ? ColorManager.red
-                    : ColorManager.black;
                 errorText = !hasApiError
                     ? null
                     : state.forgetPasswordState!.errorMessage!;
@@ -146,7 +142,6 @@ class ForgetPasswordScreen extends StatelessWidget {
                           SizedBox(height: Sizes.s24.h),
                           CustomTextFormField(
                             controller: _emailController,
-                            borderColor: borderColor,
                             label: UiConstants.email,
                             labelColor: labelColor,
                             hintText: UiConstants.emailHintText,
