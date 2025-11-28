@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget> tabs = [
     const ExploreTab(),
     const ResultTab(),
-    const ProfileTab(),
+     ProfileTab(),
   ];
 
   @override

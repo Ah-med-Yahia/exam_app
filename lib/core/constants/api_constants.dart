@@ -15,7 +15,6 @@ class ApiConstants {
 class CacheConstants {
   static const String tokenKey = 'token';
   static const String tokenBoxKey = 'tokenBox';
-
   static const String userBoxKey = 'userBox';
   static const String currentUserKey = 'currentUser';
 
