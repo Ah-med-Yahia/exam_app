@@ -9,10 +9,8 @@ import 'package:exam_app/features/auth/sign_up/presentation/cubit/sign_up_cubit.
 import 'package:exam_app/features/auth/sign_up/presentation/views/screens/sign_up_screen.dart';
 import 'package:exam_app/features/home/presentation/views/screens/home_screen.dart';
 import 'package:exam_app/features/start_exam/presentation/views/screens/start_exam_screen.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
     switch (settings.name) {
