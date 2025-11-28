@@ -34,7 +34,7 @@ class Validator {
     if (val == null || val.isEmpty) {
       return 'This field is required';
     } else if (val != password) {
-      return 'Same password';
+      return 'Passwords do not match';
     } else {
       return null;
     }
@@ -61,16 +61,15 @@ class Validator {
     }
   }
 
-static String? validateFirstName(String? val) {
-  if (val == null || val.isEmpty) {
-    return 'This field is required';
-  } else if (val[0] == val[0].toUpperCase()) {
-    return 'First letter must be lowercase';
-  } else {
-    return null;
+  static String? validateFirstName(String? val) {
+    if (val == null || val.isEmpty) {
+      return 'This field is required';
+    } else if (val[0] == val[0].toUpperCase()) {
+      return 'First letter must be lowercase';
+    } else {
+      return null;
+    }
   }
-}
-
 
   static String? validatePhoneNumber(String? val) {
     if (val == null) {

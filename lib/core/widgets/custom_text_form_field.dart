@@ -15,9 +15,10 @@ class CustomTextFormField extends StatefulWidget {
   final TextInputType keyboardType;
   final int maxLines;
   final Color labelColor;
-  final Color borderColor;
+
   final Widget? prefixIcon;
   final double? radius;
+
 
   const CustomTextFormField({
     super.key,
@@ -30,9 +31,9 @@ class CustomTextFormField extends StatefulWidget {
     this.keyboardType = TextInputType.text,
     this.maxLines = 1,
     this.labelColor=ColorManager.darkGrey,
-    this.borderColor=ColorManager.black,
     this.prefixIcon,
     this.radius
+
   });
 
   @override
@@ -41,33 +42,46 @@ class CustomTextFormField extends StatefulWidget {
 
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
   bool hasError = false;
+  late FocusNode _focusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+
+    _focusNode.addListener(() {
+      if (!_focusNode.hasFocus) {
+        final result = widget.validator?.call(widget.controller?.text);
+        setState(() {
+          hasError = result != null;
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-
     return SizedBox(
       height: 70.h,
       child: TextFormField(
+        focusNode: _focusNode,
         obscureText: widget.obscureText,
         maxLines: widget.maxLines,
         keyboardType: widget.keyboardType,
         validator: (value) {
           final result = widget.validator?.call(value);
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (mounted && hasError != (result != null)) {
-              setState(() => hasError = result != null);
-            }
-          });
           return result;
         },
         onChanged: widget.onChanged,
         controller: widget.controller,
-        autovalidateMode: AutovalidateMode.onUnfocus,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: InputDecoration(
           prefixIcon: widget.prefixIcon,
           labelText: widget.label,
-          labelStyle: getRegularStyle(color: widget.labelColor,),
-          
+          labelStyle: getRegularStyle(
+            color: hasError ? ColorManager.red : ColorManager.darkGrey,
+          ),
+          errorMaxLines: 2,
           floatingLabelBehavior: FloatingLabelBehavior.always,
           floatingLabelStyle: TextStyle(
             fontSize: 18.sp,
@@ -76,7 +90,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           ),
           hintText: widget.hintText,
           hintStyle: TextStyle(
-            fontSize: FontSize.s14,
+            fontSize: FontSize.s12.sp,
             fontWeight: FontWeightManager.regular,
             color: ColorManager.lightGrey,
           ),
@@ -85,12 +99,14 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             top: Insets.s16.sp,
             bottom: Insets.s16.sp,
           ),
-           border: _buildBorder(color: widget.borderColor),
-              enabledBorder: _buildBorder(color: widget.borderColor),
+          border: _buildBorder(color: ColorManager.black),
+          enabledBorder: _buildBorder(color: ColorManager.black),
           errorBorder: _buildBorder(color: ColorManager.red),
           focusedErrorBorder: _buildBorder(color: ColorManager.red, width: 2),
-          focusedBorder: _buildBorder(color: widget.borderColor, width: 2),
-          
+          focusedBorder: _buildBorder(
+            color: hasError ? ColorManager.red : ColorManager.black,
+            width: 2,
+          ),
         ),
         cursorColor: ColorManager.black,
         onTapOutside: (event) => FocusScope.of(context).unfocus(),

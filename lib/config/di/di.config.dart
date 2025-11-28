@@ -76,6 +76,20 @@ import '../../features/home/presentation/views/screens/tabs/explore_tab/presenta
     as _i695;
 import '../dio_modules/dio_module.dart' as _i365;
 
+import '../../features/auth/login/api/api_client/login_api_client.dart'
+    as _i533;
+import '../../features/auth/login/api/datasources/login_remote_data_source_impl.dart'
+    as _i846;
+import '../../features/auth/login/data/datasources/login_remote_data_source.dart'
+    as _i81;
+import '../../features/auth/login/data/repositories/login_repository_impl.dart'
+    as _i1071;
+import '../../features/auth/login/domain/repositories/login_repository.dart'
+    as _i87;
+import '../../features/auth/login/domain/use_cases/login_use_case.dart'
+    as _i937;
+import '../../features/auth/login/presentation/cubit/login_cubit.dart' as _i620;
+
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
   Future<_i174.GetIt> init({
@@ -87,6 +101,21 @@ extension GetItInjectableX on _i174.GetIt {
     final sharedPrefModule = _$SharedPrefModule();
     final hiveModule = _$HiveModule();
     gh.singleton<_i361.Dio>(() => dioModule.dio);
+    gh.factory<_i533.LoginApiClient>(
+      () => _i533.LoginApiClient(gh<_i361.Dio>()),
+    );
+    gh.factory<_i81.LoginRemoteDataSource>(
+      () => _i846.LoginRemoteDataSourceImpl(gh<_i533.LoginApiClient>()),
+    );
+    gh.factory<_i87.LoginRepository>(
+      () => _i1071.LoginRepositoryImpl(gh<_i81.LoginRemoteDataSource>()),
+    );
+    gh.factory<_i937.LoginUseCase>(
+      () => _i937.LoginUseCase(gh<_i87.LoginRepository>()),
+    );
+    gh.factory<_i620.LoginCubit>(
+      () => _i620.LoginCubit(gh<_i937.LoginUseCase>()),
+    );
     await gh.singletonAsync<_i460.SharedPreferences>(
       () => sharedPrefModule.prefs,
       preResolve: true,

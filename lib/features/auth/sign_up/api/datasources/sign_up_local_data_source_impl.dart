@@ -21,7 +21,7 @@ class SignUpLocalDataSourceImpl implements SignUpLocalDataSourceContract {
       await tokenBox.put(CacheConstants.tokenKey, token);
       return SuccessResponse<void>(data: null);
     } catch (e) {
-      return ErrorResponse<void>(error: LocalException(message: 'Falied to save user locally'));
+      return ErrorResponse<void>(error: LocalException(message: 'Failed to save user locally'));
     }
   }
 }

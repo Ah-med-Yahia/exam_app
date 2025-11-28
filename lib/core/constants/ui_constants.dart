@@ -1,8 +1,8 @@
 class UiConstants {
-  static const String passwordAppBarHeadLine="Password";
 
+  static const String passwordAppBarHeadLine="Password";
   static const String forgetPasswordHeadLine="Forget password";
-  static const String providingEmailMessagePart1="Please enter your email associated to";
+  static const String providingEmailMessage="Please enter your email associated to";
   static const String providingEmailMessagePart2="your account";
   static const String forgetPasswordQuestion="Forget Password?";
   static const String sendingResetCodeLoadingMessage="Sending reset code...";
@@ -26,7 +26,6 @@ class UiConstants {
   static const String newPasswordLabel="New password";
   static const String passwordHintText="Enter your password";
   static const String confirmPasswordLabelAndHintText="Confirm password";
-  static const String providingEmailMessage="Please enter your email associated to\n your account";
   static const String explore='Explore';
   static const String result='Result';
   static const String profile='Profile';
@@ -40,7 +39,7 @@ class UiConstants {
   static const String email='Email';
   static const String enterEmail='Enter your email';
   static const String password='Password';
-  static const String enterPassword='Enter password';
+  static const String enterPassword='Enter your password';
   static const String confirmPassword='Confirm Password';
   static const String enterConfirmPassword='Confirm password';
   static const String phoneNumber='Phone number';
@@ -52,11 +51,16 @@ class UiConstants {
   static const String browsingText='Browse by subject';
   static const String emptySubjects='No subjects Found';
   static const String misMatchSearchResults="No results matching your query";
+  static const String rememberMe = "Remember me";
+  static const String dontHaveAccount = "Don't have an account?";
+  static const String loginSuccessful = "Login successful";
+  static const String failedToLogin = "Failed To Login";
+
 }
 
 class GoogleFontsKeys {
-  static const String poppins='poppins';
-  static const String roboto='roboto';
-  static const String cairo='cairo';
-  static const String inter='Inter';
+  static const String poppins = 'poppins';
+  static const String roboto = 'roboto';
+  static const String cairo = 'cairo';
+  static const String inter = 'Inter';
 }

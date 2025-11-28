@@ -21,7 +21,7 @@ class SignUpRepositoryImpl implements SignUpRepositoryContract {
   @override
   Future<BaseResponse<void>> signUp(SignUpRequestEntity requestEntity) async {
     SignUpRequestModel request = requestEntity.toModel();
-    BaseResponse<SignUpResponseModel> response = await remoteDataSource.singnUp(
+    BaseResponse<SignUpResponseModel> response = await remoteDataSource.signUp(
       request,
     );
 

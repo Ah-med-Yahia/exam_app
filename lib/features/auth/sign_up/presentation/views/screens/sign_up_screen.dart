@@ -40,27 +40,39 @@ class _SignUpScreenState extends State<SignUpScreen> {
     super.initState();
     final cubit = context.read<SignUpCubit>();
 
-    void validate() {
+    userNameController.addListener(() {
+      cubit.doIntent(ValidateField('username', userNameController.text));
+    });
+
+    firstNameController.addListener(() {
+      cubit.doIntent(ValidateField('firstName', firstNameController.text));
+    });
+
+    lastNameController.addListener(() {
+      cubit.doIntent(ValidateField('lastName', lastNameController.text));
+    });
+
+    emailController.addListener(() {
+      cubit.doIntent(ValidateField('email', emailController.text));
+    });
+
+    passwordController.addListener(() {
+      cubit.doIntent(ValidateField('password', passwordController.text));
+    });
+
+    confirmPasswordController.addListener(() {
       cubit.doIntent(
-        CheckButtonValidation(
-          userNameController,
-          firstNameController,
-          lastNameController,
-          emailController,
-          passwordController,
-          confirmPasswordController,
-          phoneController,
+        ValidateField(
+          'confirmPassword',
+          confirmPasswordController.text,
+          passwordController.text,
         ),
       );
-    }
+    });
 
-    userNameController.addListener(validate);
-    firstNameController.addListener(validate);
-    lastNameController.addListener(validate);
-    emailController.addListener(validate);
-    passwordController.addListener(validate);
-    confirmPasswordController.addListener(validate);
-    phoneController.addListener(validate);
+    phoneController.addListener(() {
+      cubit.doIntent(ValidateField('phone', phoneController.text));
+    });
   }
 
   @override
@@ -127,7 +139,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SizedBox(height: 16.h),
                 CustomTextFormField(
                   label: UiConstants.email,
-                  hintText: UiConstants.enterEmail,
+                  hintText: UiConstants.emailHintText,
                   controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
@@ -187,8 +199,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         backGroundColor: ColorManager.red,
                         textColor: ColorManager.white,
                       );
-                    } else if ((state.signUpState?.isLoading == false) &&
-                        state.signUpState?.data != null &&
+                    } else if (state.signUpState?.data != null &&
                         state.signUpState!.data!.isNotEmpty) {
                       UIUtils.hideLoading(context);
                       UIUtils.showMessage(
@@ -224,7 +235,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 );
                               }
                             }
-                          : () {},
+                          : null,
                     );
                   },
                 ),
@@ -249,7 +260,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              // Navigate to Login screen
+                              Navigator.of(
+                                context,
+                              ).pushReplacementNamed(Routes.login);
                             },
                         ),
                       ],
