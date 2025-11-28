@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTextFormField extends StatefulWidget {
-  final String label;
+  final String? label;
   final bool obscureText;
   final String hintText;
   final String? Function(String?)? validator;
@@ -16,9 +16,13 @@ class CustomTextFormField extends StatefulWidget {
   final int maxLines;
   final Color labelColor;
 
+  final Widget? prefixIcon;
+  final double? radius;
+
+
   const CustomTextFormField({
     super.key,
-    required this.label,
+    this.label,
     this.obscureText = false,
     required this.hintText,
     this.validator,
@@ -26,7 +30,10 @@ class CustomTextFormField extends StatefulWidget {
     this.onChanged,
     this.keyboardType = TextInputType.text,
     this.maxLines = 1,
-    this.labelColor = ColorManager.darkGrey,
+    this.labelColor=ColorManager.darkGrey,
+    this.prefixIcon,
+    this.radius
+
   });
 
   @override
@@ -69,6 +76,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         controller: widget.controller,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: InputDecoration(
+          prefixIcon: widget.prefixIcon,
           labelText: widget.label,
           labelStyle: getRegularStyle(
             color: hasError ? ColorManager.red : ColorManager.darkGrey,
@@ -108,7 +116,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
 
   OutlineInputBorder _buildBorder({required Color color, double width = 1}) {
     return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(4),
+      borderRadius: BorderRadius.circular(widget.radius??4.r),
       borderSide: BorderSide(color: color, width: width),
     );
   }

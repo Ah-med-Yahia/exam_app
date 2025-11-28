@@ -1,5 +1,6 @@
 import 'package:exam_app/config/di/di.dart';
 import 'package:exam_app/core/routes/routes.dart';
+import 'package:exam_app/features/home/presentation/views/screens/tabs/explore_tab/presentation/views/screens/all_exams_screen.dart';
 import 'package:exam_app/features/auth/forget_password/presentation/views/screens/forget_password_screen.dart';
 import 'package:exam_app/features/auth/forget_password/presentation/views/screens/reset_password_screen.dart';
 import 'package:exam_app/features/auth/forget_password/presentation/views/screens/verify_reset_code_screen.dart';
@@ -30,6 +31,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) =>ResetPasswordScreen(),settings: settings);    
       case Routes.home:
         return MaterialPageRoute(builder: (_) => const HomeScreen());
+      case Routes.allExams:
+        return MaterialPageRoute(builder: (_) =>AllExamsScreen(),settings: settings);
       default:
         return _undefinedRoute();
     }

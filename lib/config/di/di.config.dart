@@ -56,6 +56,24 @@ import '../../features/auth/sign_up/domain/use_cases/sign_up_use_case.dart'
     as _i45;
 import '../../features/auth/sign_up/presentation/cubit/sign_up_cubit.dart'
     as _i809;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/api/api_client/explore_tab_api_client.dart'
+    as _i439;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/api/datasources/explore_tab_local_data_source_impl.dart'
+    as _i875;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/api/datasources/explore_tab_remote_data_source_impl.dart'
+    as _i271;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/data/datasources/explore_tab_local_data_source.dart'
+    as _i656;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/data/datasources/explore_tab_remote_data_source.dart'
+    as _i508;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/data/repositories/explore_tab_repository_impl.dart'
+    as _i393;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/domain/repositories/explore_tab_repository.dart'
+    as _i762;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/domain/use_cases/get_all_subjects_use_case.dart'
+    as _i120;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/presentation/cubit/explore_tab_cubit.dart'
+    as _i695;
 import '../dio_modules/dio_module.dart' as _i365;
 
 import '../../features/auth/login/api/api_client/login_api_client.dart'
@@ -116,10 +134,29 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i478.ForgetPasswordApiClient>(
       () => _i478.ForgetPasswordApiClient(gh<_i361.Dio>()),
     );
+    gh.factory<_i439.ExploreTabApiClient>(
+      () => _i439.ExploreTabApiClient(gh<_i361.Dio>()),
+    );
+    gh.factory<_i508.ExploreTabRemoteDataSource>(
+      () => _i271.ExploreTabRemoteDataSourceImpl(
+        exploreTabApiClient: gh<_i439.ExploreTabApiClient>(),
+      ),
+    );
+    gh.factory<_i656.ExploreTabLocalDataSource>(
+      () => _i875.ExploreTabLocalDataSourceImpl(
+        tokenBox: gh<_i979.Box<String>>(),
+      ),
+    );
     gh.singleton<_i885.SignUpLocalDataSourceContract>(
       () => _i138.SignUpLocalDataSourceImpl(
         gh<_i979.Box<_i89.UserModel>>(),
         gh<_i979.Box<String>>(),
+      ),
+    );
+    gh.factory<_i762.ExploreTabRepository>(
+      () => _i393.ExploreTabRepositoryImpl(
+        exploreTabRemoteDataSource: gh<_i508.ExploreTabRemoteDataSource>(),
+        exploreTabLocalDataSource: gh<_i656.ExploreTabLocalDataSource>(),
       ),
     );
     gh.factory<_i129.ForgetPasswordLocalDataSource>(
@@ -136,6 +173,14 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i163.ForgetPasswordRemoteDataSourceImpl(
         forgetPasswordApiClient: gh<_i478.ForgetPasswordApiClient>(),
       ),
+    );
+    gh.factory<_i120.GetAllSubjectsUseCase>(
+      () => _i120.GetAllSubjectsUseCase(
+        exploreTabRepository: gh<_i762.ExploreTabRepository>(),
+      ),
+    );
+    gh.factory<_i695.ExploreTabCubit>(
+      () => _i695.ExploreTabCubit(gh<_i120.GetAllSubjectsUseCase>()),
     );
     gh.singleton<_i100.SignUpRepositoryContract>(
       () => _i442.SignUpRepositoryImpl(

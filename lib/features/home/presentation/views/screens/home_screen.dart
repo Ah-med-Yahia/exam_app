@@ -1,10 +1,10 @@
 import 'package:exam_app/core/constants/ui_constants.dart';
 import 'package:exam_app/core/resources/assets_managar.dart';
 import 'package:exam_app/core/resources/color_managar.dart';
-import 'package:exam_app/features/explore_tab/presentation/views/explore_tab.dart';
+import 'package:exam_app/features/home/presentation/views/screens/tabs/explore_tab/presentation/views/screens/explore_tab.dart';
 import 'package:exam_app/features/home/presentation/views/widgets/nav_bar_icon.dart';
-import 'package:exam_app/features/profile_tab/presentation/profile_tab.dart';
-import 'package:exam_app/features/result_tab/presentation/result_tab.dart';
+import 'package:exam_app/features/home/presentation/views/screens/tabs/profile_tab/presentation/profile_tab.dart';
+import 'package:exam_app/features/home/presentation/views/screens/tabs/result_tab/presentation/result_tab.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -18,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int currrentIndex = 0;
 
   List<Widget> tabs = [
-    const ExploreTab(),
+    ExploreTab(),
     const ResultTab(),
     const ProfileTab(),
   ];
