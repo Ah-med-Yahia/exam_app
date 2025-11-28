@@ -120,7 +120,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                           ),
                           SizedBox(height: Sizes.s16.h),
                           Text(
-                            UiConstants.providingEmailMessagePart1,
+                            UiConstants.providingEmailMessage,
                             style: getRegularStyle(
                               color: ColorManager.darkGrey,
                               fontFamily: GoogleFontsKeys.inter,

@@ -1,5 +1,5 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format width=80
+// GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
 // InjectableConfigGenerator
@@ -62,14 +62,20 @@ import '../../features/home/presentation/views/screens/tabs/explore_tab/api/data
     as _i875;
 import '../../features/home/presentation/views/screens/tabs/explore_tab/api/datasources/explore_tab_remote_data_source_impl.dart'
     as _i271;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/api/datasources/get_all_exams_remote_data_source_impl.dart'
+    as _i12;
 import '../../features/home/presentation/views/screens/tabs/explore_tab/data/datasources/explore_tab_local_data_source.dart'
     as _i656;
 import '../../features/home/presentation/views/screens/tabs/explore_tab/data/datasources/explore_tab_remote_data_source.dart'
     as _i508;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/data/datasources/get_all_exams_remote_data_source.dart'
+    as _i961;
 import '../../features/home/presentation/views/screens/tabs/explore_tab/data/repositories/explore_tab_repository_impl.dart'
     as _i393;
 import '../../features/home/presentation/views/screens/tabs/explore_tab/domain/repositories/explore_tab_repository.dart'
     as _i762;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/domain/use_cases/get_all_exams_use_case.dart'
+    as _i1007;
 import '../../features/home/presentation/views/screens/tabs/explore_tab/domain/use_cases/get_all_subjects_use_case.dart'
     as _i120;
 import '../../features/home/presentation/views/screens/tabs/explore_tab/presentation/cubit/explore_tab_cubit.dart'
@@ -100,13 +106,18 @@ extension GetItInjectableX on _i174.GetIt {
       preResolve: true,
     );
     gh.singleton<_i413.SignUpApiClient>(
-      () => _i413.SignUpApiClient(gh<_i361.Dio>()),
+      () => _i413.SignUpApiClient.new(gh<_i361.Dio>()),
     );
     gh.factory<_i478.ForgetPasswordApiClient>(
-      () => _i478.ForgetPasswordApiClient(gh<_i361.Dio>()),
+      () => _i478.ForgetPasswordApiClient.new(gh<_i361.Dio>()),
     );
     gh.factory<_i439.ExploreTabApiClient>(
-      () => _i439.ExploreTabApiClient(gh<_i361.Dio>()),
+      () => _i439.ExploreTabApiClient.new(gh<_i361.Dio>()),
+    );
+    gh.factory<_i961.GetAllExamsRemoteDataSource>(
+      () => _i12.GetAllExamsRemoteDataSourceImpl(
+        exploreTabApiClient: gh<_i439.ExploreTabApiClient>(),
+      ),
     );
     gh.factory<_i508.ExploreTabRemoteDataSource>(
       () => _i271.ExploreTabRemoteDataSourceImpl(
@@ -126,8 +137,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i762.ExploreTabRepository>(
       () => _i393.ExploreTabRepositoryImpl(
-        exploreTabRemoteDataSource: gh<_i508.ExploreTabRemoteDataSource>(),
-        exploreTabLocalDataSource: gh<_i656.ExploreTabLocalDataSource>(),
+        gh<_i508.ExploreTabRemoteDataSource>(),
+        gh<_i656.ExploreTabLocalDataSource>(),
+        gh<_i961.GetAllExamsRemoteDataSource>(),
       ),
     );
     gh.factory<_i129.ForgetPasswordLocalDataSource>(
@@ -145,13 +157,21 @@ extension GetItInjectableX on _i174.GetIt {
         forgetPasswordApiClient: gh<_i478.ForgetPasswordApiClient>(),
       ),
     );
+    gh.factory<_i1007.GetAllExamsUseCase>(
+      () => _i1007.GetAllExamsUseCase(
+        exploreTabRepository: gh<_i762.ExploreTabRepository>(),
+      ),
+    );
     gh.factory<_i120.GetAllSubjectsUseCase>(
       () => _i120.GetAllSubjectsUseCase(
         exploreTabRepository: gh<_i762.ExploreTabRepository>(),
       ),
     );
     gh.factory<_i695.ExploreTabCubit>(
-      () => _i695.ExploreTabCubit(gh<_i120.GetAllSubjectsUseCase>()),
+      () => _i695.ExploreTabCubit(
+        gh<_i120.GetAllSubjectsUseCase>(),
+        gh<_i1007.GetAllExamsUseCase>(),
+      ),
     );
     gh.singleton<_i100.SignUpRepositoryContract>(
       () => _i442.SignUpRepositoryImpl(

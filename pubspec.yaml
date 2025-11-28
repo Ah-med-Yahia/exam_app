@@ -64,10 +64,14 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
-  build_runner: ^2.10.1
-  retrofit_generator: ^10.0.6
+  build_runner: ^2.7.1
+  retrofit_generator: ^10.0.1  
   json_serializable: ^6.11.1
-  injectable_generator: ^2.9.0
+  injectable_generator: ^2.8.1
+  test: ^1.25.10
+  mockito: ^5.4.0
+dependency_overrides:
+  retrofit_generator: 10.0.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

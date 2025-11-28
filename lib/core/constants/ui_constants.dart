@@ -2,7 +2,7 @@ class UiConstants {
   static const String passwordAppBarHeadLine="Password";
 
   static const String forgetPasswordHeadLine="Forget password";
-  static const String providingEmailMessagePart1="Please enter your email associated to";
+  static const String providingEmailMessage="Please enter your email associated to";
   static const String providingEmailMessagePart2="your account";
   static const String forgetPasswordQuestion="Forget Password?";
   static const String sendingResetCodeLoadingMessage="Sending reset code...";
@@ -26,7 +26,6 @@ class UiConstants {
   static const String newPasswordLabel="New password";
   static const String passwordHintText="Enter your password";
   static const String confirmPasswordLabelAndHintText="Confirm password";
-  static const String providingEmailMessage="Please enter your email associated to\n your account";
   static const String explore='Explore';
   static const String result='Result';
   static const String profile='Profile';
@@ -50,8 +49,16 @@ class UiConstants {
   static const String surveyHeader='Survey';
   static const String searchText='Search';
   static const String browsingText='Browse by subject';
-  static const String emptySubjects='No subjects Found';
+  static const String emptySubjects='No Subjects Found';
   static const String misMatchSearchResults="No results matching your query";
+  static const String allExamsHeader="All Exams";
+  static const String questionsNumberText=" Question";
+  static const String fromText="From: ";
+  static const String oneText="1.00 ";
+  static const String toText=" To: ";
+  static const String sixText="6.00";
+  static const String minutesNumberText=" Minutes";
+  static const String emptyExams="No Exams Found";
 }
 
 class GoogleFontsKeys {
