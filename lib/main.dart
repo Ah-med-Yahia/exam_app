@@ -7,10 +7,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await configureDependencies(); 
+  await configureDependencies();
   runApp(const ExamApp());
 }
-
 
 class ExamApp extends StatelessWidget {
   const ExamApp({super.key});
@@ -33,4 +32,3 @@ class ExamApp extends StatelessWidget {
     );
   }
 }
-

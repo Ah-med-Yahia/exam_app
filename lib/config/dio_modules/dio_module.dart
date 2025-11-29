@@ -19,6 +19,7 @@ abstract class SharedPrefModule {
   Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
 }
 
+
 @module
 abstract class HiveModule {
   @preResolve
@@ -32,6 +33,7 @@ abstract class HiveModule {
   @preResolve
   @singleton
   Future<Box<String>> get tokenBox async {
+    await Hive.initFlutter();
     if (!Hive.isBoxOpen(CacheConstants.tokenBoxKey)) {
       return await Hive.openBox<String>(CacheConstants.tokenBoxKey);
     }

@@ -11,7 +11,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfileTab extends StatefulWidget {
-  ProfileTab({super.key});
+  const ProfileTab({super.key});
 
   @override
   State<ProfileTab> createState() => _ProfileTabState();

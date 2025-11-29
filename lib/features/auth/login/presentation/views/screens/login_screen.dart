@@ -57,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       CustomTextFormField(
                         label: UiConstants.email,
                         hintText: UiConstants.emailHintText,
-                        controller: _emailController,
+                        controller: loginCubit.emailController,
                         validator: Validator.validateEmail,
                         onChanged: (value) {
                           loginCubit.doIntent(EmailChanged(value));
@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       CustomTextFormField(
                         label: UiConstants.enterPassword,
                         hintText: UiConstants.enterPassword,
-                        controller: _passwordController,
+                        controller: loginCubit.passwordController,
                         validator: Validator.validatePassword,
                         keyboardType: TextInputType.text,
                         onChanged: (value) =>
@@ -160,8 +160,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 if (_formKey.currentState!.validate()) {
                                   loginCubit.doIntent(
                                     LoginButtonPressed(
-                                      _emailController.text.trim(),
-                                      _passwordController.text.trim(),
+                                      loginCubit.emailController.text.trim(),
+                                      loginCubit.passwordController.text.trim(),
                                     ),
                                   );
                                 }

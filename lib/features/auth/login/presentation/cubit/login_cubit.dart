@@ -13,8 +13,8 @@ import 'package:injectable/injectable.dart';
 class LoginCubit extends Cubit<LoginStates> {
   LoginCubit(this._loginUseCase) : super(LoginStates());
   final LoginUseCase _loginUseCase;
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   Future<void> doIntent(LoginIntents intent) async {
     switch (intent) {
@@ -38,8 +38,8 @@ class LoginCubit extends Cubit<LoginStates> {
     }
 
   bool _validateForm() {
-    return Validator.validateEmail(_emailController.text) == null &&
-        Validator.validatePassword(_passwordController.text) == null;
+    return Validator.validateEmail(emailController.text) == null &&
+        Validator.validatePassword(passwordController.text) == null;
   }
 
    Future<void> _performLogin(LoginButtonPressed intent) async {
@@ -70,10 +70,8 @@ class LoginCubit extends Cubit<LoginStates> {
 
 @override
   Future<void> close() {
-    _emailController.dispose();
-    _passwordController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
     return super.close();
   }
-
-
 }
