@@ -51,6 +51,9 @@ class UiConstants {
   static const String phoneNumber = 'Phone number';
   static const String enterPhoneNumber = 'Enter phone number';
   static const String alreadyHaveAccount = 'Already have an account? ';
+  static const String updata = 'Update';
+  static const String failedToSaveUser = 'Failed To Save User';
+
 }
 
 class GoogleFontsKeys {
@@ -58,4 +61,9 @@ class GoogleFontsKeys {
   static const String roboto = 'roboto';
   static const String cairo = 'cairo';
   static const String inter = 'Inter';
+}
+
+class PathsConstants {
+  static const String profileImage = 'assets/images/image.png';
+
 }
