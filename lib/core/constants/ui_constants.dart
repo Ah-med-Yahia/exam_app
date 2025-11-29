@@ -49,8 +49,16 @@ class UiConstants {
   static const String surveyHeader='Survey';
   static const String searchText='Search';
   static const String browsingText='Browse by subject';
-  static const String emptySubjects='No subjects Found';
+  static const String emptySubjects='No Subjects Found';
   static const String misMatchSearchResults="No results matching your query";
+  static const String allExamsHeader="All Exams";
+  static const String questionsNumberText=" Question";
+  static const String fromText="From: ";
+  static const String oneText="1.00 ";
+  static const String toText=" To: ";
+  static const String sixText="6.00";
+  static const String minutesNumberText=" Minutes";
+  static const String emptyExams="No Exams Found";
   static const String rememberMe = "Remember me";
   static const String dontHaveAccount = "Don't have an account?";
   static const String loginSuccessful = "Login successful";

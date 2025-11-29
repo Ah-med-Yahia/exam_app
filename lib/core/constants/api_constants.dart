@@ -11,6 +11,7 @@ class ApiConstants {
   static const String verifyResetCodeEndPoint = 'auth/verifyResetCode';
   static const String resetPasswordEndPoint = 'auth/resetPassword';
   static const String gettingAllSubjectsEndPoint='subjects';
+  static const String gettingAllExamsEndPoint='exams';
 }
 
 class CacheConstants {
