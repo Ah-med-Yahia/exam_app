@@ -107,6 +107,8 @@ import '../../features/start_exam/domain/repositories/start_exam_repository.dart
     as _i420;
 import '../../features/start_exam/domain/use_cases/start_exam_use_case.dart'
     as _i200;
+import '../../features/start_exam/presentation/cubit/start_exam_cubit.dart'
+    as _i521;
 import '../dio_modules/dio_module.dart' as _i365;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -268,6 +270,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i22.ResetPasswordUseCase>(),
         gh<_i295.VerifyResetCodeUseCase>(),
       ),
+    );
+    gh.factory<_i521.StartExamCubit>(
+      () => _i521.StartExamCubit(gh<_i200.StartExamUseCase>()),
     );
     gh.singleton<_i45.SignUpUseCase>(
       () =>

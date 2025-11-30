@@ -14,5 +14,6 @@ class ColorManager {
   static const Color black_0=Color(0xff000000);
   static const Color transparent = Colors.transparent;
   static const Color blueGrey=Color(0xffDFE7F7);
-  static const Color subjectCardShadowColor=Color.from(alpha:0.25, red: 0.165, green: 0.161, blue: 0.161);
+  static const Color subjectCardShadowColor=Color(0x402A2929);
+  static const Color darkBlueGrey=Color(0xff809ACD);
 }

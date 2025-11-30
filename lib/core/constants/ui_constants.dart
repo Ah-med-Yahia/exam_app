@@ -1,5 +1,4 @@
 class UiConstants {
-
   static const String passwordAppBarHeadLine="Password";
   static const String forgetPasswordHeadLine="Forget password";
   static const String providingEmailMessage="Please enter your email associated to";
@@ -63,7 +62,10 @@ class UiConstants {
   static const String dontHaveAccount = "Don't have an account?";
   static const String loginSuccessful = "Login successful";
   static const String failedToLogin = "Failed To Login";
-
+  static const String missingExamDetails="No details found for the exam";
+  static const String instructionsHeader="Instructions";
+  static const String instructionDetail="Lorem ipsum dolor sit amet consectetur.";
+  static const String startText="Start";
 }
 
 class GoogleFontsKeys {
