@@ -10,13 +10,16 @@ class ApiConstants {
   static const String forgotPasswordEndPoint = 'auth/forgotPassword';
   static const String verifyResetCodeEndPoint = 'auth/verifyResetCode';
   static const String resetPasswordEndPoint = 'auth/resetPassword';
+  static const String questionsEndPoint = 'questions';
+  static const String checkAnswers='questions/check';
+  static const String examQueryKey = 'exam';
+  static const String headerTokenKey = 'token';
 }
 
 class CacheConstants {
   static const String tokenKey = 'token';
-  static const String tokenBoxKey = 'tokenBox';
+  static const String tokenBoxName = 'tokenBox';
 
   static const String userBoxKey = 'userBox';
   static const String currentUserKey = 'currentUser';
-
 }

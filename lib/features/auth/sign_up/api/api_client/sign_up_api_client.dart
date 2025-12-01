@@ -4,7 +4,7 @@ import 'package:exam_app/features/auth/sign_up/data/models/sign_up_request/sign_
 import 'package:exam_app/features/auth/sign_up/data/models/sign_up_response/sign_up_response_model.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
-part 'api_client.g.dart';
+part 'sign_up_api_client.g.dart';
 
 @singleton
 @RestApi()

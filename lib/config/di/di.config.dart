@@ -38,7 +38,8 @@ import '../../features/auth/forget_password/domain/use_cases/verify_reset_code_u
     as _i295;
 import '../../features/auth/forget_password/presentation/cubit/forget_password_cubit.dart'
     as _i231;
-import '../../features/auth/sign_up/api/api_client/api_client.dart' as _i413;
+import '../../features/auth/sign_up/api/api_client/sign_up_api_client.dart'
+    as _i429;
 import '../../features/auth/sign_up/api/datasources/sign_up_local_data_source_impl.dart'
     as _i138;
 import '../../features/auth/sign_up/api/datasources/sign_up_remote_data_source_impl.dart'
@@ -56,6 +57,38 @@ import '../../features/auth/sign_up/domain/use_cases/sign_up_use_case.dart'
     as _i45;
 import '../../features/auth/sign_up/presentation/cubit/sign_up_cubit.dart'
     as _i809;
+import '../../features/questions/api/api_client/check_answers/check_answers_api_client.dart'
+    as _i164;
+import '../../features/questions/api/api_client/get_questions_api_client/questions_api_client.dart'
+    as _i254;
+import '../../features/questions/api/data_sources/local/get_questions_local_data_source_impl.dart'
+    as _i569;
+import '../../features/questions/api/data_sources/remote/check_answers_remote_data_source_impl.dart'
+    as _i1053;
+import '../../features/questions/api/data_sources/remote/get_questions_remote_data_sources_impl.dart'
+    as _i880;
+import '../../features/questions/data/datasources/local/get_question_local_data_source.dart'
+    as _i582;
+import '../../features/questions/data/datasources/remote/check_answers_remote_data_source.dart'
+    as _i390;
+import '../../features/questions/data/datasources/remote/get_question_remote_data_source.dart'
+    as _i110;
+import '../../features/questions/data/repositories/answers_check_repository_impl.dart'
+    as _i774;
+import '../../features/questions/data/repositories/get_questions_response_repository_impl.dart'
+    as _i33;
+import '../../features/questions/domain/repositories/answers_check_repository.dart'
+    as _i168;
+import '../../features/questions/domain/repositories/get_questions_repository.dart'
+    as _i390;
+import '../../features/questions/domain/usecases/answers_check_use_case.dart'
+    as _i152;
+import '../../features/questions/domain/usecases/get_questions_use_case.dart'
+    as _i240;
+import '../../features/questions/presentation/cubit/answer_cubit/answer_cubit.dart'
+    as _i275;
+import '../../features/questions/presentation/cubit/get_questions_cubit/get_questions_cubit.dart'
+    as _i528;
 import '../dio_modules/dio_module.dart' as _i365;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -73,19 +106,37 @@ extension GetItInjectableX on _i174.GetIt {
       () => sharedPrefModule.prefs,
       preResolve: true,
     );
-    await gh.singletonAsync<_i744.Box<_i89.UserModel>>(
-      () => hiveModule.userBox,
+    await gh.singletonAsync<_i744.HiveInterface>(
+      () => hiveModule.initHive(),
       preResolve: true,
     );
-    await gh.singletonAsync<_i744.Box<String>>(
-      () => hiveModule.tokenBox,
-      preResolve: true,
+    gh.singleton<_i429.SignUpApiClient>(
+      () => _i429.SignUpApiClient(gh<_i361.Dio>()),
     );
-    gh.singleton<_i413.SignUpApiClient>(
-      () => _i413.SignUpApiClient(gh<_i361.Dio>()),
+    gh.singleton<_i164.CheckAnswersApiClient>(
+      () => _i164.CheckAnswersApiClient(gh<_i361.Dio>()),
+    );
+    gh.singleton<_i254.GetQuestionsApiClient>(
+      () => _i254.GetQuestionsApiClient(gh<_i361.Dio>()),
     );
     gh.factory<_i478.ForgetPasswordApiClient>(
       () => _i478.ForgetPasswordApiClient(gh<_i361.Dio>()),
+    );
+    gh.singleton<_i744.Box<_i89.UserModel>>(
+      () => hiveModule.userBox(gh<_i744.HiveInterface>()),
+    );
+    gh.singleton<_i744.Box<String>>(
+      () => hiveModule.tokenBox(gh<_i744.HiveInterface>()),
+    );
+    gh.singleton<_i645.SignUpRemoteDataSourceContract>(
+      () => _i522.SignUpRemoteDataSourceImpl(
+        apiClient: gh<_i429.SignUpApiClient>(),
+      ),
+    );
+    gh.singleton<_i110.GetQuestionRemoteDataSource>(
+      () => _i880.GetQuestionsRemoteDataSourcesImpl(
+        apiClient: gh<_i254.GetQuestionsApiClient>(),
+      ),
     );
     gh.singleton<_i885.SignUpLocalDataSourceContract>(
       () => _i138.SignUpLocalDataSourceImpl(
@@ -93,14 +144,24 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i979.Box<String>>(),
       ),
     );
+    gh.singleton<_i100.SignUpRepositoryContract>(
+      () => _i442.SignUpRepositoryImpl(
+        remoteDataSource: gh<_i645.SignUpRemoteDataSourceContract>(),
+        localDataSource: gh<_i885.SignUpLocalDataSourceContract>(),
+      ),
+    );
+    gh.singleton<_i582.GetQuestionLocalDataSource>(
+      () => _i569.GetQuestionsLocalDataSourceImpl(gh<_i979.Box<String>>()),
+    );
     gh.factory<_i129.ForgetPasswordLocalDataSource>(
       () => _i377.ForgetPasswordLocalDataSourceImpl(
         tokenBox: gh<_i979.Box<String>>(),
       ),
     );
-    gh.singleton<_i645.SignUpRemoteDataSourceContract>(
-      () => _i522.SignUpRemoteDataSourceImpl(
-        apiClient: gh<_i413.SignUpApiClient>(),
+    gh.singleton<_i390.GetQuestionsRepository>(
+      () => _i33.GetQuestionsResponseRepositoryImpl(
+        remoteDataSource: gh<_i110.GetQuestionRemoteDataSource>(),
+        localDataSource: gh<_i582.GetQuestionLocalDataSource>(),
       ),
     );
     gh.factory<_i950.ForgetPasswordRemoteDataSource>(
@@ -108,10 +169,24 @@ extension GetItInjectableX on _i174.GetIt {
         forgetPasswordApiClient: gh<_i478.ForgetPasswordApiClient>(),
       ),
     );
-    gh.singleton<_i100.SignUpRepositoryContract>(
-      () => _i442.SignUpRepositoryImpl(
-        remoteDataSource: gh<_i645.SignUpRemoteDataSourceContract>(),
-        localDataSource: gh<_i885.SignUpLocalDataSourceContract>(),
+    gh.singleton<_i390.CheckAnswersRemoteDataSource>(
+      () => _i1053.CheckAnswersRemoteDataSourceImpl(
+        apiClient: gh<_i164.CheckAnswersApiClient>(),
+      ),
+    );
+    gh.singleton<_i240.GetQuestionsUseCase>(
+      () => _i240.GetQuestionsUseCase(
+        repository: gh<_i390.GetQuestionsRepository>(),
+      ),
+    );
+    gh.singleton<_i45.SignUpUseCase>(
+      () =>
+          _i45.SignUpUseCase(repository: gh<_i100.SignUpRepositoryContract>()),
+    );
+    gh.singleton<_i168.AnswersCheckRepository>(
+      () => _i774.AnswersCheckRepositoryImpl(
+        gh<_i390.CheckAnswersRemoteDataSource>(),
+        gh<_i582.GetQuestionLocalDataSource>(),
       ),
     );
     gh.factory<_i974.ForgetPasswordRepository>(
@@ -135,6 +210,14 @@ extension GetItInjectableX on _i174.GetIt {
         forgetPasswordRepository: gh<_i974.ForgetPasswordRepository>(),
       ),
     );
+    gh.singleton<_i152.AnswersCheckUseCase>(
+      () => _i152.AnswersCheckUseCase(
+        repository: gh<_i168.AnswersCheckRepository>(),
+      ),
+    );
+    gh.factory<_i528.GetQuestionsCubit>(
+      () => _i528.GetQuestionsCubit(gh<_i240.GetQuestionsUseCase>()),
+    );
     gh.factory<_i231.ForgetPasswordCubit>(
       () => _i231.ForgetPasswordCubit(
         gh<_i913.ForgetPasswordUseCase>(),
@@ -142,12 +225,11 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i295.VerifyResetCodeUseCase>(),
       ),
     );
-    gh.singleton<_i45.SignUpUseCase>(
-      () =>
-          _i45.SignUpUseCase(repository: gh<_i100.SignUpRepositoryContract>()),
-    );
     gh.singleton<_i809.SignUpCubit>(
       () => _i809.SignUpCubit(gh<_i45.SignUpUseCase>()),
+    );
+    gh.factory<_i275.AnswerCubit>(
+      () => _i275.AnswerCubit(gh<_i152.AnswersCheckUseCase>()),
     );
     return this;
   }

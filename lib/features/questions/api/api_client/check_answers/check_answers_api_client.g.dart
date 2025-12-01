@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'api_client.dart';
+part of 'check_answers_api_client.dart';
 
 // dart format off
 
@@ -10,8 +10,8 @@ part of 'api_client.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter,avoid_unused_constructor_parameters,unreachable_from_main
 
-class _SignUpApiClient implements SignUpApiClient {
-  _SignUpApiClient(this._dio, {this.baseUrl, this.errorLogger});
+class _CheckAnswersApiClient implements CheckAnswersApiClient {
+  _CheckAnswersApiClient(this._dio, {this.baseUrl, this.errorLogger});
 
   final Dio _dio;
 
@@ -20,26 +20,30 @@ class _SignUpApiClient implements SignUpApiClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<SignUpResponseModel> signUp(SignUpRequestModel signUpRequest) async {
+  Future<CheckAnswersResponseModel> checkAnswers(
+    AnswersRequestModel answers,
+    String token,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'token': token};
+    _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
-    _data.addAll(signUpRequest.toJson());
-    final _options = _setStreamType<SignUpResponseModel>(
+    _data.addAll(answers.toJson());
+    final _options = _setStreamType<CheckAnswersResponseModel>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'auth/signup',
+            'questions/check',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late SignUpResponseModel _value;
+    late CheckAnswersResponseModel _value;
     try {
-      _value = SignUpResponseModel.fromJson(_result.data!);
+      _value = CheckAnswersResponseModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

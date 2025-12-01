@@ -23,18 +23,23 @@ abstract class SharedPrefModule {
 abstract class HiveModule {
   @preResolve
   @singleton
-  Future<Box<UserModel>> get userBox async {
+  Future<HiveInterface> initHive() async {
     await Hive.initFlutter();
     Hive.registerAdapter(UserAdapter());
-    return await Hive.openBox<UserModel>(CacheConstants.userBoxKey);
+
+    await Hive.openBox<UserModel>(CacheConstants.userBoxKey);
+    await Hive.openBox<String>(CacheConstants.tokenBoxName);
+
+    return Hive;
   }
 
-  @preResolve
   @singleton
-  Future<Box<String>> get tokenBox async {
-    if (!Hive.isBoxOpen(CacheConstants.tokenBoxKey)) {
-      return await Hive.openBox<String>(CacheConstants.tokenBoxKey);
-    }
-    return Hive.box<String>(CacheConstants.tokenBoxKey);
+  Box<UserModel> userBox(HiveInterface hive) {
+    return Hive.box<UserModel>(CacheConstants.userBoxKey);
+  }
+
+  @singleton
+  Box<String> tokenBox(HiveInterface hive) {
+    return Hive.box<String>(CacheConstants.tokenBoxName);
   }
 }
