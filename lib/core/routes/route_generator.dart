@@ -8,6 +8,7 @@ import 'package:exam_app/features/auth/login/presentation/views/screens/login_sc
 import 'package:exam_app/features/auth/sign_up/presentation/cubit/sign_up_cubit.dart';
 import 'package:exam_app/features/auth/sign_up/presentation/views/screens/sign_up_screen.dart';
 import 'package:exam_app/features/home/presentation/views/screens/home_screen.dart';
+import 'package:exam_app/features/questions/presentation/views/screens/questions.dart';
 import 'package:exam_app/features/start_exam/presentation/views/screens/start_exam_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,6 +37,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) =>AllExamsScreen(),settings: settings);
       case Routes.startExam:
         return MaterialPageRoute(builder: (_) =>StartExamScreen(),settings: settings);
+      case Routes.questions:
+        return MaterialPageRoute(builder: (_) =>Questions(),settings: settings);  
       default:
         return _undefinedRoute();
     }
