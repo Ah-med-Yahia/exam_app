@@ -11,4 +11,12 @@ class IconsAssets {
   static const String exploreIcon = '$iconsPath/explore.svg';
   static const String resultIcon = '$iconsPath/result.svg';
   static const String profileIcon = '$iconsPath/profile.svg';
+  static const String timeOutIcon = '$iconsPath/time_out_icon.svg';
+}
+
+class SoundAssets {
+  static const String soundPath = 'sounds';
+  static const String selectClickSound = '$soundPath/select_click.wav';
+  static const String timeOutSound='$soundPath/time_out_sound.wav';
+
 }
