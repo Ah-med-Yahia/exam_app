@@ -39,8 +39,12 @@ import '../../features/auth/forget_password/domain/use_cases/verify_reset_code_u
 import '../../features/auth/forget_password/presentation/cubit/forget_password_cubit.dart'
     as _i231;
 import '../../features/auth/login/api/api_client/login_api_client.dart' as _i32;
+import '../../features/auth/login/api/datasources/login_local_data_source_imp.dart'
+    as _i343;
 import '../../features/auth/login/api/datasources/login_remote_data_source_impl.dart'
     as _i433;
+import '../../features/auth/login/data/datasources/login_local_data_source.dart'
+    as _i245;
 import '../../features/auth/login/data/datasources/login_remote_data_source.dart'
     as _i743;
 import '../../features/auth/login/data/repositories/login_repository_impl.dart'
@@ -138,49 +142,28 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i413.SignUpApiClient.new(gh<_i361.Dio>()),
     );
     gh.factory<_i478.ForgetPasswordApiClient>(
-      () => _i478.ForgetPasswordApiClient.new(gh<_i361.Dio>()),
+      () => _i478.ForgetPasswordApiClient(gh<_i361.Dio>()),
     );
-    gh.factory<_i32.LoginApiClient>(
-      () => _i32.LoginApiClient.new(gh<_i361.Dio>()),
-    );
-    gh.factory<_i439.ExploreTabApiClient>(
-      () => _i439.ExploreTabApiClient.new(gh<_i361.Dio>()),
-    );
-    gh.factory<_i168.StartExamApiClient>(
-      () => _i168.StartExamApiClient.new(gh<_i361.Dio>()),
-    );
-    gh.factory<_i961.GetAllExamsRemoteDataSource>(
-      () => _i12.GetAllExamsRemoteDataSourceImpl(
-        exploreTabApiClient: gh<_i439.ExploreTabApiClient>(),
-      ),
-    );
+    gh.factory<_i32.LoginApiClient>(() => _i32.LoginApiClient(gh<_i361.Dio>()));
     gh.factory<_i743.LoginRemoteDataSource>(
       () => _i433.LoginRemoteDataSourceImpl(gh<_i32.LoginApiClient>()),
     );
-    gh.factory<_i508.ExploreTabRemoteDataSource>(
-      () => _i271.ExploreTabRemoteDataSourceImpl(
-        exploreTabApiClient: gh<_i439.ExploreTabApiClient>(),
-      ),
-    );
-    gh.factory<_i176.LoginRepository>(
-      () => _i470.LoginRepositoryImpl(gh<_i743.LoginRemoteDataSource>()),
-    );
-    gh.factory<_i50.LoginUseCase>(
-      () => _i50.LoginUseCase(gh<_i176.LoginRepository>()),
-    );
-    gh.factory<_i663.StartExamRemoteDataSource>(
-      () =>
-          _i1053.StartExamRemoteDataSourceImpl(gh<_i168.StartExamApiClient>()),
-    );
-    gh.factory<_i656.ExploreTabLocalDataSource>(
-      () => _i875.ExploreTabLocalDataSourceImpl(
-        tokenBox: gh<_i979.Box<String>>(),
+    gh.singleton<_i245.LoginLocalDataSource>(
+      () => _i343.LoginLocalDataSourceImp(
+        gh<_i979.Box<_i89.UserModel>>(),
+        gh<_i979.Box<String>>(),
       ),
     );
     gh.singleton<_i885.SignUpLocalDataSourceContract>(
       () => _i138.SignUpLocalDataSourceImpl(
         gh<_i979.Box<_i89.UserModel>>(),
         gh<_i979.Box<String>>(),
+      ),
+    );
+    gh.factory<_i176.LoginRepository>(
+      () => _i470.LoginRepositoryImpl(
+        gh<_i743.LoginRemoteDataSource>(),
+        gh<_i245.LoginLocalDataSource>(),
       ),
     );
     gh.factory<_i695.StartExamLocalDataSource>(
@@ -208,6 +191,9 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i163.ForgetPasswordRemoteDataSourceImpl(
         forgetPasswordApiClient: gh<_i478.ForgetPasswordApiClient>(),
       ),
+    );
+    gh.factory<_i50.LoginUseCase>(
+      () => _i50.LoginUseCase(gh<_i176.LoginRepository>()),
     );
     gh.factory<_i126.LoginCubit>(
       () => _i126.LoginCubit(gh<_i50.LoginUseCase>()),
@@ -263,6 +249,9 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i295.VerifyResetCodeUseCase(
         forgetPasswordRepository: gh<_i974.ForgetPasswordRepository>(),
       ),
+    );
+    gh.factory<_i126.LoginCubit>(
+      () => _i126.LoginCubit(gh<_i50.LoginUseCase>()),
     );
     gh.factory<_i231.ForgetPasswordCubit>(
       () => _i231.ForgetPasswordCubit(
