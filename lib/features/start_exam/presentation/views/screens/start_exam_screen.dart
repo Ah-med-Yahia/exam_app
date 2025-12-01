@@ -4,6 +4,7 @@ import 'package:exam_app/core/resources/assets_managar.dart';
 import 'package:exam_app/core/resources/color_managar.dart';
 import 'package:exam_app/core/resources/styles_manager.dart';
 import 'package:exam_app/core/resources/values_managar.dart';
+import 'package:exam_app/core/routes/routes.dart';
 import 'package:exam_app/core/widgets/custom_elevated_button.dart';
 import 'package:exam_app/features/start_exam/presentation/cubit/start_exam_cubit.dart';
 import 'package:exam_app/features/start_exam/presentation/cubit/start_exam_events.dart';
@@ -90,7 +91,7 @@ class StartExamScreen extends StatelessWidget {
                             label: UiConstants.startText, 
                             backgroundColor: ColorManager.blue,
                             onTap:() {
-                              
+                              Navigator.pushNamed(context, Routes.questions,arguments: getExamState.data?.id);
                             },
                           )
                         ],
