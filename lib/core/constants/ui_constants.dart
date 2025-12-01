@@ -62,46 +62,12 @@ class UiConstants {
   static const String dontHaveAccount = "Don't have an account?";
   static const String loginSuccessful = "Login successful";
   static const String failedToLogin = "Failed To Login";
-  static const String forgetPasswordQuestion = "Forget Password?";
-  static const String sendingResetCodeLoadingMessage = "Sending reset code...";
-  static const String verifyingResetCodeLoadingMessage =
-      "Verifying reset code...";
-  static const String resetingPasswordLoadingMessage = "Reseting password...";
-  static const String successTitle = "Success";
-  static const String failureTitle = "Failure";
-  static const String okButton = "OK";
-  static const String email = "Email";
-  static const String emailHintText = "Enter your email";
-  static const String continueBut = "Continue";
-  static const String emailVerificationHeader = "Email verification";
-  static const String enteringResetCodeInstructionsPart1 =
-      "Please enter your code that send to your";
-  static const String enteringResetCodeInstructionsPart2 = "email address";
-  static const String receivingOTPQuestion = "Didn't receive code?";
-  static const String resendOTP = "Resend";
-  static const String resetPasswordHeader = "Reset password";
-  static const String resetPasswordInstructionsPart1 =
-      "Password must not be empty and must contain";
-  static const String resetPasswordInstructionsPart2 =
-      "6 characters with upper case letter and one";
-  static const String resetPasswordInstructionsPart3 = "number at least";
-  static const String newPasswordLabel = "New password";
-  static const String passwordHintText = "Enter your password";
-  static const String confirmPasswordLabelAndHintText = "Confirm password";
-  static const String explore = 'Explore';
-  static const String result = 'Result';
-  static const String profile = 'Profile';
-  static const String userName = 'User name';
-  static const String enterUserName = 'Enter your user name';
-  static const String firstName = 'First name';
-  static const String lastName = 'Last name';
-  static const String enterFirstName = 'Enter first name';
-  static const String enterLastName = 'Enter last name';
-  static const String confirmPassword = 'Confirm Password';
-  static const String enterConfirmPassword = 'Confirm password';
-  static const String phoneNumber = 'Phone number';
-  static const String enterPhoneNumber = 'Enter phone number';
-  static const String alreadyHaveAccount = 'Already have an account? ';
+  static const String missingExamDetails="No details found for the exam";
+  static const String instructionsHeader="Instructions";
+  static const String instructionDetail="Lorem ipsum dolor sit amet consectetur.";
+  static const String startText="Start";
+  static const String failedToSaveUser = 'Failed To Save User';
+  static const String updata = 'Update';
 }
 
 class GoogleFontsKeys {
