@@ -6,4 +6,7 @@ abstract class AnswersCheckRepository {
   Future<BaseResponse<CheckAnswersResponseEntity>> checkAnswers({
     required AnswersRequestEntity answers,
   });
+
+  Future<BaseResponse<void>> cacheAnswers(
+      String examId, CheckAnswersResponseEntity answers);
 }

@@ -4,6 +4,7 @@ import 'package:exam_app/features/questions/domain/entities/answers_request_enti
 import 'package:exam_app/features/questions/domain/entities/check_answers_response_entity.dart';
 import 'package:exam_app/features/questions/domain/entities/question_entity.dart';
 import 'package:exam_app/features/questions/domain/usecases/answers_check_use_case.dart';
+import 'package:exam_app/features/questions/domain/usecases/cache_answers_use_case.dart';
 import 'package:exam_app/features/questions/presentation/cubit/answer_cubit/answer_event.dart';
 import 'package:exam_app/features/questions/presentation/cubit/answer_cubit/answer_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,9 +12,10 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class AnswerCubit extends Cubit<AnswerState> {
-  AnswerCubit(this.answersCheckUseCase) : super(AnswerState());
+  AnswerCubit(this.answersCheckUseCase,this.cacheAnswersUseCase) : super(AnswerState());
 
   final AnswersCheckUseCase answersCheckUseCase;
+  final CacheAnswersUseCase cacheAnswersUseCase;
 
   void doIntent(AnswerEvent event) {
     switch (event) {
@@ -25,6 +27,8 @@ class AnswerCubit extends Cubit<AnswerState> {
         nextQuestion(currentQuestionIndex);
       case InitializeAnswersEvent(:final questions):
         initialAnswers(questions);
+      case CacheAnswersEvent(:final examId, :final answers):
+        cacheAnswers(examId, answers);
     }
   }
 
@@ -84,5 +88,12 @@ class AnswerCubit extends Cubit<AnswerState> {
           ),
         );
     }
+  }
+
+  void cacheAnswers(String examId, CheckAnswersResponseEntity answers) async {
+    await cacheAnswersUseCase(
+      examId: examId,
+      answers:answers,
+    );
   }
 }

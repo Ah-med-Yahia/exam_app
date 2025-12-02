@@ -1,4 +1,5 @@
 import 'package:exam_app/features/questions/domain/entities/answers_request_entity/answers_request_entity.dart';
+import 'package:exam_app/features/questions/domain/entities/check_answers_response_entity.dart';
 import 'package:exam_app/features/questions/domain/entities/question_entity.dart';
 
 sealed class AnswerEvent {}
@@ -25,4 +26,11 @@ class CalculateScoreEvent extends AnswerEvent {
 class NextQuestionEvent extends AnswerEvent {
   final int currentQuestionIndex;
   NextQuestionEvent({required this.currentQuestionIndex});
+}
+
+class CacheAnswersEvent extends AnswerEvent {
+  final String examId;
+  final CheckAnswersResponseEntity answers;
+
+  CacheAnswersEvent({required this.examId, required this.answers});
 }

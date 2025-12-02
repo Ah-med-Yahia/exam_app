@@ -77,12 +77,16 @@ import '../../features/questions/data/repositories/answers_check_repository_impl
     as _i774;
 import '../../features/questions/data/repositories/get_questions_response_repository_impl.dart'
     as _i33;
+import '../../features/questions/domain/entities/check_answers_response_entity.dart'
+    as _i776;
 import '../../features/questions/domain/repositories/answers_check_repository.dart'
     as _i168;
 import '../../features/questions/domain/repositories/get_questions_repository.dart'
     as _i390;
 import '../../features/questions/domain/usecases/answers_check_use_case.dart'
     as _i152;
+import '../../features/questions/domain/usecases/cache_answers_use_case.dart'
+    as _i954;
 import '../../features/questions/domain/usecases/get_questions_use_case.dart'
     as _i240;
 import '../../features/questions/presentation/cubit/answer_cubit/answer_cubit.dart'
@@ -147,6 +151,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i744.Box<String>>(
       () => hiveModule.tokenBox(gh<_i744.HiveInterface>()),
     );
+    gh.singleton<_i744.Box<_i776.CheckAnswersResponseEntity>>(
+      () => hiveModule.answersBox(gh<_i744.HiveInterface>()),
+    );
     gh.singleton<_i645.SignUpRemoteDataSourceContract>(
       () => _i522.SignUpRemoteDataSourceImpl(
         apiClient: gh<_i429.SignUpApiClient>(),
@@ -172,18 +179,9 @@ extension GetItInjectableX on _i174.GetIt {
         localDataSource: gh<_i885.SignUpLocalDataSourceContract>(),
       ),
     );
-    gh.singleton<_i582.GetQuestionLocalDataSource>(
-      () => _i569.GetQuestionsLocalDataSourceImpl(gh<_i979.Box<String>>()),
-    );
     gh.factory<_i129.ForgetPasswordLocalDataSource>(
       () => _i377.ForgetPasswordLocalDataSourceImpl(
         tokenBox: gh<_i979.Box<String>>(),
-      ),
-    );
-    gh.singleton<_i390.GetQuestionsRepository>(
-      () => _i33.GetQuestionsResponseRepositoryImpl(
-        remoteDataSource: gh<_i110.GetQuestionRemoteDataSource>(),
-        localDataSource: gh<_i582.GetQuestionLocalDataSource>(),
       ),
     );
     gh.factory<_i950.ForgetPasswordRemoteDataSource>(
@@ -201,9 +199,10 @@ extension GetItInjectableX on _i174.GetIt {
         apiClient: gh<_i164.CheckAnswersApiClient>(),
       ),
     );
-    gh.singleton<_i240.GetQuestionsUseCase>(
-      () => _i240.GetQuestionsUseCase(
-        repository: gh<_i390.GetQuestionsRepository>(),
+    gh.singleton<_i582.GetQuestionLocalDataSource>(
+      () => _i569.GetQuestionsLocalDataSourceImpl(
+        gh<_i979.Box<String>>(),
+        gh<_i979.Box<_i776.CheckAnswersResponseEntity>>(),
       ),
     );
     gh.singleton<_i45.SignUpUseCase>(
@@ -248,8 +247,16 @@ extension GetItInjectableX on _i174.GetIt {
         repository: gh<_i168.AnswersCheckRepository>(),
       ),
     );
-    gh.factory<_i528.GetQuestionsCubit>(
-      () => _i528.GetQuestionsCubit(gh<_i240.GetQuestionsUseCase>()),
+    gh.singleton<_i954.CacheAnswersUseCase>(
+      () => _i954.CacheAnswersUseCase(
+        repository: gh<_i168.AnswersCheckRepository>(),
+      ),
+    );
+    gh.singleton<_i390.GetQuestionsRepository>(
+      () => _i33.GetQuestionsResponseRepositoryImpl(
+        remoteDataSource: gh<_i110.GetQuestionRemoteDataSource>(),
+        localDataSource: gh<_i582.GetQuestionLocalDataSource>(),
+      ),
     );
     gh.factory<_i231.ForgetPasswordCubit>(
       () => _i231.ForgetPasswordCubit(
@@ -264,8 +271,19 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i809.SignUpCubit>(
       () => _i809.SignUpCubit(gh<_i45.SignUpUseCase>()),
     );
+    gh.singleton<_i240.GetQuestionsUseCase>(
+      () => _i240.GetQuestionsUseCase(
+        repository: gh<_i390.GetQuestionsRepository>(),
+      ),
+    );
     gh.factory<_i275.AnswerCubit>(
-      () => _i275.AnswerCubit(gh<_i152.AnswersCheckUseCase>()),
+      () => _i275.AnswerCubit(
+        gh<_i152.AnswersCheckUseCase>(),
+        gh<_i954.CacheAnswersUseCase>(),
+      ),
+    );
+    gh.factory<_i528.GetQuestionsCubit>(
+      () => _i528.GetQuestionsCubit(gh<_i240.GetQuestionsUseCase>()),
     );
     return this;
   }

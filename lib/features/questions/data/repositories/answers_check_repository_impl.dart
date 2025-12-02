@@ -43,4 +43,18 @@ class AnswersCheckRepositoryImpl implements AnswersCheckRepository {
         );
     }
   }
+
+  @override
+  Future<BaseResponse<void>> cacheAnswers(
+    String examId,
+    CheckAnswersResponseEntity answers,
+  ) async {
+    final response = await localDataSource.cacheAnswers(examId, answers);
+    switch (response) {
+      case SuccessResponse<void>():
+        return SuccessResponse<void>(data: null);
+      case ErrorResponse<void>():
+        return ErrorResponse<void>(error: response.error);
+    }
+  }
 }
