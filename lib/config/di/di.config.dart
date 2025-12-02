@@ -99,6 +99,12 @@ import '../../features/result_tab/data/data_sources/get_results_local_data_sourc
     as _i14;
 import '../../features/result_tab/data/data_sources/get_results_remote_data_source.dart'
     as _i457;
+import '../../features/result_tab/data/repositories/get_results_repository_impl.dart'
+    as _i861;
+import '../../features/result_tab/domain/repositories/get_results_history_repository.dart'
+    as _i529;
+import '../../features/result_tab/domain/usecases/get_results_history_use_case.dart'
+    as _i939;
 import '../dio_modules/dio_module.dart' as _i365;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -204,6 +210,12 @@ extension GetItInjectableX on _i174.GetIt {
       () =>
           _i45.SignUpUseCase(repository: gh<_i100.SignUpRepositoryContract>()),
     );
+    gh.singleton<_i529.GetResultsRepository>(
+      () => _i861.GetResultsRepositoryImpl(
+        remoteDataSource: gh<_i457.GetResultsRemoteDataSource>(),
+        localDataSource: gh<_i14.GetResultsLocalDataSource>(),
+      ),
+    );
     gh.singleton<_i168.AnswersCheckRepository>(
       () => _i774.AnswersCheckRepositoryImpl(
         gh<_i390.CheckAnswersRemoteDataSource>(),
@@ -245,6 +257,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i22.ResetPasswordUseCase>(),
         gh<_i295.VerifyResetCodeUseCase>(),
       ),
+    );
+    gh.singleton<_i939.GetResultsHistoryUseCase>(
+      () => _i939.GetResultsHistoryUseCase(gh<_i529.GetResultsRepository>()),
     );
     gh.singleton<_i809.SignUpCubit>(
       () => _i809.SignUpCubit(gh<_i45.SignUpUseCase>()),

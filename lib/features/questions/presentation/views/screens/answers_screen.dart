@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:exam_app/core/constants/ui_constants.dart';
 import 'package:exam_app/core/resources/color_managar.dart';
 import 'package:exam_app/core/resources/font_managar.dart';
@@ -15,10 +13,8 @@ class AnswersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log('message in  widget screen');
     Size size = MediaQuery.of(context).size;
     final args = ModalRoute.of(context)?.settings.arguments as Map;
-    log('args:$args');
     final result = args['score'] as CheckAnswersResponseEntity;
     final correctQuestions = result.correctQuestions;
     final wrongQuestions = result.wrongQuestions;
