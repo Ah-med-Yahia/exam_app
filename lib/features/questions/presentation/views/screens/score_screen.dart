@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:exam_app/core/constants/ui_constants.dart';
 import 'package:exam_app/core/resources/color_managar.dart';
 import 'package:exam_app/core/resources/font_managar.dart';
@@ -15,9 +17,9 @@ class ScoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final result =
-        ModalRoute.of(context)!.settings.arguments
-            as CheckAnswersResponseEntity;
+    log('message');
+    final args = ModalRoute.of(context)!.settings.arguments as Map;
+    final result = args['score'] as CheckAnswersResponseEntity;
     int dotIndex = result.total.indexOf('.');
     String total = result.total.substring(0, dotIndex + 3);
     return Scaffold(
@@ -129,7 +131,12 @@ class ScoreScreen extends StatelessWidget {
                 fontSize: FontSize.s16,
               ),
               backgroundColor: ColorManager.blue,
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushNamed(
+                  Routes.answers,
+                  arguments: args,
+                );
+              },
             ),
             SizedBox(height: 20.h),
             CustomElevatedButton(

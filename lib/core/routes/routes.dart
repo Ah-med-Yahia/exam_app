@@ -8,4 +8,5 @@ class Routes {
   static const String home = '/home';
   static const String questions='/questions';
   static const String score='/score';
+  static const String answers='/answers';
 }

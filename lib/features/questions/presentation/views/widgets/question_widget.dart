@@ -8,12 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class QuestionWidget extends StatelessWidget {
-  const QuestionWidget({
-    super.key,
-    required this.question,
-  });
+  const QuestionWidget({super.key, required this.question,this.child});
 
   final QuestionEntity question;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +30,7 @@ class QuestionWidget extends StatelessWidget {
           ),
           SizedBox(height: 24.h),
           Expanded(
-            child: AnswersWidget(
+            child:child?? AnswersWidget(
               answers: question.answers,
               questionId: question.id,
             ),

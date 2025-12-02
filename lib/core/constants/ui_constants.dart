@@ -75,6 +75,7 @@ class UiConstants {
   static const String showResults = 'Show results';
   static const String startAgain = 'Start again';
   static const String loading = 'Loading...';
+  static const String answers = 'Answers';
 }
 
 class GoogleFontsKeys {
