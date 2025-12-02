@@ -14,6 +14,7 @@ class ApiConstants {
   static const String checkAnswers='questions/check';
   static const String examQueryKey = 'exam';
   static const String headerTokenKey = 'token';
+  static const String userResultsHistory= 'questions/history';
 }
 
 class CacheConstants {

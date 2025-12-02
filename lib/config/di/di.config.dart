@@ -89,6 +89,16 @@ import '../../features/questions/presentation/cubit/answer_cubit/answer_cubit.da
     as _i275;
 import '../../features/questions/presentation/cubit/get_questions_cubit/get_questions_cubit.dart'
     as _i528;
+import '../../features/result_tab/api/api_client/get_results_api_client.dart'
+    as _i498;
+import '../../features/result_tab/api/data_sources/get_results_local_data_source_impl.dart'
+    as _i70;
+import '../../features/result_tab/api/data_sources/get_results_remote_data_source_impl.dart'
+    as _i826;
+import '../../features/result_tab/data/data_sources/get_results_local_data_source.dart'
+    as _i14;
+import '../../features/result_tab/data/data_sources/get_results_remote_data_source.dart'
+    as _i457;
 import '../dio_modules/dio_module.dart' as _i365;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -119,6 +129,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i254.GetQuestionsApiClient>(
       () => _i254.GetQuestionsApiClient(gh<_i361.Dio>()),
     );
+    gh.singleton<_i498.GetResultsApiClient>(
+      () => _i498.GetResultsApiClient(gh<_i361.Dio>()),
+    );
     gh.factory<_i478.ForgetPasswordApiClient>(
       () => _i478.ForgetPasswordApiClient(gh<_i361.Dio>()),
     );
@@ -137,6 +150,9 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i880.GetQuestionsRemoteDataSourcesImpl(
         apiClient: gh<_i254.GetQuestionsApiClient>(),
       ),
+    );
+    gh.singleton<_i14.GetResultsLocalDataSource>(
+      () => _i70.GetResultsLocalDataSourceImpl(gh<_i979.Box<String>>()),
     );
     gh.singleton<_i885.SignUpLocalDataSourceContract>(
       () => _i138.SignUpLocalDataSourceImpl(
@@ -167,6 +183,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i950.ForgetPasswordRemoteDataSource>(
       () => _i163.ForgetPasswordRemoteDataSourceImpl(
         forgetPasswordApiClient: gh<_i478.ForgetPasswordApiClient>(),
+      ),
+    );
+    gh.singleton<_i457.GetResultsRemoteDataSource>(
+      () => _i826.GetResultsRemoteDataSourceImpl(
+        apiClient: gh<_i498.GetResultsApiClient>(),
       ),
     );
     gh.singleton<_i390.CheckAnswersRemoteDataSource>(
