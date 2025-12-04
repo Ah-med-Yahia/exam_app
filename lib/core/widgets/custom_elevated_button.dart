@@ -33,7 +33,7 @@ class CustomElevatedButton extends StatelessWidget {
         fixedSize: size ?? Size(343.w, 48.h),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(radius ?? 100.r),
-          side: border?? BorderSide.none,
+          side: border ?? BorderSide.none,
         ),
       ),
       onPressed: onTap,
@@ -42,8 +42,8 @@ class CustomElevatedButton extends StatelessWidget {
         style: getMediumStyle(
           color: ColorManager.white,
           fontSize: Sizes.s16.sp,
-          fontFamily: GoogleFontsKeys.roboto
-        )
+          fontFamily: GoogleFontsKeys.roboto,
+        ),
       ),
     );
   }

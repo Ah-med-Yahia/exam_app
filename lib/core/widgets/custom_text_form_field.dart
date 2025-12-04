@@ -19,7 +19,6 @@ class CustomTextFormField extends StatefulWidget {
   final Widget? prefixIcon;
   final double? radius;
 
-
   const CustomTextFormField({
     super.key,
     this.label,
@@ -30,10 +29,9 @@ class CustomTextFormField extends StatefulWidget {
     this.onChanged,
     this.keyboardType = TextInputType.text,
     this.maxLines = 1,
-    this.labelColor=ColorManager.darkGrey,
+    this.labelColor = ColorManager.darkGrey,
     this.prefixIcon,
-    this.radius
-
+    this.radius,
   });
 
   @override
@@ -116,7 +114,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
 
   OutlineInputBorder _buildBorder({required Color color, double width = 1}) {
     return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(widget.radius??4.r),
+      borderRadius: BorderRadius.circular(widget.radius ?? 4.r),
       borderSide: BorderSide(color: color, width: width),
     );
   }
