@@ -30,9 +30,10 @@ class ForgetPasswordScreen extends StatelessWidget {
         builder: (context) {
           return BlocConsumer<ForgetPasswordCubit, ForgetPasswordStates>(
             buildWhen: (previous, current) {
-              return previous.forgetPasswordState!=current.forgetPasswordState ||
-              previous.hasUserInteracted!=current.hasUserInteracted ||
-              previous.isFormValid!=current.isFormValid;
+              return previous.forgetPasswordState !=
+                      current.forgetPasswordState ||
+                  previous.hasUserInteracted != current.hasUserInteracted ||
+                  previous.isFormValid != current.isFormValid;
             },
             listener: (context, state) {
               final forgotPasswordState = state.forgetPasswordState;
@@ -67,23 +68,28 @@ class ForgetPasswordScreen extends StatelessWidget {
               }
             },
             builder: (context, state) {
-              final bool hasApiError = state.forgetPasswordState?.errorMessage != null;
-              final bool hasFormError=state.hasUserInteracted==true &&
-              state.isFormValid==false;
+              final bool hasApiError =
+                  state.forgetPasswordState?.errorMessage != null;
+              final bool hasFormError =
+                  state.hasUserInteracted == true && state.isFormValid == false;
               final bool hasAnyError = hasApiError || hasFormError;
               Color labelColor;
               Color buttonColor;
-              Color borderColor; 
+              
               String? errorText;
-              if(state.hasUserInteracted==false){
-                labelColor=ColorManager.darkGrey;
-                buttonColor=ColorManager.blue;
-                borderColor=ColorManager.black;
-              }else{
-                labelColor=hasAnyError?ColorManager.red:ColorManager.darkGrey;
-                buttonColor=hasAnyError?ColorManager.grey:ColorManager.blue;
-                borderColor=hasAnyError?ColorManager.red:ColorManager.black;
-                errorText=!hasApiError?null:state.forgetPasswordState!.errorMessage!;
+              if (state.hasUserInteracted == false) {
+                labelColor = ColorManager.darkGrey;
+                buttonColor = ColorManager.blue;
+              } else {
+                labelColor = hasAnyError
+                    ? ColorManager.red
+                    : ColorManager.darkGrey;
+                buttonColor = hasAnyError
+                    ? ColorManager.grey
+                    : ColorManager.blue;
+                errorText = !hasApiError
+                    ? null
+                    : state.forgetPasswordState!.errorMessage!;
               }
               return Scaffold(
                 appBar: AppBar(
@@ -120,7 +126,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                           ),
                           SizedBox(height: Sizes.s16.h),
                           Text(
-                            UiConstants.providingEmailMessagePart1,
+                            UiConstants.providingEmailMessage,
                             style: getRegularStyle(
                               color: ColorManager.darkGrey,
                               fontFamily: GoogleFontsKeys.inter,
@@ -136,34 +142,61 @@ class ForgetPasswordScreen extends StatelessWidget {
                           SizedBox(height: Sizes.s24.h),
                           CustomTextFormField(
                             controller: _emailController,
-                            borderColor: borderColor,
-                            label: UiConstants.emailLabel,
+                            label: UiConstants.email,
                             labelColor: labelColor,
                             hintText: UiConstants.emailHintText,
                             validator: Validator.validateEmail,
                             keyboardType: TextInputType.emailAddress,
                             onChanged: (value) {
-                              if(state.forgetPasswordState?.errorMessage!=null){
-                                context.read<ForgetPasswordCubit>().doIntent(ClearForgetPasswordStateEvent(), null, null, null);
+                              if (state.forgetPasswordState?.errorMessage !=
+                                  null) {
+                                context.read<ForgetPasswordCubit>().doIntent(
+                                  ClearForgetPasswordStateEvent(),
+                                  null,
+                                  null,
+                                  null,
+                                );
                               }
-                              if(state.isFormValid==false){
-                                context.read<ForgetPasswordCubit>().doIntent(RefreshFormEvent(), null, null, null);
+                              if (state.isFormValid == false) {
+                                context.read<ForgetPasswordCubit>().doIntent(
+                                  RefreshFormEvent(),
+                                  null,
+                                  null,
+                                  null,
+                                );
                               }
                             },
                           ),
-                          if(errorText!=null) ...[
+                          if (errorText != null) ...[
                             SizedBox(height: Sizes.s8.h),
-                            Text(errorText,style: getRegularStyle(color: ColorManager.red,fontSize: Sizes.s13.sp,),),
+                            Text(
+                              errorText,
+                              style: getRegularStyle(
+                                color: ColorManager.red,
+                                fontSize: Sizes.s13.sp,
+                              ),
+                            ),
                           ],
                           SizedBox(height: Sizes.s48.h),
                           CustomElevatedButton(
                             label: UiConstants.continueBut,
                             backgroundColor: buttonColor,
                             onTap: () {
-                              if(state.hasUserInteracted==false){
-                                final bool isValid=_formKey.currentState?.validate()==true;
-                                context.read<ForgetPasswordCubit>().doIntent(UserInteractedEvent(), null, null, null);
-                                context.read<ForgetPasswordCubit>().doIntent(UpdateFormValidationEvent(isValid: isValid), null, null, null);
+                              if (state.hasUserInteracted == false) {
+                                final bool isValid =
+                                    _formKey.currentState?.validate() == true;
+                                context.read<ForgetPasswordCubit>().doIntent(
+                                  UserInteractedEvent(),
+                                  null,
+                                  null,
+                                  null,
+                                );
+                                context.read<ForgetPasswordCubit>().doIntent(
+                                  UpdateFormValidationEvent(isValid: isValid),
+                                  null,
+                                  null,
+                                  null,
+                                );
                               }
                               if (_formKey.currentState?.validate() == true) {
                                 final viewModel = context

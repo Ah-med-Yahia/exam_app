@@ -139,7 +139,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SizedBox(height: 16.h),
                 CustomTextFormField(
                   label: UiConstants.email,
-                  hintText: UiConstants.enterEmail,
+                  hintText: UiConstants.emailHintText,
                   controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {

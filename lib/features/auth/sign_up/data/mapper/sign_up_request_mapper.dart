@@ -5,7 +5,7 @@ extension SignUpRequestMapper on SignUpRequestEntity {
   SignUpRequestModel toModel() => SignUpRequestModel(
         email: email,
         password: password,
-        firstName: firstName,
+        firstName: firstName, 
         lastName: lastName,
         phone: phone,
         rePassword: rePassword,

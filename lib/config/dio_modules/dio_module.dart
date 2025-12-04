@@ -20,6 +20,7 @@ abstract class SharedPrefModule {
   Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
 }
 
+
 @module
 abstract class HiveModule {
   @preResolve

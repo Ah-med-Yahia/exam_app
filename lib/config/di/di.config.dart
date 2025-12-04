@@ -1,5 +1,5 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format width=80
+// GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
 // InjectableConfigGenerator
@@ -38,6 +38,21 @@ import '../../features/auth/forget_password/domain/use_cases/verify_reset_code_u
     as _i295;
 import '../../features/auth/forget_password/presentation/cubit/forget_password_cubit.dart'
     as _i231;
+import '../../features/auth/login/api/api_client/login_api_client.dart' as _i32;
+import '../../features/auth/login/api/datasources/login_local_data_source_imp.dart'
+    as _i343;
+import '../../features/auth/login/api/datasources/login_remote_data_source_impl.dart'
+    as _i433;
+import '../../features/auth/login/data/datasources/login_local_data_source.dart'
+    as _i245;
+import '../../features/auth/login/data/datasources/login_remote_data_source.dart'
+    as _i743;
+import '../../features/auth/login/data/repositories/login_repository_impl.dart'
+    as _i470;
+import '../../features/auth/login/domain/repositories/login_repository.dart'
+    as _i176;
+import '../../features/auth/login/domain/use_cases/login_use_case.dart' as _i50;
+import '../../features/auth/login/presentation/cubit/login_cubit.dart' as _i126;
 import '../../features/auth/sign_up/api/api_client/sign_up_api_client.dart'
     as _i429;
 import '../../features/auth/sign_up/api/datasources/sign_up_local_data_source_impl.dart'
@@ -57,6 +72,48 @@ import '../../features/auth/sign_up/domain/use_cases/sign_up_use_case.dart'
     as _i45;
 import '../../features/auth/sign_up/presentation/cubit/sign_up_cubit.dart'
     as _i809;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/api/api_client/explore_tab_api_client.dart'
+    as _i439;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/api/datasources/explore_tab_local_data_source_impl.dart'
+    as _i875;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/api/datasources/explore_tab_remote_data_source_impl.dart'
+    as _i271;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/api/datasources/get_all_exams_remote_data_source_impl.dart'
+    as _i12;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/data/datasources/explore_tab_local_data_source.dart'
+    as _i656;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/data/datasources/explore_tab_remote_data_source.dart'
+    as _i508;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/data/datasources/get_all_exams_remote_data_source.dart'
+    as _i961;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/data/repositories/explore_tab_repository_impl.dart'
+    as _i393;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/domain/repositories/explore_tab_repository.dart'
+    as _i762;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/domain/use_cases/get_all_exams_use_case.dart'
+    as _i1007;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/domain/use_cases/get_all_subjects_use_case.dart'
+    as _i120;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/presentation/cubit/explore_tab_cubit.dart'
+    as _i695;
+import '../../features/start_exam/api/api_client/start_exam_api_client.dart'
+    as _i168;
+import '../../features/start_exam/api/datasources/start_exam_local_data_source_impl.dart'
+    as _i971;
+import '../../features/start_exam/api/datasources/start_exam_remote_data_source_impl.dart'
+    as _i1053;
+import '../../features/start_exam/data/datasources/start_exam_local_data_source.dart'
+    as _i695;
+import '../../features/start_exam/data/datasources/start_exam_remote_data_source.dart'
+    as _i663;
+import '../../features/start_exam/data/repositories/start_exam_repository_impl.dart'
+    as _i12;
+import '../../features/start_exam/domain/repositories/start_exam_repository.dart'
+    as _i420;
+import '../../features/start_exam/domain/use_cases/start_exam_use_case.dart'
+    as _i200;
+import '../../features/start_exam/presentation/cubit/start_exam_cubit.dart'
+    as _i521;
 import '../../features/questions/api/api_client/check_answers/check_answers_api_client.dart'
     as _i164;
 import '../../features/questions/api/api_client/get_questions_api_client/questions_api_client.dart'
@@ -142,7 +199,7 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i254.GetQuestionsApiClient(gh<_i361.Dio>()),
     );
     gh.singleton<_i498.GetResultsApiClient>(
-      () => _i498.GetResultsApiClient(gh<_i361.Dio>()),
+      () => _i498.GetResultsApiClient.new(gh<_i361.Dio>()),
     );
     gh.factory<_i478.ForgetPasswordApiClient>(
       () => _i478.ForgetPasswordApiClient(gh<_i361.Dio>()),
@@ -173,6 +230,23 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i138.SignUpLocalDataSourceImpl(
         gh<_i979.Box<_i89.UserModel>>(),
         gh<_i979.Box<String>>(),
+      ),
+    );
+    gh.factory<_i695.StartExamLocalDataSource>(
+      () =>
+          _i971.StartExamLocalDataSourceImpl(tokenBox: gh<_i979.Box<String>>()),
+    );
+    gh.factory<_i762.ExploreTabRepository>(
+      () => _i393.ExploreTabRepositoryImpl(
+        gh<_i508.ExploreTabRemoteDataSource>(),
+        gh<_i656.ExploreTabLocalDataSource>(),
+        gh<_i961.GetAllExamsRemoteDataSource>(),
+      ),
+    );
+    gh.factory<_i176.LoginRepository>(
+      () => _i470.LoginRepositoryImpl(
+        gh<_i743.LoginRemoteDataSource>(),
+        gh<_i245.LoginLocalDataSource>(),
       ),
     );
     gh.singleton<_i100.SignUpRepositoryContract>(
@@ -210,6 +284,25 @@ extension GetItInjectableX on _i174.GetIt {
         forgetPasswordApiClient: gh<_i478.ForgetPasswordApiClient>(),
       ),
     );
+    gh.factory<_i1007.GetAllExamsUseCase>(
+      () => _i1007.GetAllExamsUseCase(
+        exploreTabRepository: gh<_i762.ExploreTabRepository>(),
+      ),
+    );
+    gh.factory<_i120.GetAllSubjectsUseCase>(
+      () => _i120.GetAllSubjectsUseCase(
+        exploreTabRepository: gh<_i762.ExploreTabRepository>(),
+      ),
+    );
+    gh.factory<_i695.ExploreTabCubit>(
+      () => _i695.ExploreTabCubit(
+        gh<_i120.GetAllSubjectsUseCase>(),
+        gh<_i1007.GetAllExamsUseCase>(),
+      ),
+    );
+    gh.factory<_i50.LoginUseCase>(
+      () => _i50.LoginUseCase(gh<_i176.LoginRepository>()),
+    );
     gh.singleton<_i457.GetResultsRemoteDataSource>(
       () => _i826.GetResultsRemoteDataSourceImpl(
         apiClient: gh<_i498.GetResultsApiClient>(),
@@ -241,11 +334,20 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i582.GetQuestionLocalDataSource>(),
       ),
     );
+    gh.factory<_i420.StartExamRepository>(
+      () => _i12.StartExamRepositoryImpl(
+        gh<_i695.StartExamLocalDataSource>(),
+        gh<_i663.StartExamRemoteDataSource>(),
+      ),
+    );
     gh.factory<_i974.ForgetPasswordRepository>(
       () => _i584.ForgetPasswordRepositoryImpl(
         remoteDataSource: gh<_i950.ForgetPasswordRemoteDataSource>(),
         localDataSource: gh<_i129.ForgetPasswordLocalDataSource>(),
       ),
+    );
+    gh.factory<_i200.StartExamUseCase>(
+      () => _i200.StartExamUseCase(gh<_i420.StartExamRepository>()),
     );
     gh.factory<_i913.ForgetPasswordUseCase>(
       () => _i913.ForgetPasswordUseCase(
@@ -261,6 +363,9 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i295.VerifyResetCodeUseCase(
         forgetPasswordRepository: gh<_i974.ForgetPasswordRepository>(),
       ),
+    );
+    gh.factory<_i126.LoginCubit>(
+      () => _i126.LoginCubit(gh<_i50.LoginUseCase>()),
     );
     gh.singleton<_i152.AnswersCheckUseCase>(
       () => _i152.AnswersCheckUseCase(
@@ -281,6 +386,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i22.ResetPasswordUseCase>(),
         gh<_i295.VerifyResetCodeUseCase>(),
       ),
+    );
+    gh.factory<_i521.StartExamCubit>(
+      () => _i521.StartExamCubit(gh<_i200.StartExamUseCase>()),
     );
     gh.singleton<_i224.GetExamsIdsHistoryUseCase>(
       () => _i224.GetExamsIdsHistoryUseCase(gh<_i529.GetResultsRepository>()),

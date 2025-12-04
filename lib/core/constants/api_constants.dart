@@ -15,12 +15,13 @@ class ApiConstants {
   static const String examQueryKey = 'exam';
   static const String headerTokenKey = 'token';
   static const String userResultsHistory = 'questions/history';
+  static const String gettingAllSubjectsEndPoint='subjects';
+  static const String gettingAllExamsEndPoint='exams';
 }
 
 class CacheConstants {
   static const String tokenKey = 'token';
   static const String tokenBoxName = 'tokenBox';
-
   static const String userBoxName = 'userBox';
   static const String currentUserKey = 'currentUser';
   static const String answersBoxName = 'answersBox';

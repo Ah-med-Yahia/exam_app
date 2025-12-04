@@ -1,5 +1,6 @@
 class ImageAssets {
   static const String imagePath = 'assets/images';
+  static const String examImage='$imagePath/exam_image.png';
 }
 
 class SvgAssets {

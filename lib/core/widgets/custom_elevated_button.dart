@@ -1,5 +1,7 @@
+import 'package:exam_app/core/constants/ui_constants.dart';
 import 'package:exam_app/core/resources/color_managar.dart';
-import 'package:exam_app/core/resources/font_managar.dart';
+import 'package:exam_app/core/resources/styles_manager.dart';
+import 'package:exam_app/core/resources/values_managar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -37,11 +39,11 @@ class CustomElevatedButton extends StatelessWidget {
       onPressed: onTap,
       child: Text(
         label,
-        style:labelStyle?? TextStyle(
+        style: getMediumStyle(
           color: ColorManager.white,
-          fontWeight: FontWeightManager.medium,
-          fontSize: FontSize.s16,
-        ),
+          fontSize: Sizes.s16.sp,
+          fontFamily: GoogleFontsKeys.roboto
+        )
       ),
     );
   }
