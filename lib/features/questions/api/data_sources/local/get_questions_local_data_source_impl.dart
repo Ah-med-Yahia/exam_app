@@ -12,7 +12,8 @@ import 'package:injectable/injectable.dart';
 class GetQuestionsLocalDataSourceImpl implements GetQuestionLocalDataSource {
   final Box<String> tokenBox;
   final Box<CheckAnswersResponseEntity> answersBox;
-  GetQuestionsLocalDataSourceImpl(this.tokenBox, this.answersBox);
+  final Box<List<String>> examesBox;
+  GetQuestionsLocalDataSourceImpl(this.tokenBox, this.answersBox,this.examesBox);
   @override
   BaseResponse<String> getToken() {
     try {
@@ -36,6 +37,10 @@ class GetQuestionsLocalDataSourceImpl implements GetQuestionLocalDataSource {
   ) async {
     try {
       await answersBox.put(examId, answers);
+      await examesBox.put(
+        CacheConstants.cachedExamsKey,
+        [...?examesBox.get(CacheConstants.cachedExamsKey), examId],
+      );
       return SuccessResponse<void>(data: null);
     } catch (e) {
       log('e cache answers local: ${e.toString()}');

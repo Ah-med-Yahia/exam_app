@@ -24,4 +24,6 @@ class CacheConstants {
   static const String userBoxName = 'userBox';
   static const String currentUserKey = 'currentUser';
   static const String answersBoxName = 'answersBox';
+  static const String examesBoxName = 'examesBox';
+  static const String cachedExamsKey = 'cachedExams';
 }

@@ -8,7 +8,8 @@ import 'package:injectable/injectable.dart';
 @Singleton(as: GetResultsLocalDataSource)
 class GetResultsLocalDataSourceImpl implements GetResultsLocalDataSource {
   final Box<String> tokenBox;
-  GetResultsLocalDataSourceImpl(this.tokenBox);
+  final Box<List<String>> examsBox;
+  GetResultsLocalDataSourceImpl(this.tokenBox, this.examsBox);
   @override
   BaseResponse<String> getToken() {
     try {
@@ -21,6 +22,22 @@ class GetResultsLocalDataSourceImpl implements GetResultsLocalDataSource {
     } catch (e) {
       return ErrorResponse<String>(
         error: LocalException(message: 'Failed to get token locally'),
+      );
+    }
+  }
+  
+  @override
+  BaseResponse<List<String>> getExamsIdsHistory() {
+    try {
+      final examsIds = examsBox.get(CacheConstants.cachedExamsKey);
+      if (examsIds == null) {
+        throw (Exception());
+      } else {
+        return SuccessResponse<List<String>>(data: examsIds);
+      }
+    } catch (e) {
+      return ErrorResponse<List<String>>(
+        error: LocalException(message: 'Failed to get exams history locally'),
       );
     }
   }

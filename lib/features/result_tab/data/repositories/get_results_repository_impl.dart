@@ -16,7 +16,8 @@ class GetResultsRepositoryImpl implements GetResultsRepository {
     required this.localDataSource,
   });
   @override
-  Future<BaseResponse<GetResultsHistoryResponseEntity>> getResultsHistory() async {
+  Future<BaseResponse<GetResultsHistoryResponseEntity>>
+  getResultsHistory() async {
     final tokenResponse = localDataSource.getToken();
     switch (tokenResponse) {
       case SuccessResponse<String>():
@@ -37,6 +38,17 @@ class GetResultsRepositoryImpl implements GetResultsRepository {
         return ErrorResponse<GetResultsHistoryResponseEntity>(
           error: tokenResponse.error,
         );
+    }
+  }
+
+  @override
+  BaseResponse<List<String>> getExamsIdHistory() {
+    final response = localDataSource.getExamsIdsHistory();
+    switch (response) {
+      case SuccessResponse<List<String>>():
+        return SuccessResponse<List<String>>(data: response.data);
+      case ErrorResponse<List<String>>():
+        return ErrorResponse<List<String>>(error: response.error);
     }
   }
 }

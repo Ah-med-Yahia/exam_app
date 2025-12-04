@@ -36,6 +36,7 @@ abstract class HiveModule {
     await Hive.openBox<CheckAnswersResponseEntity>(
       CacheConstants.answersBoxName,
     );
+    await Hive.openBox<List<String>>(CacheConstants.examesBoxName);
 
     return Hive;
   }
@@ -53,5 +54,10 @@ abstract class HiveModule {
   @singleton
   Box<CheckAnswersResponseEntity> answersBox(HiveInterface hive) {
     return Hive.box<CheckAnswersResponseEntity>(CacheConstants.answersBoxName);
+  }
+
+  @singleton
+  Box<List<String>> examesBox(HiveInterface hive) {
+    return Hive.box<List<String>>(CacheConstants.examesBoxName);
   }
 }
