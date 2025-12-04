@@ -3,4 +3,6 @@ import 'package:exam_app/features/result_tab/domain/entities/get_results_history
 
 abstract class GetResultsRepository {
   Future<BaseResponse<GetResultsHistoryResponseEntity>> getResultsHistory();
+
+  BaseResponse<List<String>> getExamsIdHistory();
 }
