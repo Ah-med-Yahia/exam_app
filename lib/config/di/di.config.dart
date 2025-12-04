@@ -107,6 +107,8 @@ import '../../features/result_tab/data/repositories/get_results_repository_impl.
     as _i861;
 import '../../features/result_tab/domain/repositories/get_results_history_repository.dart'
     as _i529;
+import '../../features/result_tab/domain/usecases/get_exams_ids_history.dart'
+    as _i224;
 import '../../features/result_tab/domain/usecases/get_results_history_use_case.dart'
     as _i939;
 import '../dio_modules/dio_module.dart' as _i365;
@@ -154,6 +156,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i744.Box<_i776.CheckAnswersResponseEntity>>(
       () => hiveModule.answersBox(gh<_i744.HiveInterface>()),
     );
+    gh.singleton<_i744.Box<List<String>>>(
+      () => hiveModule.examesBox(gh<_i744.HiveInterface>()),
+    );
     gh.singleton<_i645.SignUpRemoteDataSourceContract>(
       () => _i522.SignUpRemoteDataSourceImpl(
         apiClient: gh<_i429.SignUpApiClient>(),
@@ -163,9 +168,6 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i880.GetQuestionsRemoteDataSourcesImpl(
         apiClient: gh<_i254.GetQuestionsApiClient>(),
       ),
-    );
-    gh.singleton<_i14.GetResultsLocalDataSource>(
-      () => _i70.GetResultsLocalDataSourceImpl(gh<_i979.Box<String>>()),
     );
     gh.singleton<_i885.SignUpLocalDataSourceContract>(
       () => _i138.SignUpLocalDataSourceImpl(
@@ -179,9 +181,28 @@ extension GetItInjectableX on _i174.GetIt {
         localDataSource: gh<_i885.SignUpLocalDataSourceContract>(),
       ),
     );
+    gh.singleton<_i582.GetQuestionLocalDataSource>(
+      () => _i569.GetQuestionsLocalDataSourceImpl(
+        gh<_i979.Box<String>>(),
+        gh<_i979.Box<_i776.CheckAnswersResponseEntity>>(),
+        gh<_i979.Box<List<String>>>(),
+      ),
+    );
     gh.factory<_i129.ForgetPasswordLocalDataSource>(
       () => _i377.ForgetPasswordLocalDataSourceImpl(
         tokenBox: gh<_i979.Box<String>>(),
+      ),
+    );
+    gh.singleton<_i390.GetQuestionsRepository>(
+      () => _i33.GetQuestionsResponseRepositoryImpl(
+        remoteDataSource: gh<_i110.GetQuestionRemoteDataSource>(),
+        localDataSource: gh<_i582.GetQuestionLocalDataSource>(),
+      ),
+    );
+    gh.singleton<_i14.GetResultsLocalDataSource>(
+      () => _i70.GetResultsLocalDataSourceImpl(
+        gh<_i979.Box<String>>(),
+        gh<_i979.Box<List<String>>>(),
       ),
     );
     gh.factory<_i950.ForgetPasswordRemoteDataSource>(
@@ -199,10 +220,9 @@ extension GetItInjectableX on _i174.GetIt {
         apiClient: gh<_i164.CheckAnswersApiClient>(),
       ),
     );
-    gh.singleton<_i582.GetQuestionLocalDataSource>(
-      () => _i569.GetQuestionsLocalDataSourceImpl(
-        gh<_i979.Box<String>>(),
-        gh<_i979.Box<_i776.CheckAnswersResponseEntity>>(),
+    gh.singleton<_i240.GetQuestionsUseCase>(
+      () => _i240.GetQuestionsUseCase(
+        repository: gh<_i390.GetQuestionsRepository>(),
       ),
     );
     gh.singleton<_i45.SignUpUseCase>(
@@ -252,11 +272,8 @@ extension GetItInjectableX on _i174.GetIt {
         repository: gh<_i168.AnswersCheckRepository>(),
       ),
     );
-    gh.singleton<_i390.GetQuestionsRepository>(
-      () => _i33.GetQuestionsResponseRepositoryImpl(
-        remoteDataSource: gh<_i110.GetQuestionRemoteDataSource>(),
-        localDataSource: gh<_i582.GetQuestionLocalDataSource>(),
-      ),
+    gh.factory<_i528.GetQuestionsCubit>(
+      () => _i528.GetQuestionsCubit(gh<_i240.GetQuestionsUseCase>()),
     );
     gh.factory<_i231.ForgetPasswordCubit>(
       () => _i231.ForgetPasswordCubit(
@@ -265,25 +282,20 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i295.VerifyResetCodeUseCase>(),
       ),
     );
+    gh.singleton<_i224.GetExamsIdsHistoryUseCase>(
+      () => _i224.GetExamsIdsHistoryUseCase(gh<_i529.GetResultsRepository>()),
+    );
     gh.singleton<_i939.GetResultsHistoryUseCase>(
       () => _i939.GetResultsHistoryUseCase(gh<_i529.GetResultsRepository>()),
     );
     gh.singleton<_i809.SignUpCubit>(
       () => _i809.SignUpCubit(gh<_i45.SignUpUseCase>()),
     );
-    gh.singleton<_i240.GetQuestionsUseCase>(
-      () => _i240.GetQuestionsUseCase(
-        repository: gh<_i390.GetQuestionsRepository>(),
-      ),
-    );
     gh.factory<_i275.AnswerCubit>(
       () => _i275.AnswerCubit(
         gh<_i152.AnswersCheckUseCase>(),
         gh<_i954.CacheAnswersUseCase>(),
       ),
-    );
-    gh.factory<_i528.GetQuestionsCubit>(
-      () => _i528.GetQuestionsCubit(gh<_i240.GetQuestionsUseCase>()),
     );
     return this;
   }
