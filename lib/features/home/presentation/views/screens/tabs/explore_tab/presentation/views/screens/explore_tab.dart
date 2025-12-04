@@ -13,10 +13,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ExploreTab extends StatelessWidget {
-  ExploreTab({super.key});
+class ExploreTab extends StatefulWidget {
+  const ExploreTab({super.key});
+
+  @override
+  State<ExploreTab> createState() => _ExploreTabState();
+}
+
+class _ExploreTabState extends State<ExploreTab> {
   final ExploreTabCubit cubit=getIt<ExploreTabCubit>();
+
   final TextEditingController _searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ExploreTabCubit>(
@@ -81,6 +89,7 @@ class ExploreTab extends StatelessWidget {
       ),
     );
   }
+
   Widget _buildSearchField(){
     return BlocBuilder<ExploreTabCubit,ExploreTabStates>(
       builder: (context, state) {

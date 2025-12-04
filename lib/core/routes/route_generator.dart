@@ -8,14 +8,17 @@ import 'package:exam_app/features/auth/login/presentation/views/screens/login_sc
 import 'package:exam_app/features/auth/sign_up/presentation/cubit/sign_up_cubit.dart';
 import 'package:exam_app/features/auth/sign_up/presentation/views/screens/sign_up_screen.dart';
 import 'package:exam_app/features/home/presentation/views/screens/home_screen.dart';
-import 'package:exam_app/features/questions/presentation/views/screens/questions.dart';
+import 'package:exam_app/features/questions/presentation/cubit/answer_cubit/answer_cubit.dart';
+import 'package:exam_app/features/questions/presentation/cubit/get_questions_cubit/get_questions_cubit.dart';
+import 'package:exam_app/features/questions/presentation/views/screens/answers_screen.dart';
+import 'package:exam_app/features/questions/presentation/views/screens/questions_screen.dart';
+import 'package:exam_app/features/questions/presentation/views/screens/score_screen.dart';
 import 'package:exam_app/features/start_exam/presentation/views/screens/start_exam_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
     switch (settings.name) {
-
       case Routes.signUp:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
@@ -24,21 +27,52 @@ class RouteGenerator {
           ),
         );
       case Routes.login:
-        return MaterialPageRoute(builder: (_) => const LoginScreen(),settings: settings);
+        return MaterialPageRoute(
+          builder: (_) => const LoginScreen(),
+          settings: settings,
+        );
       case Routes.forgetPassword:
-        return MaterialPageRoute(builder: (_) => ForgetPasswordScreen(),settings: settings);
+        return MaterialPageRoute(
+          builder: (_) => ForgetPasswordScreen(),
+          settings: settings,
+        );
       case Routes.verifyResetCode:
-        return MaterialPageRoute(builder: (_) => VerifyResetCodeScreen(),settings: settings);
+        return MaterialPageRoute(
+          builder: (_) => VerifyResetCodeScreen(),
+          settings: settings,
+        );
       case Routes.resetPassword:
-        return MaterialPageRoute(builder: (_) =>ResetPasswordScreen(),settings: settings);    
+        return MaterialPageRoute(
+          builder: (_) => ResetPasswordScreen(),
+          settings: settings,
+        );
       case Routes.home:
         return MaterialPageRoute(builder: (_) => const HomeScreen());
+      case Routes.questions:
+        return MaterialPageRoute(
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => getIt.get<GetQuestionsCubit>()),
+              BlocProvider(create: (context) => getIt.get<AnswerCubit>()),
+            ],
+            child: const QuestionsScreen(),
+          ),
+          settings: settings,
+        );
+      case Routes.score:
+        return MaterialPageRoute(
+          builder: (_) => const ScoreScreen(),
+          settings: settings,
+        );
+      case Routes.answers:
+        return MaterialPageRoute(
+          builder: (_) => const AnswersScreen(),
+          settings: settings,
+        );
       case Routes.allExams:
         return MaterialPageRoute(builder: (_) =>AllExamsScreen(),settings: settings);
       case Routes.startExam:
-        return MaterialPageRoute(builder: (_) =>StartExamScreen(),settings: settings);
-      case Routes.questions:
-        return MaterialPageRoute(builder: (_) =>Questions(),settings: settings);  
+        return MaterialPageRoute(builder: (_) =>StartExamScreen(),settings: settings); 
       default:
         return _undefinedRoute();
     }

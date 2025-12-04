@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:exam_app/core/constants/api_constants.dart';
 import 'package:exam_app/features/auth/sign_up/data/models/user_adapter.dart';
 import 'package:exam_app/features/auth/sign_up/data/models/user_model.dart';
+import 'package:exam_app/features/questions/domain/entities/check_answers_response_entity.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,19 +25,40 @@ abstract class SharedPrefModule {
 abstract class HiveModule {
   @preResolve
   @singleton
-  Future<Box<UserModel>> get userBox async {
+  Future<HiveInterface> initHive() async {
     await Hive.initFlutter();
     Hive.registerAdapter(UserAdapter());
-    return await Hive.openBox<UserModel>(CacheConstants.userBoxKey);
+    Hive.registerAdapter(CheckAnswersResponseEntityAdapter());
+    Hive.registerAdapter(WrongQuestionEntityAdapter());
+    Hive.registerAdapter(CorrectQuestionEntityAdapter());
+
+    await Hive.openBox<UserModel>(CacheConstants.userBoxName);
+    await Hive.openBox<String>(CacheConstants.tokenBoxName);
+    await Hive.openBox<CheckAnswersResponseEntity>(
+      CacheConstants.answersBoxName,
+    );
+    await Hive.openBox<List<String>>(CacheConstants.examesBoxName);
+
+    return Hive;
   }
 
-  @preResolve
   @singleton
-  Future<Box<String>> get tokenBox async {
-    await Hive.initFlutter();
-    if (!Hive.isBoxOpen(CacheConstants.tokenBoxKey)) {
-      return await Hive.openBox<String>(CacheConstants.tokenBoxKey);
-    }
-    return Hive.box<String>(CacheConstants.tokenBoxKey);
+  Box<UserModel> userBox(HiveInterface hive) {
+    return Hive.box<UserModel>(CacheConstants.userBoxName);
+  }
+
+  @singleton
+  Box<String> tokenBox(HiveInterface hive) {
+    return Hive.box<String>(CacheConstants.tokenBoxName);
+  }
+
+  @singleton
+  Box<CheckAnswersResponseEntity> answersBox(HiveInterface hive) {
+    return Hive.box<CheckAnswersResponseEntity>(CacheConstants.answersBoxName);
+  }
+
+  @singleton
+  Box<List<String>> examesBox(HiveInterface hive) {
+    return Hive.box<List<String>>(CacheConstants.examesBoxName);
   }
 }

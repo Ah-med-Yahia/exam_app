@@ -9,12 +9,20 @@ class CustomElevatedButton extends StatelessWidget {
   final String label;
   final Color backgroundColor;
   final VoidCallback? onTap;
+  final double? radius;
+  final Size? size;
+  final TextStyle? labelStyle;
+  final BorderSide? border;
 
   const CustomElevatedButton({
     super.key,
     required this.label,
     required this.backgroundColor,
     required this.onTap,
+    this.radius,
+    this.size,
+    this.labelStyle,
+    this.border,
   });
 
   @override
@@ -22,8 +30,11 @@ class CustomElevatedButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: backgroundColor,
-        fixedSize: Size(343.w, 48.h),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.r)),
+        fixedSize: size ?? Size(343.w, 48.h),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(radius ?? 100.r),
+          side: border ?? BorderSide.none,
+        ),
       ),
       onPressed: onTap,
       child: Text(
@@ -31,8 +42,8 @@ class CustomElevatedButton extends StatelessWidget {
         style: getMediumStyle(
           color: ColorManager.white,
           fontSize: Sizes.s16.sp,
-          fontFamily: GoogleFontsKeys.roboto
-        )
+          fontFamily: GoogleFontsKeys.roboto,
+        ),
       ),
     );
   }

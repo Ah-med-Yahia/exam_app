@@ -4,7 +4,7 @@ import 'package:exam_app/core/resources/color_managar.dart';
 import 'package:exam_app/features/home/presentation/views/screens/tabs/explore_tab/presentation/views/screens/explore_tab.dart';
 import 'package:exam_app/features/home/presentation/views/widgets/nav_bar_icon.dart';
 import 'package:exam_app/features/home/presentation/views/screens/tabs/profile_tab/presentation/profile_tab.dart';
-import 'package:exam_app/features/home/presentation/views/screens/tabs/result_tab/presentation/result_tab.dart';
+import 'package:exam_app/features/result_tab/presentation/views/results_tab.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,8 +19,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Widget> tabs = [
     ExploreTab(),
-    const ResultTab(),
-     ProfileTab(),
+    const ResultsTab(),
+    const ProfileTab(),
   ];
 
   @override

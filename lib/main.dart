@@ -4,6 +4,7 @@ import 'package:exam_app/core/routes/routes.dart';
 import 'package:exam_app/core/utils/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,9 +25,10 @@ class ExamApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           onGenerateRoute: RouteGenerator.getRoute,
-          initialRoute: Routes.signUp,
+          initialRoute: Routes.questions,
           theme: AppTheme.lightTheme,
           themeMode: ThemeMode.light,
+          builder: EasyLoading.init(),
         );
       },
     );
