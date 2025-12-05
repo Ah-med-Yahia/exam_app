@@ -83,6 +83,16 @@ import '../../features/profile_tab/domain/repositories/edit_profile_repository.d
     as _i724;
 import '../../features/profile_tab/domain/use_cases/edit_profile_use_case.dart'
     as _i550;
+import '../../features/profile_tab/features/change_password/api/api_client/change_password_api_client.dart'
+    as _i295;
+import '../../features/profile_tab/features/change_password/api/data_sources/change_password_data_source_impl.dart'
+    as _i1051;
+import '../../features/profile_tab/features/change_password/data/datasources/change_password_data_source.dart'
+    as _i321;
+import '../../features/profile_tab/features/change_password/data/repositories/change_password_repository_impl.dart'
+    as _i919;
+import '../../features/profile_tab/features/change_password/domain/repositories/change_passwprd_repository.dart'
+    as _i1045;
 import '../../features/profile_tab/presentation/cubit/edit_profile_cubit.dart'
     as _i520;
 import '../dio_modules/dio_module.dart' as _i365;
@@ -120,6 +130,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i761.EditProfileApiClient>(
       () => _i761.EditProfileApiClient(gh<_i361.Dio>()),
     );
+    gh.factory<_i295.ChangePasswordApiClient>(
+      () => _i295.ChangePasswordApiClient(gh<_i361.Dio>()),
+    );
     gh.factory<_i743.LoginRemoteDataSource>(
       () => _i433.LoginRemoteDataSourceImpl(gh<_i32.LoginApiClient>()),
     );
@@ -154,6 +167,11 @@ extension GetItInjectableX on _i174.GetIt {
         apiClient: gh<_i413.SignUpApiClient>(),
       ),
     );
+    gh.factory<_i321.ChangePasswordDataSource>(
+      () => _i1051.ChangePasswordDataSourceImpl(
+        gh<_i295.ChangePasswordApiClient>(),
+      ),
+    );
     gh.factory<_i950.ForgetPasswordRemoteDataSource>(
       () => _i163.ForgetPasswordRemoteDataSourceImpl(
         forgetPasswordApiClient: gh<_i478.ForgetPasswordApiClient>(),
@@ -175,6 +193,11 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i584.ForgetPasswordRepositoryImpl(
         remoteDataSource: gh<_i950.ForgetPasswordRemoteDataSource>(),
         localDataSource: gh<_i129.ForgetPasswordLocalDataSource>(),
+      ),
+    );
+    gh.factory<_i1045.ChangePasswprdRepository>(
+      () => _i919.ChangePasswordRepositoryImpl(
+        gh<_i321.ChangePasswordDataSource>(),
       ),
     );
     gh.factory<_i550.EditProfileUseCase>(

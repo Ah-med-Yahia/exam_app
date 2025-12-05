@@ -18,7 +18,7 @@ class EditProfileRepositoryImpl implements EditProfileRepository {
     switch (response) {
       case SuccessResponse<EditProfileResponse>():
         final profileResponse = response.data;
-        return SuccessResponse(data: profileResponse);
+        return SuccessResponse<EditProfileResponse>(data: profileResponse);
 
       case ErrorResponse<EditProfileResponse>():
         return ErrorResponse<EditProfileResponse>(error: response.error);
