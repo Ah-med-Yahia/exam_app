@@ -1,5 +1,5 @@
-import 'package:exam_app/features/result_tab/data/models/get_results_history_response/get_results_history_response_model.dart';
-import 'package:exam_app/features/result_tab/domain/entities/get_results_history_response_entity.dart';
+import 'package:exam_app/features/home/presentation/views/screens/tabs/result_tab/data/models/get_results_history_response/get_results_history_response_model.dart';
+import 'package:exam_app/features/home/presentation/views/screens/tabs/result_tab/domain/entities/get_results_history_response_entity.dart';
 
 extension GetResultsHistoryResponseMapper on GetResultsHistoryResponseModel {
   GetResultsHistoryResponseEntity toEntity() {
