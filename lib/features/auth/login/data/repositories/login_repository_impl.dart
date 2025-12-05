@@ -23,32 +23,19 @@ class LoginRepositoryImpl implements LoginRepository {
       case SuccessResponse<LoginResponse>():
         final loginResponse = response.data;
         final loginEntity = loginResponse.toEntity();
-        final localSave = localDataSource.saveLoggedUser(
+        final localSave = await localDataSource.saveLoggedUser(
           token: loginResponse.token!,
           user: loginResponse.user!.toModel(),
         );
-        if(localSave is ErrorResponse){
-           return ErrorResponse<LoginEntity>(error:LocalException(message: UiConstants.failedToSaveUser));
+        if (localSave is ErrorResponse) {
+          return ErrorResponse<LoginEntity>(
+            error: LocalException(message: UiConstants.failedToSaveUser),
+          );
         }
         return SuccessResponse<LoginEntity>(data: loginEntity);
 
       case ErrorResponse<LoginResponse>():
         return ErrorResponse<LoginEntity>(error: response.error);
-    }
-  }
-
-  Future<BaseResponse<void>> saveLoggedUser({
-    required LoginResponse loginResponse,
-  }) async {
-    BaseResponse<void> response = await localDataSource.saveLoggedUser(
-      token: loginResponse.token!,
-      user: loginResponse.user!.toModel(),
-    );
-    switch (response) {
-      case SuccessResponse<void>():
-        return SuccessResponse<void>(data: null);
-      case ErrorResponse<void>():
-        return ErrorResponse<void>(error: response.error);
     }
   }
 }

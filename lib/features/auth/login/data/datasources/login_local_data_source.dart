@@ -6,4 +6,8 @@ abstract class LoginLocalDataSource {
     required String token,
     required UserModel user,
   });
+
+  UserModel? getUser();
+
+ Future<BaseResponse<void>> saveUser(UserModel user);
 }

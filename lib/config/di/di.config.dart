@@ -71,6 +71,20 @@ import '../../features/auth/sign_up/domain/use_cases/sign_up_use_case.dart'
     as _i45;
 import '../../features/auth/sign_up/presentation/cubit/sign_up_cubit.dart'
     as _i809;
+import '../../features/profile_tab/api/api_client/edit_profile_api_client.dart'
+    as _i761;
+import '../../features/profile_tab/api/data_sources/edit_profile_data_source_impl.dart'
+    as _i19;
+import '../../features/profile_tab/data/data_sources/edit_profile_data_source.dart'
+    as _i87;
+import '../../features/profile_tab/data/repositories/edit_profile_repository_impl.dart'
+    as _i628;
+import '../../features/profile_tab/domain/repositories/edit_profile_repository.dart'
+    as _i724;
+import '../../features/profile_tab/domain/use_cases/edit_profile_use_case.dart'
+    as _i550;
+import '../../features/profile_tab/presentation/cubit/edit_profile_cubit.dart'
+    as _i520;
 import '../dio_modules/dio_module.dart' as _i365;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -103,8 +117,14 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i478.ForgetPasswordApiClient(gh<_i361.Dio>()),
     );
     gh.factory<_i32.LoginApiClient>(() => _i32.LoginApiClient(gh<_i361.Dio>()));
+    gh.factory<_i761.EditProfileApiClient>(
+      () => _i761.EditProfileApiClient(gh<_i361.Dio>()),
+    );
     gh.factory<_i743.LoginRemoteDataSource>(
       () => _i433.LoginRemoteDataSourceImpl(gh<_i32.LoginApiClient>()),
+    );
+    gh.factory<_i87.EditProfileDataSource>(
+      () => _i19.EditProfileDataSourceImpl(gh<_i761.EditProfileApiClient>()),
     );
     gh.singleton<_i245.LoginLocalDataSource>(
       () => _i343.LoginLocalDataSourceImp(
@@ -139,6 +159,9 @@ extension GetItInjectableX on _i174.GetIt {
         forgetPasswordApiClient: gh<_i478.ForgetPasswordApiClient>(),
       ),
     );
+    gh.factory<_i724.EditProfileRepository>(
+      () => _i628.EditProfileRepositoryImpl(gh<_i87.EditProfileDataSource>()),
+    );
     gh.factory<_i50.LoginUseCase>(
       () => _i50.LoginUseCase(gh<_i176.LoginRepository>()),
     );
@@ -153,6 +176,9 @@ extension GetItInjectableX on _i174.GetIt {
         remoteDataSource: gh<_i950.ForgetPasswordRemoteDataSource>(),
         localDataSource: gh<_i129.ForgetPasswordLocalDataSource>(),
       ),
+    );
+    gh.factory<_i550.EditProfileUseCase>(
+      () => _i550.EditProfileUseCase(gh<_i724.EditProfileRepository>()),
     );
     gh.factory<_i913.ForgetPasswordUseCase>(
       () => _i913.ForgetPasswordUseCase(
@@ -182,6 +208,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i45.SignUpUseCase>(
       () =>
           _i45.SignUpUseCase(repository: gh<_i100.SignUpRepositoryContract>()),
+    );
+    gh.factory<_i520.EditProfileCubit>(
+      () => _i520.EditProfileCubit(
+        gh<_i550.EditProfileUseCase>(),
+        gh<_i245.LoginLocalDataSource>(),
+      ),
     );
     gh.singleton<_i809.SignUpCubit>(
       () => _i809.SignUpCubit(gh<_i45.SignUpUseCase>()),

@@ -3,5 +3,5 @@ import 'package:exam_app/features/auth/login/data/models/login_request.dart';
 import 'package:exam_app/features/auth/login/domain/entites/login_entity.dart';
 
 abstract class LoginRepository {
-    Future<BaseResponse<LoginEntity>> login(LoginRequest request);
+  Future<BaseResponse<LoginEntity>> login(LoginRequest request);
 }

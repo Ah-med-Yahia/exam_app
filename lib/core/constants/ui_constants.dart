@@ -53,6 +53,12 @@ class UiConstants {
   static const String alreadyHaveAccount = 'Already have an account? ';
   static const String updata = 'Update';
   static const String failedToSaveUser = 'Failed To Save User';
+  static const String change = 'Change';
+  static const String profileUpdatedSuccessfully = 'Profile updated Successfuly';
+  static const String noChanesToUpdate = 'NO Changes To Update';
+  static const String failedToUpdateProfile = 'Failed To Update Profile';
+  static const String pleaseCompleteYourData = 'Please complete Your Data';
+
 }
 
 class GoogleFontsKeys {
@@ -63,5 +69,6 @@ class GoogleFontsKeys {
 }
 
 class PathsConstants {
-  static const String profileImage = 'assets/images/image.png';
+  static const String profileImage = 'assets/images/person.jpg';
+  static const String cameraIcon = 'assets/icons/Camera.svg';
 }

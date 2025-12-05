@@ -9,7 +9,40 @@ import 'package:shared_preferences/shared_preferences.dart';
 @module
 abstract class DioModule {
   @singleton
-  Dio get dio => Dio(BaseOptions(baseUrl: ApiConstants.baseUrl));
+Dio get dio {
+  final dio = Dio(
+    BaseOptions(
+      baseUrl: ApiConstants.baseUrl,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      connectTimeout: const Duration(seconds: 30),
+      receiveTimeout: const Duration(seconds: 30),
+    ),
+  );
+
+  dio.interceptors.add(
+    InterceptorsWrapper(
+      onRequest:
+          (RequestOptions options, RequestInterceptorHandler handler) async {
+
+          final tokenBox = Hive.box<String>(CacheConstants.tokenBoxKey);
+          final token = tokenBox.get(CacheConstants.tokenKey);
+
+          if (token != null && token.isNotEmpty) {
+            options.headers[CacheConstants.tokenKey] = token;
+          }
+
+        return handler.next(options);
+      },
+      onError: (DioException error, ErrorInterceptorHandler handler) async {
+        return handler.next(error);
+      },
+    ),
+  );
+  return dio;
+}
 }
 
 @module
@@ -18,7 +51,6 @@ abstract class SharedPrefModule {
   @preResolve
   Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
 }
-
 
 @module
 abstract class HiveModule {
