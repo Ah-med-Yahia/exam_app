@@ -12,9 +12,8 @@ class EditProfileStates extends BaseState<EditProfileResponse> {
   final String? profileImagePath;
   final bool isUpdatedSuccessfully;
   final bool isDataLoaded;
-  final bool messageShown;
 
-  const EditProfileStates( {
+  const EditProfileStates({
     this.username = '',
     this.firstName = '',
     this.lastName = '',
@@ -28,7 +27,6 @@ class EditProfileStates extends BaseState<EditProfileResponse> {
     super.data,
     super.errorMessage,
     this.successMessage,
-    this.messageShown = false,
   });
 
   @override
@@ -46,7 +44,6 @@ class EditProfileStates extends BaseState<EditProfileResponse> {
     data,
     errorMessage,
     successMessage,
-    messageShown
   ];
 
   EditProfileStates copyWith({
@@ -66,7 +63,6 @@ class EditProfileStates extends BaseState<EditProfileResponse> {
     bool? isUpdatedSuccessfully,
     bool? isDataLoaded,
     bool clearSuccess = false,
-     bool? messageShown
   }) {
     return EditProfileStates(
       username: username ?? this.username,
@@ -85,7 +81,6 @@ class EditProfileStates extends BaseState<EditProfileResponse> {
       isFormValid: isFormValid ?? this.isFormValid,
       isUpdatedSuccessfully:
           isUpdatedSuccessfully ?? this.isUpdatedSuccessfully,
-          messageShown: messageShown ?? this.messageShown
     );
   }
 }

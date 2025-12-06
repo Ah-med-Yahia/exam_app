@@ -7,12 +7,13 @@ import 'package:exam_app/features/auth/login/presentation/views/screens/login_sc
 import 'package:exam_app/features/auth/sign_up/presentation/cubit/sign_up_cubit.dart';
 import 'package:exam_app/features/auth/sign_up/presentation/views/screens/sign_up_screen.dart';
 import 'package:exam_app/features/home/presentation/views/screens/home_screen.dart';
+import 'package:exam_app/features/profile_tab/features/change_password/presentation/view/change_password_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
     switch (settings.name) {
-
       case Routes.signUp:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
@@ -21,13 +22,30 @@ class RouteGenerator {
           ),
         );
       case Routes.login:
-        return MaterialPageRoute(builder: (_) => const LoginScreen(),settings: settings);
+        return MaterialPageRoute(
+          builder: (_) => const LoginScreen(),
+          settings: settings,
+        );
       case Routes.forgetPassword:
-        return MaterialPageRoute(builder: (_) => ForgetPasswordScreen(),settings: settings);
+        return MaterialPageRoute(
+          builder: (_) => ForgetPasswordScreen(),
+          settings: settings,
+        );
       case Routes.verifyResetCode:
-        return MaterialPageRoute(builder: (_) => VerifyResetCodeScreen(),settings: settings);
+        return MaterialPageRoute(
+          builder: (_) => VerifyResetCodeScreen(),
+          settings: settings,
+        );
       case Routes.resetPassword:
-        return MaterialPageRoute(builder: (_) =>ResetPasswordScreen(),settings: settings);    
+        return MaterialPageRoute(
+          builder: (_) => ResetPasswordScreen(),
+          settings: settings,
+        );
+      case Routes.changePassword:
+        return MaterialPageRoute(
+          builder: (_) => ChangePasswordScreen(),
+          settings: settings,
+        );
       case Routes.home:
         return MaterialPageRoute(builder: (_) => const HomeScreen());
       default:

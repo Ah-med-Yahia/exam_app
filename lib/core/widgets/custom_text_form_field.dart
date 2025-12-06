@@ -123,9 +123,14 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                       onTap: () {
                         Navigator.of(context).pushNamed(Routes.resetPassword);
                       },
-                      child: Text(
-                        UiConstants.change,
-                        style: getBoldStyle(color: ColorManager.blue),
+                      child: InkWell(
+                        onTap: () => Navigator.of(
+                          context,
+                        ).pushNamed(Routes.changePassword),
+                        child: Text(
+                          UiConstants.change,
+                          style: getBoldStyle(color: ColorManager.blue),
+                        ),
                       ),
                     ),
                     SizedBox(width: Insets.s8.sp),

@@ -58,7 +58,11 @@ class UiConstants {
   static const String noChanesToUpdate = 'NO Changes To Update';
   static const String failedToUpdateProfile = 'Failed To Update Profile';
   static const String pleaseCompleteYourData = 'Please complete Your Data';
-
+  static const String currentPassword = 'Current Password';
+  static const String newPassword = 'New Password';
+  static const String passwordsdontMatch = 'Passwords do not match';
+  static const String passwordUpdatedSuccessfully = 'Password Updated Successfully';
+  static const String failedToUpdatepassword = 'Failed To Update The Password';
 }
 
 class GoogleFontsKeys {

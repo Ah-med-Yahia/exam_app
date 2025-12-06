@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:exam_app/core/constants/api_constants.dart';
 import 'package:exam_app/features/auth/sign_up/data/models/user_adapter.dart';
@@ -9,40 +11,40 @@ import 'package:shared_preferences/shared_preferences.dart';
 @module
 abstract class DioModule {
   @singleton
-Dio get dio {
-  final dio = Dio(
-    BaseOptions(
-      baseUrl: ApiConstants.baseUrl,
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      connectTimeout: const Duration(seconds: 30),
-      receiveTimeout: const Duration(seconds: 30),
-    ),
-  );
+  Dio get dio {
+    final dio = Dio(
+      BaseOptions(
+        baseUrl: ApiConstants.baseUrl,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        connectTimeout: const Duration(seconds: 30),
+        receiveTimeout: const Duration(seconds: 30),
+      ),
+    );
 
-  dio.interceptors.add(
-    InterceptorsWrapper(
-      onRequest:
-          (RequestOptions options, RequestInterceptorHandler handler) async {
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest:
+            (RequestOptions options, RequestInterceptorHandler handler) async {
+              final tokenBox = Hive.box<String>(CacheConstants.tokenBoxKey);
+              final token = tokenBox.get(CacheConstants.tokenKey);
 
-          final tokenBox = Hive.box<String>(CacheConstants.tokenBoxKey);
-          final token = tokenBox.get(CacheConstants.tokenKey);
+              if (token != null && token.isNotEmpty) {
+                options.headers[CacheConstants.tokenKey] = token;
+                log("TOKEN FROM HIVE: $token");
+              }
 
-          if (token != null && token.isNotEmpty) {
-            options.headers[CacheConstants.tokenKey] = token;
-          }
-
-        return handler.next(options);
-      },
-      onError: (DioException error, ErrorInterceptorHandler handler) async {
-        return handler.next(error);
-      },
-    ),
-  );
-  return dio;
-}
+              return handler.next(options);
+            },
+        onError: (DioException error, ErrorInterceptorHandler handler) async {
+          return handler.next(error);
+        },
+      ),
+    );
+    return dio;
+  }
 }
 
 @module

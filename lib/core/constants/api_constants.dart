@@ -10,6 +10,8 @@ class ApiConstants {
   static const String forgotPasswordEndPoint = 'auth/forgotPassword';
   static const String verifyResetCodeEndPoint = 'auth/verifyResetCode';
   static const String resetPasswordEndPoint = 'auth/resetPassword';
+  static const String changePasswordEndPoint = 'auth/changePassword';
+
 }
 
 class CacheConstants {
