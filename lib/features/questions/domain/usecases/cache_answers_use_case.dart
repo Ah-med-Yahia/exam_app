@@ -1,5 +1,5 @@
 import 'package:exam_app/config/base_response/base_response.dart';
-import 'package:exam_app/features/questions/domain/entities/check_answers_response_entity.dart';
+import 'package:exam_app/features/questions/domain/entities/check_answers_response_entity/check_answers_response_entity.dart';
 import 'package:exam_app/features/questions/domain/repositories/answers_check_repository.dart';
 import 'package:injectable/injectable.dart';
 

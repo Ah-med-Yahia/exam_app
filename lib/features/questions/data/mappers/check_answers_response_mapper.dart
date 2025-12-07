@@ -1,5 +1,5 @@
 import 'package:exam_app/features/questions/data/models/check_answers_response_model/check_answers_response_model.dart';
-import 'package:exam_app/features/questions/domain/entities/check_answers_response_entity.dart';
+import 'package:exam_app/features/questions/domain/entities/check_answers_response_entity/check_answers_response_entity.dart';
 
 extension CheckAnswersResponseMapper on CheckAnswersResponseModel {
   CheckAnswersResponseEntity toEntity() {

@@ -15,8 +15,8 @@ class ApiConstants {
   static const String examQueryKey = 'exam';
   static const String headerTokenKey = 'token';
   static const String userResultsHistory = 'questions/history';
-  static const String gettingAllSubjectsEndPoint='subjects';
-  static const String gettingAllExamsEndPoint='exams';
+  static const String gettingAllSubjectsEndPoint = 'subjects';
+  static const String gettingAllExamsEndPoint = 'exams';
 }
 
 class CacheConstants {
@@ -24,7 +24,6 @@ class CacheConstants {
   static const String tokenBoxName = 'tokenBox';
   static const String userBoxName = 'userBox';
   static const String currentUserKey = 'currentUser';
-  static const String answersBoxName = 'answersBox';
-  static const String examesBoxName = 'examesBox';
+  static const String cachedResultBoxName = 'Cached Result';
   static const String cachedExamsKey = 'cachedExams';
 }

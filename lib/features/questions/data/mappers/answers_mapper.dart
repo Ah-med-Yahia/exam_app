@@ -1,5 +1,5 @@
 import 'package:exam_app/features/questions/data/models/question_model/question_model.dart';
-import 'package:exam_app/features/questions/domain/entities/question_entity.dart';
+import 'package:exam_app/features/questions/domain/entities/question_entity/question_entity.dart';
 
 extension AnswersMapper on AnswerModel {
   AnswerEntity toEntity() => AnswerEntity(

@@ -1,8 +1,8 @@
 import 'package:exam_app/config/base_response/base_response.dart';
 import 'package:exam_app/config/base_state/base_state.dart';
 import 'package:exam_app/features/questions/domain/entities/answers_request_entity/answers_request_entity.dart';
-import 'package:exam_app/features/questions/domain/entities/check_answers_response_entity.dart';
-import 'package:exam_app/features/questions/domain/entities/question_entity.dart';
+import 'package:exam_app/features/questions/domain/entities/check_answers_response_entity/check_answers_response_entity.dart';
+import 'package:exam_app/features/questions/domain/entities/question_entity/question_entity.dart';
 import 'package:exam_app/features/questions/domain/usecases/answers_check_use_case.dart';
 import 'package:exam_app/features/questions/domain/usecases/cache_answers_use_case.dart';
 import 'package:exam_app/features/questions/presentation/cubit/answer_cubit/answer_event.dart';

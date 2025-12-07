@@ -117,7 +117,7 @@ import '../../features/questions/data/repositories/answers_check_repository_impl
     as _i774;
 import '../../features/questions/data/repositories/get_questions_response_repository_impl.dart'
     as _i33;
-import '../../features/questions/domain/entities/check_answers_response_entity.dart'
+import '../../features/questions/domain/entities/check_answers_response_entity/check_answers_response_entity.dart'
     as _i776;
 import '../../features/questions/domain/repositories/answers_check_repository.dart'
     as _i168;

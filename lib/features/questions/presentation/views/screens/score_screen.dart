@@ -7,7 +7,7 @@ import 'package:exam_app/core/resources/styles_manager.dart';
 import 'package:exam_app/core/resources/values_managar.dart';
 import 'package:exam_app/core/routes/routes.dart';
 import 'package:exam_app/core/widgets/custom_elevated_button.dart';
-import 'package:exam_app/features/questions/domain/entities/check_answers_response_entity.dart';
+import 'package:exam_app/features/questions/domain/entities/check_answers_response_entity/check_answers_response_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -53,7 +53,7 @@ class ScoreScreen extends StatelessWidget {
                   lineWidth: 5,
                   percent: result.correct / (result.wrong + result.correct),
                   center: Text(
-                    '$total%',
+                    total,
                     style: getMediumStyle(
                       color: Colors.black,
                       fontSize: FontSize.s20,
