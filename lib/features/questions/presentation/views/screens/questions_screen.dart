@@ -33,7 +33,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   PageController pageController = PageController();
 
   Timer? _timer;
-  int _remainingSeconds = 5;
+  late int _remainingSeconds;
 
   String _formatTime(int seconds) {
     int minutes = seconds ~/ 60;
@@ -76,6 +76,8 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                 final cubitContext = context;
                 if (state.questionsState?.data != null) {
                   final questions = state.questionsState!.data!;
+                  final exam = state.examDetails;
+                  _remainingSeconds = (exam!.duration)*60;
                   return Row(
                     children: [
                       Icon(
@@ -86,109 +88,121 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                       SizedBox(width: 9.h),
                       StatefulBuilder(
                         builder: (context, setTimerState) {
-                          _timer ??= Timer.periodic(const Duration(seconds: 1), (
-                            timer,
-                          ) {
-                            if (_remainingSeconds > 0) {
-                              _remainingSeconds--;
-                              setTimerState(() {});
-                            } else {
-                              timer.cancel();
-                              SoundManager.playSound(SoundAssets.timeOutSound);
-                              showDialog(
-                                context: cubitContext,
-                                barrierDismissible: false,
-                                builder: (_) => BlocProvider.value(
-                                  value: cubitContext.read<AnswerCubit>(),
-                                  child: PopScope(
-                                    canPop: false,
-                                    child: AlertDialog(
-                                      backgroundColor: ColorManager.blueGrey,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(
-                                          16.r,
-                                        ),
-                                      ),
-                                      actionsAlignment:
-                                          MainAxisAlignment.center,
-                                      content: Row(
-                                        children: [
-                                          Spacer(),
-                                          SvgPicture.asset(
-                                            IconsAssets.timeOutIcon,
+                          _timer ??= Timer.periodic(
+                            const Duration(seconds: 1),
+                            (timer) {
+                              if (_remainingSeconds > 0) {
+                                _remainingSeconds--;
+                                setTimerState(() {});
+                              } else {
+                                timer.cancel();
+                                SoundManager.playSound(
+                                  SoundAssets.timeOutSound,
+                                );
+                                showDialog(
+                                  context: cubitContext,
+                                  barrierDismissible: false,
+                                  builder: (_) => BlocProvider.value(
+                                    value: cubitContext.read<AnswerCubit>(),
+                                    child: PopScope(
+                                      canPop: false,
+                                      child: AlertDialog(
+                                        backgroundColor: ColorManager.blueGrey,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            16.r,
                                           ),
-                                          SizedBox(width: 4.w),
-                                          Text(
-                                            UiConstants.timeOut,
-                                            style: getMediumStyle(
-                                              color: ColorManager.red,
-                                              fontSize: FontSize.s24,
+                                        ),
+                                        actionsAlignment:
+                                            MainAxisAlignment.center,
+                                        content: Row(
+                                          children: [
+                                            Spacer(),
+                                            SvgPicture.asset(
+                                              IconsAssets.timeOutIcon,
+                                            ),
+                                            SizedBox(width: 4.w),
+                                            Text(
+                                              UiConstants.timeOut,
+                                              style: getMediumStyle(
+                                                color: ColorManager.red,
+                                                fontSize: FontSize.s24,
+                                              ),
+                                            ),
+                                            Spacer(),
+                                          ],
+                                        ),
+                                        actions: [
+                                          BlocListener<
+                                            AnswerCubit,
+                                            AnswerState
+                                          >(
+                                            listener: (context, state) {
+                                              if (state.scoreState?.isLoading ==
+                                                  true) {
+                                                UIUtils.showEasyLoading();
+                                              } else if (state
+                                                      .scoreState
+                                                      ?.data !=
+                                                  null) {
+                                                UIUtils.hideEasyLoading();
+                                                context
+                                                    .read<AnswerCubit>()
+                                                    .doIntent(
+                                                      CacheAnswersEvent(
+                                                        answers: state
+                                                            .scoreState!
+                                                            .data!,
+                                                        questions: questions,
+                                                        exam: exam,
+                                                      ),
+                                                    );
+                                                Navigator.pushNamed(
+                                                  context,
+                                                  Routes.score,
+                                                  arguments: {
+                                                    'score':
+                                                        state.scoreState!.data!,
+                                                    'questions': questions,
+                                                  },
+                                                );
+                                              } else if (state
+                                                      .scoreState
+                                                      ?.errorMessage !=
+                                                  null) {
+                                                UIUtils.hideEasyLoading();
+                                              }
+                                            },
+                                            child: CustomElevatedButton(
+                                              label: UiConstants.viewScore,
+                                              backgroundColor:
+                                                  ColorManager.blue,
+                                              size: Size(190.w, 40.h),
+                                              onTap: () {
+                                                context
+                                                    .read<AnswerCubit>()
+                                                    .doIntent(
+                                                      CalculateScoreEvent(
+                                                        answers: context
+                                                            .read<AnswerCubit>()
+                                                            .state
+                                                            .answers,
+                                                        time:
+                                                            _remainingSeconds ~/
+                                                            60,
+                                                      ),
+                                                    );
+                                              },
                                             ),
                                           ),
-                                          Spacer(),
                                         ],
                                       ),
-                                      actions: [
-                                        BlocListener<AnswerCubit, AnswerState>(
-                                          listener: (context, state) {
-                                            if (state.scoreState?.isLoading ==
-                                                true) {
-                                              UIUtils.showEasyLoading();
-                                            } else if (state.scoreState?.data !=
-                                                null) {
-                                              UIUtils.hideEasyLoading();
-                                              context.read<AnswerCubit>().doIntent(
-                                                CacheAnswersEvent(
-                                                  answers:
-                                                      state.scoreState!.data!,
-                                                  examId:
-                                                      '6700707030a3c3c1944a9c5d',
-                                                ),
-                                              );
-                                              Navigator.pushNamed(
-                                                context,
-                                                Routes.score,
-                                                arguments: {
-                                                  'score':
-                                                      state.scoreState!.data!,
-                                                  'questions': questions,
-                                                },
-                                              );
-                                            } else if (state
-                                                    .scoreState
-                                                    ?.errorMessage !=
-                                                null) {
-                                              UIUtils.hideEasyLoading();
-                                            }
-                                          },
-                                          child: CustomElevatedButton(
-                                            label: UiConstants.viewScore,
-                                            backgroundColor: ColorManager.blue,
-                                            size: Size(190.w, 40.h),
-                                            onTap: () {
-                                              context
-                                                  .read<AnswerCubit>()
-                                                  .doIntent(
-                                                    CalculateScoreEvent(
-                                                      answers: context
-                                                          .read<AnswerCubit>()
-                                                          .state
-                                                          .answers,
-                                                      time:
-                                                          _remainingSeconds ~/
-                                                          60,
-                                                    ),
-                                                  );
-                                            },
-                                          ),
-                                        ),
-                                      ],
                                     ),
                                   ),
-                                ),
-                              );
-                            }
-                          });
+                                );
+                              }
+                            },
+                          );
                           return Text(
                             _formatTime(_remainingSeconds),
                             style: getRegularStyle(
@@ -231,6 +245,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
             builder: (context, state) {
               if (state.questionsState?.data != null) {
                 final questions = state.questionsState!.data!;
+                final exam = state.examDetails;
                 context.read<AnswerCubit>().doIntent(
                   InitializeAnswersEvent(questions: questions),
                 );
@@ -392,7 +407,8 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                                       context.read<AnswerCubit>().doIntent(
                                         CacheAnswersEvent(
                                           answers: state.scoreState!.data!,
-                                          examId: '6700707030a3c3c1944a9c5d',
+                                          questions: questions,
+                                          exam: exam!,
                                         ),
                                       );
                                       Navigator.pushNamed(

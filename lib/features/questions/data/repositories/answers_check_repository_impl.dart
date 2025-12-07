@@ -1,10 +1,13 @@
 import 'package:exam_app/config/base_response/base_response.dart';
+import 'package:exam_app/features/questions/data/datasources/local/cache_result_local_data_source.dart';
 import 'package:exam_app/features/questions/data/datasources/local/get_question_local_data_source.dart';
 import 'package:exam_app/features/questions/data/datasources/remote/check_answers_remote_data_source.dart';
+import 'package:exam_app/features/questions/data/mappers/cached_exam_result_mapper.dart';
 import 'package:exam_app/features/questions/data/mappers/check_answers_request_mapper.dart';
 import 'package:exam_app/features/questions/data/mappers/check_answers_response_mapper.dart';
 import 'package:exam_app/features/questions/data/models/check_answers_response_model/check_answers_response_model.dart';
 import 'package:exam_app/features/questions/domain/entities/answers_request_entity/answers_request_entity.dart';
+import 'package:exam_app/features/questions/domain/entities/cached_exam_result_entity/cached_exam_result_entity.dart';
 import 'package:exam_app/features/questions/domain/entities/check_answers_response_entity/check_answers_response_entity.dart';
 import 'package:exam_app/features/questions/domain/repositories/answers_check_repository.dart';
 import 'package:injectable/injectable.dart';
@@ -12,15 +15,20 @@ import 'package:injectable/injectable.dart';
 @Singleton(as: AnswersCheckRepository)
 class AnswersCheckRepositoryImpl implements AnswersCheckRepository {
   final CheckAnswersRemoteDataSource remoteDataSource;
-  final GetQuestionLocalDataSource localDataSource;
+  final GetQuestionLocalDataSource getQuestionsLocalDataSource;
+  final CacheResultLocalDataSource cacheResultLocalDataSource;
 
-  AnswersCheckRepositoryImpl(this.remoteDataSource, this.localDataSource);
+  AnswersCheckRepositoryImpl(
+    this.remoteDataSource,
+    this.getQuestionsLocalDataSource,
+    this.cacheResultLocalDataSource
+  );
 
   @override
   Future<BaseResponse<CheckAnswersResponseEntity>> checkAnswers({
     required AnswersRequestEntity answers,
   }) async {
-    final tokenResponse = localDataSource.getToken();
+    final tokenResponse = getQuestionsLocalDataSource.getToken();
     switch (tokenResponse) {
       case SuccessResponse<String>():
         final response = await remoteDataSource.checkAnswers(
@@ -45,11 +53,10 @@ class AnswersCheckRepositoryImpl implements AnswersCheckRepository {
   }
 
   @override
-  Future<BaseResponse<void>> cacheAnswers(
-    String examId,
-    CheckAnswersResponseEntity answers,
-  ) async {
-    final response = await localDataSource.cacheAnswers(examId, answers);
+  Future<BaseResponse<void>> cacheAnswers(CachedExamResultEntity result) async {
+    final response = await cacheResultLocalDataSource.cacheResult(
+      result.toModel
+    );
     switch (response) {
       case SuccessResponse<void>():
         return SuccessResponse<void>(data: null);
