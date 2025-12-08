@@ -32,6 +32,7 @@ class UiConstants {
   static const String confirmPasswordLabelAndHintText = "Confirm password";
   static const String explore = 'Explore';
   static const String result = 'Result';
+  static const String results = 'Results';
   static const String profile = 'Profile';
   static const String signUp = 'Sign Up';
   static const String userName = 'User name';
@@ -93,10 +94,12 @@ class UiConstants {
   static const String finish = 'Finish';
   static const String finishedMessage = 'You\'ve reached the end of the exam.';
   static const String finished = 'Finished';
-    static const String correct = 'Correct';
+  static const String correct = 'Correct';
   static const String incorrect = 'Incorrect';
   static const String showResults = 'Show results';
   static const String startAgain = 'Start again';
+  static const String correctedAnswers = 'corrected answers in ';
+  static const String minText = ' min.';
 }
 
 class GoogleFontsKeys {

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:exam_app/config/base_response/base_response.dart';
 import 'package:exam_app/config/base_state/base_state.dart';
@@ -22,20 +20,29 @@ class ResultTabCubit extends Cubit<ResultTabState> {
   }
 
   void _getResultsHistory() {
-    state.copyWith(
-      resultState: BaseState<List<CachedExamResultEntity>>(isLoading: true),
+    emit(
+      state.copyWith(
+        resultState: BaseState<List<CachedExamResultEntity>>(isLoading: true),
+      ),
     );
     final response = useCase();
     switch (response) {
       case SuccessResponse<List<CachedExamResultEntity>>():
-        state.copyWith(
-          resultState: BaseState<List<CachedExamResultEntity>>(
-            data: response.data,
+        emit(
+          state.copyWith(
+            resultState: BaseState<List<CachedExamResultEntity>>(
+              data: response.data,
+            ),
           ),
         );
-        log('Success');
       case ErrorResponse<List<CachedExamResultEntity>>():
-        log('error');
+        emit(
+          state.copyWith(
+            resultState: BaseState<List<CachedExamResultEntity>>(
+              errorMessage: response.error.message,
+            ),
+          ),
+        );
     }
   }
 }
