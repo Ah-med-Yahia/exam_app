@@ -91,7 +91,7 @@ class StartExamScreen extends StatelessWidget {
                             label: UiConstants.startText, 
                             backgroundColor: ColorManager.blue,
                             onTap:() {
-                              Navigator.pushNamed(context, Routes.questions,arguments: getExamState.data?.id);
+                              Navigator.pushNamed(context, Routes.questions,arguments: getExamState.data!.id);
                             },
                           )
                         ],

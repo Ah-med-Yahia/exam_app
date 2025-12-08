@@ -34,6 +34,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
 
   Timer? _timer;
   late int _remainingSeconds;
+  late String examId;
 
   String _formatTime(int seconds) {
     int minutes = seconds ~/ 60;
@@ -46,7 +47,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     super.initState();
     final cubit = context.read<GetQuestionsCubit>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      cubit.doIntent(QuestionsEvent('6700707030a3c3c1944a9c5d'));
+      cubit.doIntent(QuestionsEvent(examId));
     });
   }
 
@@ -60,6 +61,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    examId=ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -77,7 +79,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                 if (state.questionsState?.data != null) {
                   final questions = state.questionsState!.data!;
                   final exam = state.examDetails;
-                  _remainingSeconds = (exam!.duration)*60;
+                  _remainingSeconds = (exam!.duration) * 60;
                   return Row(
                     children: [
                       Icon(
@@ -164,6 +166,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                                                     'score':
                                                         state.scoreState!.data!,
                                                     'questions': questions,
+                                                    'examId':examId,
                                                   },
                                                 );
                                               } else if (state
@@ -417,6 +420,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                                         arguments: {
                                           'score': state.scoreState!.data!,
                                           'questions': questions,
+                                          'examId':examId
                                         },
                                       );
                                     } else if (state.scoreState?.errorMessage !=
