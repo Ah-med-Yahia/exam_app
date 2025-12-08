@@ -1,10 +1,10 @@
-part of 'result_tab_cubit.dart';
+import 'package:exam_app/config/base_state/base_state.dart';
 
-abstract class ResultTabState extends Equatable {
-  const ResultTabState();
+class ResultTabState {
+  final BaseState? resultState;
+  ResultTabState({this.resultState});
 
-  @override
-  List<Object> get props => [];
+  ResultTabState copyWith({BaseState? resultState}) {
+    return ResultTabState(resultState: resultState??this.resultState);
+  }
 }
-
-class ResultTabInitial extends ResultTabState {}

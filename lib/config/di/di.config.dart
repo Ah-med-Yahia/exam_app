@@ -150,10 +150,12 @@ import '../../features/result_tab/data/repositories/get_results_repository_impl.
     as _i861;
 import '../../features/result_tab/domain/repositories/get_results_history_repository.dart'
     as _i529;
-import '../../features/result_tab/domain/usecases/get_exams_ids_history.dart'
-    as _i224;
-import '../../features/result_tab/domain/usecases/get_results_history_use_case.dart'
-    as _i939;
+import '../../features/result_tab/domain/usecases/get_local_results_history_use_case.dart'
+    as _i992;
+import '../../features/result_tab/domain/usecases/get_remote_results_history_use_case.dart'
+    as _i192;
+import '../../features/result_tab/presentation/cubit/result_tab_cubit.dart'
+    as _i276;
 import '../../features/start_exam/api/api_client/start_exam_api_client.dart'
     as _i168;
 import '../../features/start_exam/api/datasources/start_exam_local_data_source_impl.dart'
@@ -263,9 +265,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i979.Box<_i52.CachedExamResultModel>>(),
       ),
     );
-    gh.singleton<_i14.GetResultsLocalDataSource>(
-      () => _i70.GetResultsLocalDataSourceImpl(gh<_i979.Box<String>>()),
-    );
     gh.singleton<_i245.LoginLocalDataSource>(
       () => _i343.LoginLocalDataSourceImp(
         gh<_i979.Box<_i89.UserModel>>(),
@@ -333,6 +332,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i457.GetResultsRemoteDataSource>(
       () => _i826.GetResultsRemoteDataSourceImpl(
         apiClient: gh<_i498.GetResultsApiClient>(),
+      ),
+    );
+    gh.singleton<_i14.GetResultsLocalDataSource>(
+      () => _i70.GetResultsLocalDataSourceImpl(
+        gh<_i979.Box<String>>(),
+        gh<_i979.Box<_i52.CachedExamResultModel>>(),
       ),
     );
     gh.singleton<_i390.CheckAnswersRemoteDataSource>(
@@ -424,11 +429,14 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i295.VerifyResetCodeUseCase>(),
       ),
     );
-    gh.singleton<_i224.GetExamsIdsHistoryUseCase>(
-      () => _i224.GetExamsIdsHistoryUseCase(gh<_i529.GetResultsRepository>()),
+    gh.singleton<_i992.GetLocalResultsHistoryUseCase>(
+      () =>
+          _i992.GetLocalResultsHistoryUseCase(gh<_i529.GetResultsRepository>()),
     );
-    gh.singleton<_i939.GetResultsHistoryUseCase>(
-      () => _i939.GetResultsHistoryUseCase(gh<_i529.GetResultsRepository>()),
+    gh.singleton<_i192.GetRemoteResultsHistoryUseCase>(
+      () => _i192.GetRemoteResultsHistoryUseCase(
+        gh<_i529.GetResultsRepository>(),
+      ),
     );
     gh.factory<_i521.StartExamCubit>(
       () => _i521.StartExamCubit(gh<_i200.StartExamUseCase>()),
@@ -441,6 +449,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i152.AnswersCheckUseCase>(),
         gh<_i954.CacheAnswersUseCase>(),
       ),
+    );
+    gh.factory<_i276.ResultTabCubit>(
+      () => _i276.ResultTabCubit(gh<_i992.GetLocalResultsHistoryUseCase>()),
     );
     return this;
   }

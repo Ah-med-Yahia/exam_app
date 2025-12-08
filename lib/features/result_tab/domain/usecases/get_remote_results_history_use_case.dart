@@ -4,10 +4,10 @@ import 'package:exam_app/features/result_tab/domain/repositories/get_results_his
 import 'package:injectable/injectable.dart';
 
 @singleton
-class GetResultsHistoryUseCase {
+class GetRemoteResultsHistoryUseCase {
   final GetResultsRepository repository;
 
-  GetResultsHistoryUseCase(this.repository);
+  GetRemoteResultsHistoryUseCase(this.repository);
 
   Future<BaseResponse<GetResultsHistoryResponseEntity>> call() async {
     return await repository.getResultsHistory();

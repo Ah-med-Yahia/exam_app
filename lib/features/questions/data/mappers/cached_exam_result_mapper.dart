@@ -5,3 +5,9 @@ extension CachedExamResultMapper on CachedExamResultEntity {
   CachedExamResultModel get toModel =>
       CachedExamResultModel(answers: answers, exam: exam, questions: questions);
 }
+
+
+extension CachedExamResultMapper2 on CachedExamResultModel {
+  CachedExamResultEntity get toEntity =>
+      CachedExamResultEntity(answers: answers, exam: exam, questions: questions);
+}
