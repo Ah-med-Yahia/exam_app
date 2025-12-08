@@ -2,7 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:exam_app/core/constants/api_constants.dart';
 import 'package:exam_app/features/auth/sign_up/data/models/user_adapter.dart';
 import 'package:exam_app/features/auth/sign_up/data/models/user_model.dart';
-import 'package:exam_app/features/questions/domain/entities/check_answers_response_entity.dart';
+import 'package:exam_app/features/questions/data/models/cached_exam_result_model/cached_exam_result_model.dart';
+import 'package:exam_app/features/questions/domain/entities/check_answers_response_entity/check_answers_response_entity.dart';
+import 'package:exam_app/features/questions/domain/entities/exam_entity/exam_entity.dart';
+import 'package:exam_app/features/questions/domain/entities/question_entity/question_entity.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,7 +23,6 @@ abstract class SharedPrefModule {
   Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
 }
 
-
 @module
 abstract class HiveModule {
   @preResolve
@@ -29,15 +31,19 @@ abstract class HiveModule {
     await Hive.initFlutter();
     Hive.registerAdapter(UserAdapter());
     Hive.registerAdapter(CheckAnswersResponseEntityAdapter());
-    Hive.registerAdapter(WrongQuestionEntityAdapter());
     Hive.registerAdapter(CorrectQuestionEntityAdapter());
+    Hive.registerAdapter(WrongQuestionEntityAdapter());
+    Hive.registerAdapter(QuestionEntityAdapter());
+    Hive.registerAdapter(AnswerEntityAdapter());
+    Hive.registerAdapter(KeyEntityAdapter());
+    Hive.registerAdapter(ExamEntityAdapter());
+    Hive.registerAdapter(CachedExamResultModelAdapter());
 
     await Hive.openBox<UserModel>(CacheConstants.userBoxName);
     await Hive.openBox<String>(CacheConstants.tokenBoxName);
-    await Hive.openBox<CheckAnswersResponseEntity>(
-      CacheConstants.answersBoxName,
+    await Hive.openBox<CachedExamResultModel>(
+      CacheConstants.cachedResultBoxName,
     );
-    await Hive.openBox<List<String>>(CacheConstants.examesBoxName);
 
     return Hive;
   }
@@ -53,12 +59,7 @@ abstract class HiveModule {
   }
 
   @singleton
-  Box<CheckAnswersResponseEntity> answersBox(HiveInterface hive) {
-    return Hive.box<CheckAnswersResponseEntity>(CacheConstants.answersBoxName);
-  }
-
-  @singleton
-  Box<List<String>> examesBox(HiveInterface hive) {
-    return Hive.box<List<String>>(CacheConstants.examesBoxName);
+  Box<CachedExamResultModel> cachedResultsBox(HiveInterface hive) {
+    return Hive.box<CachedExamResultModel>(CacheConstants.cachedResultBoxName);
   }
 }

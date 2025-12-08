@@ -1,4 +1,7 @@
 import 'package:exam_app/config/base_response/base_response.dart';
+import 'package:exam_app/features/questions/data/mappers/cached_exam_result_mapper.dart';
+import 'package:exam_app/features/questions/data/models/cached_exam_result_model/cached_exam_result_model.dart';
+import 'package:exam_app/features/questions/domain/entities/cached_exam_result_entity/cached_exam_result_entity.dart';
 import 'package:exam_app/features/result_tab/data/data_sources/get_results_local_data_source.dart';
 import 'package:exam_app/features/result_tab/data/data_sources/get_results_remote_data_source.dart';
 import 'package:exam_app/features/result_tab/data/mappers/get_results_history_response_mapper.dart';
@@ -42,13 +45,17 @@ class GetResultsRepositoryImpl implements GetResultsRepository {
   }
 
   @override
-  BaseResponse<List<String>> getExamsIdHistory() {
-    final response = localDataSource.getExamsIdsHistory();
+  BaseResponse<List<CachedExamResultEntity>> getCachedResultsHistory() {
+    final response = localDataSource.getResultsHistory();
     switch (response) {
-      case SuccessResponse<List<String>>():
-        return SuccessResponse<List<String>>(data: response.data);
-      case ErrorResponse<List<String>>():
-        return ErrorResponse<List<String>>(error: response.error);
+      case SuccessResponse<List<CachedExamResultModel>>():
+        return SuccessResponse<List<CachedExamResultEntity>>(
+          data: response.data.map((m) => m.toEntity).toList(),
+        );
+      case ErrorResponse<List<CachedExamResultModel>>():
+        return ErrorResponse<List<CachedExamResultEntity>>(
+          error: response.error,
+        );
     }
   }
 }

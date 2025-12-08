@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:exam_app/core/constants/ui_constants.dart';
 import 'package:exam_app/core/resources/color_managar.dart';
 import 'package:exam_app/core/resources/font_managar.dart';
@@ -7,7 +5,7 @@ import 'package:exam_app/core/resources/styles_manager.dart';
 import 'package:exam_app/core/resources/values_managar.dart';
 import 'package:exam_app/core/routes/routes.dart';
 import 'package:exam_app/core/widgets/custom_elevated_button.dart';
-import 'package:exam_app/features/questions/domain/entities/check_answers_response_entity.dart';
+import 'package:exam_app/features/questions/domain/entities/check_answers_response_entity/check_answers_response_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -17,13 +15,22 @@ class ScoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log('message');
     final args = ModalRoute.of(context)!.settings.arguments as Map;
     final result = args['score'] as CheckAnswersResponseEntity;
+    final examId = args['examId'] as String;
     int dotIndex = result.total.indexOf('.');
     String total = result.total.substring(0, dotIndex + 3);
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              Routes.home,
+              (Route<dynamic> route) => false,
+            );
+          },
+          icon: Icon(Icons.home_max, color: ColorManager.blue),
+        ),
         title: const Text(UiConstants.examScore),
         centerTitle: true,
         automaticallyImplyLeading: false,
@@ -53,7 +60,7 @@ class ScoreScreen extends StatelessWidget {
                   lineWidth: 5,
                   percent: result.correct / (result.wrong + result.correct),
                   center: Text(
-                    '$total%',
+                    total,
                     style: getMediumStyle(
                       color: Colors.black,
                       fontSize: FontSize.s20,
@@ -132,10 +139,9 @@ class ScoreScreen extends StatelessWidget {
               ),
               backgroundColor: ColorManager.blue,
               onTap: () {
-                Navigator.of(context).pushNamed(
-                  Routes.answers,
-                  arguments: args,
-                );
+                Navigator.of(
+                  context,
+                ).pushNamed(Routes.answers, arguments: args);
               },
             ),
             SizedBox(height: 20.h),
@@ -148,7 +154,11 @@ class ScoreScreen extends StatelessWidget {
               border: BorderSide(color: ColorManager.blue),
               backgroundColor: ColorManager.white,
               onTap: () {
-                Navigator.pushNamed(context, Routes.questions);
+                Navigator.pushNamed(
+                  context,
+                  Routes.questions,
+                  arguments: examId,
+                );
               },
             ),
             Spacer(flex: 2),

@@ -39,7 +39,7 @@ class CustomElevatedButton extends StatelessWidget {
       onPressed: onTap,
       child: Text(
         label,
-        style: getMediumStyle(
+        style:labelStyle?? getMediumStyle(
           color: ColorManager.white,
           fontSize: Sizes.s16.sp,
           fontFamily: GoogleFontsKeys.roboto,

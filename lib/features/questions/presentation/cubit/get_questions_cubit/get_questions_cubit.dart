@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:exam_app/config/base_response/base_response.dart';
 import 'package:exam_app/config/base_state/base_state.dart';
 import 'package:exam_app/features/questions/domain/entities/get_questions_response_entity.dart';
-import 'package:exam_app/features/questions/domain/entities/question_entity.dart';
+import 'package:exam_app/features/questions/domain/entities/question_entity/question_entity.dart';
 import 'package:exam_app/features/questions/domain/usecases/get_questions_use_case.dart';
 import 'package:exam_app/features/questions/presentation/cubit/get_questions_cubit/get_guestions_events.dart';
 import 'package:exam_app/features/questions/presentation/cubit/get_questions_cubit/get_questions_state.dart';

@@ -1,6 +1,7 @@
 import 'package:exam_app/features/questions/domain/entities/answers_request_entity/answers_request_entity.dart';
-import 'package:exam_app/features/questions/domain/entities/check_answers_response_entity.dart';
-import 'package:exam_app/features/questions/domain/entities/question_entity.dart';
+import 'package:exam_app/features/questions/domain/entities/check_answers_response_entity/check_answers_response_entity.dart';
+import 'package:exam_app/features/questions/domain/entities/exam_entity/exam_entity.dart';
+import 'package:exam_app/features/questions/domain/entities/question_entity/question_entity.dart';
 
 sealed class AnswerEvent {}
 
@@ -29,8 +30,9 @@ class NextQuestionEvent extends AnswerEvent {
 }
 
 class CacheAnswersEvent extends AnswerEvent {
-  final String examId;
+  final ExamEntity exam;
+  final List<QuestionEntity> questions;
   final CheckAnswersResponseEntity answers;
 
-  CacheAnswersEvent({required this.examId, required this.answers});
+  CacheAnswersEvent({required this.exam, required this.answers,required this.questions});
 }

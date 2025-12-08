@@ -4,7 +4,7 @@ import 'package:exam_app/core/resources/color_managar.dart';
 import 'package:exam_app/core/resources/font_managar.dart';
 import 'package:exam_app/core/resources/styles_manager.dart';
 import 'package:exam_app/core/utils/sounds_manager.dart';
-import 'package:exam_app/features/questions/domain/entities/question_entity.dart';
+import 'package:exam_app/features/questions/domain/entities/question_entity/question_entity.dart';
 import 'package:exam_app/features/questions/presentation/cubit/answer_cubit/answer_cubit.dart';
 import 'package:exam_app/features/questions/presentation/cubit/answer_cubit/answer_state.dart';
 import 'package:flutter/material.dart';

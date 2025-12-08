@@ -191,9 +191,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 BlocConsumer<SignUpCubit, SignUpStates>(
                   listener: (context, state) {
                     if (state.signUpState?.isLoading == true) {
-                      UIUtils.showLoading(context);
+                      UIUtils.showEasyLoading();
                     } else if (state.signUpState?.errorMessage != null) {
-                      UIUtils.hideLoading(context);
+                      UIUtils.hideEasyLoading();
                       UIUtils.showMessage(
                         state.signUpState!.errorMessage!,
                         backGroundColor: ColorManager.red,
@@ -201,7 +201,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       );
                     } else if (state.signUpState?.data != null &&
                         state.signUpState!.data!.isNotEmpty) {
-                      UIUtils.hideLoading(context);
+                      UIUtils.hideEasyLoading();
                       UIUtils.showMessage(
                         state.signUpState!.data!,
                         backGroundColor: ColorManager.green,

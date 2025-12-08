@@ -2,7 +2,7 @@ import 'package:exam_app/core/constants/ui_constants.dart';
 import 'package:exam_app/core/resources/color_managar.dart';
 import 'package:exam_app/core/resources/font_managar.dart';
 import 'package:exam_app/core/resources/styles_manager.dart';
-import 'package:exam_app/features/questions/domain/entities/question_entity.dart';
+import 'package:exam_app/features/questions/domain/entities/question_entity/question_entity.dart';
 import 'package:exam_app/features/questions/presentation/views/widgets/answers_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

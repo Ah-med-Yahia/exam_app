@@ -1,6 +1,6 @@
 import 'package:exam_app/config/base_state/base_state.dart';
-import 'package:exam_app/features/questions/domain/entities/exam_entity.dart';
-import 'package:exam_app/features/questions/domain/entities/question_entity.dart';
+import 'package:exam_app/features/questions/domain/entities/exam_entity/exam_entity.dart';
+import 'package:exam_app/features/questions/domain/entities/question_entity/question_entity.dart';
 
 class GetQuestionsStates {
   final BaseState<List<QuestionEntity>>? questionsState;
