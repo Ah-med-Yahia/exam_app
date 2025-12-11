@@ -38,32 +38,27 @@ class ForgetPasswordScreen extends StatelessWidget {
             listener: (context, state) {
               final forgotPasswordState = state.forgetPasswordState;
               if (forgotPasswordState?.isLoading == true) {
-                UIUtils.showLoadingMessage(
-                  context: context,
-                  loadingText: UiConstants.sendingResetCodeLoadingMessage,
+                UIUtils.showEasyLoading(
+                  status: UiConstants.sendingResetCodeLoadingMessage,
                 );
               } else if (forgotPasswordState?.data != null) {
-                UIUtils.hideLoading(context);
-                UIUtils.showMessageWithNav(
-                  context: context,
-                  title: UiConstants.successTitle,
-                  message: forgotPasswordState!.data!.info!,
-                  posActionName: UiConstants.okButton,
-                  posAction: () {
-                    Navigator.pushNamed(
-                      context,
-                      Routes.verifyResetCode,
-                      arguments: _emailController.text,
-                    );
-                  },
+                UIUtils.hideEasyLoading();
+                UIUtils.showMessage(
+                  forgotPasswordState!.data!.info!,
+                  backGroundColor: ColorManager.green,
+                  textColor: ColorManager.white,
+                );
+                Navigator.pushNamed(
+                  context,
+                  Routes.verifyResetCode,
+                  arguments: _emailController.text,
                 );
               } else if (forgotPasswordState?.errorMessage != null) {
-                UIUtils.hideLoading(context);
-                UIUtils.showMessageWithNav(
-                  context: context,
-                  title: UiConstants.failureTitle,
-                  message: forgotPasswordState!.errorMessage!,
-                  negActionName: UiConstants.okButton,
+                UIUtils.hideEasyLoading();
+                UIUtils.showMessage(
+                  forgotPasswordState!.errorMessage!, 
+                  backGroundColor: ColorManager.red, 
+                  textColor: ColorManager.white
                 );
               }
             },
@@ -75,11 +70,12 @@ class ForgetPasswordScreen extends StatelessWidget {
               final bool hasAnyError = hasApiError || hasFormError;
               Color labelColor;
               Color buttonColor;
-              
+              Color borderColor;
               String? errorText;
               if (state.hasUserInteracted == false) {
                 labelColor = ColorManager.darkGrey;
                 buttonColor = ColorManager.blue;
+                borderColor = ColorManager.black;
               } else {
                 labelColor = hasAnyError
                     ? ColorManager.red
@@ -87,6 +83,9 @@ class ForgetPasswordScreen extends StatelessWidget {
                 buttonColor = hasAnyError
                     ? ColorManager.grey
                     : ColorManager.blue;
+                borderColor = hasAnyError
+                    ? ColorManager.red
+                    : ColorManager.black;
                 errorText = !hasApiError
                     ? null
                     : state.forgetPasswordState!.errorMessage!;
@@ -144,6 +143,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                             controller: _emailController,
                             label: UiConstants.email,
                             labelColor: labelColor,
+                            borderColor: borderColor,
                             hintText: UiConstants.emailHintText,
                             validator: Validator.validateEmail,
                             keyboardType: TextInputType.emailAddress,

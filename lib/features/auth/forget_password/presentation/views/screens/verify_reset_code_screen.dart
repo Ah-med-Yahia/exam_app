@@ -13,7 +13,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
 
-
 class VerifyResetCodeScreen extends StatelessWidget {
   VerifyResetCodeScreen({super.key});
 
@@ -30,60 +29,53 @@ class VerifyResetCodeScreen extends StatelessWidget {
             listener: (context, state) {
               final verifyState = state.verifyResetCodeState;
               if (verifyState?.isLoading == true) {
-                UIUtils.showLoadingMessage(
-                  context: context,
-                  loadingText: UiConstants.verifyingResetCodeLoadingMessage,
+                UIUtils.showEasyLoading(
+                  status: UiConstants.verifyingResetCodeLoadingMessage,
                 );
               } else if (verifyState?.data != null) {
-                UIUtils.hideLoading(context);
-                UIUtils.showMessageWithNav(
-                  context: context,
-                  title: UiConstants.successTitle,
-                  message: verifyState!.data!.status!,
-                  posActionName: UiConstants.okButton,
-                  posAction: () {
-                      Navigator.pushNamed(
-                        context,
-                        Routes.resetPassword,
-                        arguments: email,
-                      );
-                  },
+                UIUtils.hideEasyLoading();
+                UIUtils.showMessage(
+                  verifyState!.data!.status!,
+                  backGroundColor: ColorManager.green,
+                  textColor: ColorManager.white,
+                );
+                Navigator.pushNamed(
+                  context,
+                  Routes.resetPassword,
+                  arguments: email,
                 );
               } else if (verifyState?.errorMessage != null) {
-                UIUtils.hideLoading(context);
-                UIUtils.showMessageWithNav(
-                  context: context,
-                  title: UiConstants.failureTitle,
-                  message: verifyState!.errorMessage!,
-                  negActionName: UiConstants.okButton,
+                UIUtils.hideEasyLoading();
+                UIUtils.showMessage(
+                  verifyState!.errorMessage!, 
+                  backGroundColor: ColorManager.red, 
+                  textColor: ColorManager.white
                 );
               }
               final forgotPasswordState = state.forgetPasswordState;
               if (forgotPasswordState?.isLoading == true) {
-                UIUtils.showLoadingMessage(
-                  context: context,
-                  loadingText: UiConstants.sendingResetCodeLoadingMessage,
+                UIUtils.showEasyLoading(
+                  status: UiConstants.sendingResetCodeLoadingMessage,
                 );
               } else if (forgotPasswordState?.data != null) {
-                UIUtils.hideLoading(context);
-                UIUtils.showMessageWithNav(
-                  context: context,
-                  title: UiConstants.successTitle,
-                  message: forgotPasswordState!.data!.info!,
-                  posActionName: UiConstants.okButton,
-                );   
+                UIUtils.hideEasyLoading();
+                UIUtils.showMessage(
+                  forgotPasswordState!.data!.info!, 
+                  backGroundColor: ColorManager.green, 
+                  textColor: ColorManager.white
+                );
               } else if (forgotPasswordState?.errorMessage != null) {
-                UIUtils.hideLoading(context);
-                UIUtils.showMessageWithNav(
-                  context: context,
-                  title: UiConstants.failureTitle, 
-                  message: forgotPasswordState!.errorMessage!,
-                  negActionName: UiConstants.okButton
+                UIUtils.hideEasyLoading();
+                UIUtils.showMessage(
+                  forgotPasswordState!.errorMessage!, 
+                  backGroundColor: ColorManager.red, 
+                  textColor: ColorManager.white
                 );
               }
             },
             buildWhen: (previous, current) {
-              return previous.verifyResetCodeState!=current.verifyResetCodeState;
+              return previous.verifyResetCodeState !=
+                  current.verifyResetCodeState;
             },
             builder: (context, state) {
               final verifyState = state.verifyResetCodeState;
@@ -103,12 +95,16 @@ class VerifyResetCodeScreen extends StatelessWidget {
                   leading: IconButton(
                     onPressed: () {
                       Navigator.pop(context);
-                    }, 
-                    icon: Icon(Icons.arrow_back_ios,color: ColorManager.black,)
+                    },
+                    icon: Icon(Icons.arrow_back_ios, color: ColorManager.black),
                   ),
                   title: Text(
                     UiConstants.forgetPasswordHeadLine,
-                    style: getMediumStyle(color: ColorManager.black,fontSize: Sizes.s18.sp,fontFamily: 'inter'),
+                    style: getMediumStyle(
+                      color: ColorManager.black,
+                      fontSize: Sizes.s18.sp,
+                      fontFamily: GoogleFontsKeys.inter,
+                    ),
                   ),
                 ),
                 body: SingleChildScrollView(
@@ -147,8 +143,14 @@ class VerifyResetCodeScreen extends StatelessWidget {
                           autofocus: true,
                           autofillHints: const [AutofillHints.oneTimeCode],
                           onChanged: (value) {
-                            if(value.isNotEmpty && verifyState?.errorMessage!=null){
-                              context.read<ForgetPasswordCubit>().doIntent(ClearVerifyResetCodeErrorEvent(), null, null, null);
+                            if (value.isNotEmpty &&
+                                verifyState?.errorMessage != null) {
+                              context.read<ForgetPasswordCubit>().doIntent(
+                                ClearVerifyResetCodeErrorEvent(),
+                                null,
+                                null,
+                                null,
+                              );
                             }
                           },
                           defaultPinTheme: PinTheme(
@@ -161,7 +163,10 @@ class VerifyResetCodeScreen extends StatelessWidget {
                             decoration: BoxDecoration(
                               color: boxColor,
                               borderRadius: BorderRadius.circular(Sizes.s10.r),
-                              border: Border.all(color: borderColor, width: Sizes.s2.w),
+                              border: Border.all(
+                                color: borderColor,
+                                width: Sizes.s2.w,
+                              ),
                             ),
                           ),
                           focusedPinTheme: PinTheme(
@@ -192,8 +197,14 @@ class VerifyResetCodeScreen extends StatelessWidget {
                             }
                           },
                           onCompleted: (value) {
-                            final viewModel = context.read<ForgetPasswordCubit>();
-                            viewModel.doIntent(VerifyResetCodeEvent(), null, value, null);
+                            final viewModel = context
+                                .read<ForgetPasswordCubit>();
+                            viewModel.doIntent(
+                              VerifyResetCodeEvent(),
+                              null,
+                              value,
+                              null,
+                            );
                           },
                         ),
                         if (errorText != null) ...[
@@ -225,8 +236,14 @@ class VerifyResetCodeScreen extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                final viewModel = context.read<ForgetPasswordCubit>();
-                                viewModel.doIntent(ForgotPasswordEvent(), email, null, null);
+                                final viewModel = context
+                                    .read<ForgetPasswordCubit>();
+                                viewModel.doIntent(
+                                  ForgotPasswordEvent(),
+                                  email,
+                                  null,
+                                  null,
+                                );
                               },
                               child: Text(
                                 UiConstants.resendOTP,
@@ -250,7 +267,7 @@ class VerifyResetCodeScreen extends StatelessWidget {
               );
             },
           );
-        }
+        },
       ),
     );
   }

@@ -180,7 +180,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           TextButton(
                             onPressed: () => Navigator.of(
                               context,
-                            ).pushReplacementNamed(Routes.register),
+                            ).pushReplacementNamed(Routes.signUp),
                             child: Text(
                               UiConstants.signUp,
                               style: getRegularStyle(
