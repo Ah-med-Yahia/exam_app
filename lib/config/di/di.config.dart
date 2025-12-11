@@ -72,6 +72,30 @@ import '../../features/auth/sign_up/domain/use_cases/sign_up_use_case.dart'
     as _i45;
 import '../../features/auth/sign_up/presentation/cubit/sign_up_cubit.dart'
     as _i809;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/api/api_client/explore_tab_api_client.dart'
+    as _i439;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/api/datasources/explore_tab_local_data_source_impl.dart'
+    as _i875;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/api/datasources/explore_tab_remote_data_source_impl.dart'
+    as _i271;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/api/datasources/get_all_exams_remote_data_source_impl.dart'
+    as _i12;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/data/datasources/explore_tab_local_data_source.dart'
+    as _i656;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/data/datasources/explore_tab_remote_data_source.dart'
+    as _i508;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/data/datasources/get_all_exams_remote_data_source.dart'
+    as _i961;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/data/repositories/explore_tab_repository_impl.dart'
+    as _i393;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/domain/repositories/explore_tab_repository.dart'
+    as _i762;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/domain/use_cases/get_all_exams_use_case.dart'
+    as _i1007;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/domain/use_cases/get_all_subjects_use_case.dart'
+    as _i120;
+import '../../features/home/presentation/views/screens/tabs/explore_tab/presentation/cubit/explore_tab_cubit.dart'
+    as _i695;
 import '../../features/profile_tab/api/api_client/edit_profile_api_client.dart'
     as _i761;
 import '../../features/profile_tab/api/data_sources/edit_profile_data_source_impl.dart'
@@ -100,30 +124,6 @@ import '../../features/profile_tab/features/change_password/presentation/cubit/c
     as _i571;
 import '../../features/profile_tab/presentation/cubit/edit_profile_cubit.dart'
     as _i520;
-import '../../features/home/presentation/views/screens/tabs/explore_tab/api/api_client/explore_tab_api_client.dart'
-    as _i439;
-import '../../features/home/presentation/views/screens/tabs/explore_tab/api/datasources/explore_tab_local_data_source_impl.dart'
-    as _i875;
-import '../../features/home/presentation/views/screens/tabs/explore_tab/api/datasources/explore_tab_remote_data_source_impl.dart'
-    as _i271;
-import '../../features/home/presentation/views/screens/tabs/explore_tab/api/datasources/get_all_exams_remote_data_source_impl.dart'
-    as _i12;
-import '../../features/home/presentation/views/screens/tabs/explore_tab/data/datasources/explore_tab_local_data_source.dart'
-    as _i656;
-import '../../features/home/presentation/views/screens/tabs/explore_tab/data/datasources/explore_tab_remote_data_source.dart'
-    as _i508;
-import '../../features/home/presentation/views/screens/tabs/explore_tab/data/datasources/get_all_exams_remote_data_source.dart'
-    as _i961;
-import '../../features/home/presentation/views/screens/tabs/explore_tab/data/repositories/explore_tab_repository_impl.dart'
-    as _i393;
-import '../../features/home/presentation/views/screens/tabs/explore_tab/domain/repositories/explore_tab_repository.dart'
-    as _i762;
-import '../../features/home/presentation/views/screens/tabs/explore_tab/domain/use_cases/get_all_exams_use_case.dart'
-    as _i1007;
-import '../../features/home/presentation/views/screens/tabs/explore_tab/domain/use_cases/get_all_subjects_use_case.dart'
-    as _i120;
-import '../../features/home/presentation/views/screens/tabs/explore_tab/presentation/cubit/explore_tab_cubit.dart'
-    as _i695;
 import '../../features/questions/api/api_client/check_answers/check_answers_api_client.dart'
     as _i164;
 import '../../features/questions/api/api_client/get_questions_api_client/questions_api_client.dart'
@@ -247,6 +247,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i168.StartExamApiClient>(
       () => _i168.StartExamApiClient.new(gh<_i361.Dio>()),
     );
+    gh.factory<_i761.EditProfileApiClient>(
+      () => _i761.EditProfileApiClient.new(gh<_i361.Dio>()),
+    );
+    gh.factory<_i295.ChangePasswordApiClient>(
+      () => _i295.ChangePasswordApiClient.new(gh<_i361.Dio>()),
+    );
     gh.factory<_i961.GetAllExamsRemoteDataSource>(
       () => _i12.GetAllExamsRemoteDataSourceImpl(
         exploreTabApiClient: gh<_i439.ExploreTabApiClient>(),
@@ -261,17 +267,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i744.Box<_i52.CachedExamResultModel>>(
       () => hiveModule.cachedResultsBox(gh<_i744.HiveInterface>()),
     );
-    gh.factory<_i761.EditProfileApiClient>(
-      () => _i761.EditProfileApiClient(gh<_i361.Dio>()),
-    );
-    gh.factory<_i295.ChangePasswordApiClient>(
-      () => _i295.ChangePasswordApiClient(gh<_i361.Dio>()),
-    );
     gh.factory<_i743.LoginRemoteDataSource>(
       () => _i433.LoginRemoteDataSourceImpl(gh<_i32.LoginApiClient>()),
-    );
-    gh.factory<_i87.EditProfileDataSource>(
-      () => _i19.EditProfileDataSourceImpl(gh<_i761.EditProfileApiClient>()),
     );
     gh.singleton<_i645.SignUpRemoteDataSourceContract>(
       () => _i522.SignUpRemoteDataSourceImpl(
@@ -287,6 +284,9 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i271.ExploreTabRemoteDataSourceImpl(
         exploreTabApiClient: gh<_i439.ExploreTabApiClient>(),
       ),
+    );
+    gh.factory<_i87.EditProfileDataSource>(
+      () => _i19.EditProfileDataSourceImpl(gh<_i761.EditProfileApiClient>()),
     );
     gh.factory<_i663.StartExamRemoteDataSource>(
       () =>
@@ -361,9 +361,6 @@ extension GetItInjectableX on _i174.GetIt {
         forgetPasswordApiClient: gh<_i478.ForgetPasswordApiClient>(),
       ),
     );
-    gh.factory<_i724.EditProfileRepository>(
-      () => _i628.EditProfileRepositoryImpl(gh<_i87.EditProfileDataSource>()),
-    );
     gh.factory<_i1007.GetAllExamsUseCase>(
       () => _i1007.GetAllExamsUseCase(
         exploreTabRepository: gh<_i762.ExploreTabRepository>(),
@@ -395,6 +392,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i120.GetAllSubjectsUseCase>(),
         gh<_i1007.GetAllExamsUseCase>(),
       ),
+    );
+    gh.factory<_i724.EditProfileRepository>(
+      () => _i628.EditProfileRepositoryImpl(gh<_i87.EditProfileDataSource>()),
     );
     gh.factory<_i50.LoginUseCase>(
       () => _i50.LoginUseCase(gh<_i176.LoginRepository>()),
@@ -485,9 +485,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i295.VerifyResetCodeUseCase>(),
       ),
     );
-    gh.factory<_i571.ChangePasswordCubit>(
-      () => _i571.ChangePasswordCubit(gh<_i188.ChangePasswordUseCase>()),
-    );
     gh.singleton<_i992.GetLocalResultsHistoryUseCase>(
       () =>
           _i992.GetLocalResultsHistoryUseCase(gh<_i529.GetResultsRepository>()),
@@ -500,11 +497,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i521.StartExamCubit>(
       () => _i521.StartExamCubit(gh<_i200.StartExamUseCase>()),
     );
-    gh.factory<_i520.EditProfileCubit>(
-      () => _i520.EditProfileCubit(
-        gh<_i550.EditProfileUseCase>(),
-        gh<_i245.LoginLocalDataSource>(),
-      ),
+    gh.factory<_i571.ChangePasswordCubit>(
+      () => _i571.ChangePasswordCubit(gh<_i188.ChangePasswordUseCase>()),
     );
     gh.singleton<_i809.SignUpCubit>(
       () => _i809.SignUpCubit(gh<_i45.SignUpUseCase>()),
@@ -513,6 +507,12 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i275.AnswerCubit(
         gh<_i152.AnswersCheckUseCase>(),
         gh<_i954.CacheAnswersUseCase>(),
+      ),
+    );
+    gh.factory<_i520.EditProfileCubit>(
+      () => _i520.EditProfileCubit(
+        gh<_i550.EditProfileUseCase>(),
+        gh<_i245.LoginLocalDataSource>(),
       ),
     );
     gh.factory<_i276.ResultTabCubit>(
