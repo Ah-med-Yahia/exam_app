@@ -15,6 +15,6 @@ abstract class ChangePasswordApiClient {
 
   @PATCH(ApiConstants.changePasswordEndPoint)
   Future<ChangePasswordResponse> changePassword(
-    @Body() ChangePasswordRequest request
+    @Body() ChangePasswordRequest request,
   );
 }

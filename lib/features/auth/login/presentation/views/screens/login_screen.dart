@@ -127,9 +127,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             previous.errorMessage != current.errorMessage,
                         listener: (context, state) {
                           if (state.isLoading) {
-                            UIUtils.showLoading(context);
+                            UIUtils.showEasyLoading();
                           } else {
-                            UIUtils.hideLoading(context);
+                            UIUtils.hideEasyLoading();
                           }
                           if (state.data != null) {
                             UIUtils.showMessage(

@@ -1,11 +1,14 @@
+import 'package:exam_app/config/di/di.dart';
 import 'package:exam_app/core/constants/ui_constants.dart';
 import 'package:exam_app/core/resources/assets_managar.dart';
 import 'package:exam_app/core/resources/color_managar.dart';
-import 'package:exam_app/features/explore_tab/presentation/views/explore_tab.dart';
+import 'package:exam_app/features/home/presentation/views/screens/tabs/explore_tab/presentation/views/screens/explore_tab.dart';
 import 'package:exam_app/features/home/presentation/views/widgets/nav_bar_icon.dart';
 import 'package:exam_app/features/profile_tab/presentation/view/profile_tab.dart';
-import 'package:exam_app/features/result_tab/presentation/result_tab.dart';
+import 'package:exam_app/features/result_tab/presentation/cubit/result_tab_cubit.dart';
+import 'package:exam_app/features/result_tab/presentation/views/results_tab.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,8 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Widget> tabs = [
     const ExploreTab(),
-    const ResultTab(),
-     ProfileTab(),
+    BlocProvider(create: (context) => getIt.get<ResultTabCubit>(), child: const ResultsTab()),
+    const ProfileTab(),
   ];
 
   @override

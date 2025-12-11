@@ -54,9 +54,11 @@ class _ProfileTabState extends State<ProfileTab> {
       setState(() {
         _image = File(pickedFile.path);
       });
-      context.read<EditProfileCubit>().doIntent(
-        ProfileImagePicked(pickedFile.path),
-      );
+      if (mounted) {
+        context.read<EditProfileCubit>().doIntent(
+          ProfileImagePicked(pickedFile.path),
+        );
+      }
     }
   }
 
