@@ -9,7 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class UIUtils {
-  static void showEasyLoading() {
+  static void showEasyLoading({String? status}) {
     EasyLoading.instance.indicatorType = EasyLoadingIndicatorType.ripple;
     EasyLoading.instance.indicatorSize = 45.0;
     EasyLoading.instance.loadingStyle = EasyLoadingStyle.custom;
@@ -18,7 +18,7 @@ class UIUtils {
     EasyLoading.instance.indicatorColor = Colors.white;
     EasyLoading.instance.textColor = Colors.white;
     EasyLoading.instance.maskType = EasyLoadingMaskType.black;
-    EasyLoading.show(status: UiConstants.loading);
+    EasyLoading.show(status:status?? UiConstants.loading);
   }
 
   static void showLoading(BuildContext context) => showDialog(
