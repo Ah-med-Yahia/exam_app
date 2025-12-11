@@ -8,6 +8,7 @@ import 'package:exam_app/features/auth/login/presentation/views/screens/login_sc
 import 'package:exam_app/features/auth/sign_up/presentation/cubit/sign_up_cubit.dart';
 import 'package:exam_app/features/auth/sign_up/presentation/views/screens/sign_up_screen.dart';
 import 'package:exam_app/features/home/presentation/views/screens/home_screen.dart';
+import 'package:exam_app/features/home/tabs/profile_tab/features/change_password/presentation/view/change_password_screen.dart';
 import 'package:exam_app/features/questions/presentation/cubit/answer_cubit/answer_cubit.dart';
 import 'package:exam_app/features/questions/presentation/cubit/get_questions_cubit/get_questions_cubit.dart';
 import 'package:exam_app/features/questions/presentation/views/screens/answers_screen.dart';
@@ -16,6 +17,7 @@ import 'package:exam_app/features/questions/presentation/views/screens/score_scr
 import 'package:exam_app/features/start_exam/presentation/views/screens/start_exam_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -31,19 +33,27 @@ class RouteGenerator {
           builder: (_) => const LoginScreen(),
           settings: settings,
         );
+    
       case Routes.forgetPassword:
         return MaterialPageRoute(
           builder: (_) => ForgetPasswordScreen(),
           settings: settings,
         );
+        
       case Routes.verifyResetCode:
         return MaterialPageRoute(
           builder: (_) => VerifyResetCodeScreen(),
           settings: settings,
         );
+        
       case Routes.resetPassword:
         return MaterialPageRoute(
           builder: (_) => ResetPasswordScreen(),
+          settings: settings,
+        );
+      case Routes.changePassword:
+        return MaterialPageRoute(
+          builder: (_) => ChangePasswordScreen(),
           settings: settings,
         );
       case Routes.home:
