@@ -32,43 +32,40 @@ class LoginCubit extends Cubit<LoginStates> {
         break;
 
       case LoginButtonPressed():
-          _performLogin(intent);
-          break;
-      }
+        _performLogin(intent);
+        break;
     }
+  }
 
   bool _validateForm() {
     return Validator.validateEmail(emailController.text) == null &&
         Validator.validatePassword(passwordController.text) == null;
   }
 
-   Future<void> _performLogin(LoginButtonPressed intent) async {
-  emit(state.copyWith(isLoading: true, data: null, errorMessage: null));
+  Future<void> _performLogin(LoginButtonPressed intent) async {
+    emit(state.copyWith(isLoading: true, data: null, errorMessage: null));
 
-  final response = await _loginUseCase(
-    LoginRequest(
-      email: intent.email,
-      password: intent.password,
-    ),
-  );
-  
-  switch (response) {
-    case SuccessResponse():
-      emit(state.copyWith(data: response.data, isLoading: false));
-      break;
+    final response = await _loginUseCase(
+      LoginRequest(email: intent.email, password: intent.password),
+    );
 
-    case ErrorResponse():
-      emit(
-        state.copyWith(
-          errorMessage: UiConstants.failedToLogin,
-          isLoading: false,
-        ),
-      );
-      break;
+    switch (response) {
+      case SuccessResponse():
+        emit(state.copyWith(data: response.data, isLoading: false));
+        break;
+
+      case ErrorResponse():
+        emit(
+          state.copyWith(
+            errorMessage: UiConstants.failedToLogin,
+            isLoading: false,
+          ),
+        );
+        break;
+    }
   }
-}
 
-@override
+  @override
   Future<void> close() {
     emailController.dispose();
     passwordController.dispose();

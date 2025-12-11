@@ -72,6 +72,34 @@ import '../../features/auth/sign_up/domain/use_cases/sign_up_use_case.dart'
     as _i45;
 import '../../features/auth/sign_up/presentation/cubit/sign_up_cubit.dart'
     as _i809;
+import '../../features/profile_tab/api/api_client/edit_profile_api_client.dart'
+    as _i761;
+import '../../features/profile_tab/api/data_sources/edit_profile_data_source_impl.dart'
+    as _i19;
+import '../../features/profile_tab/data/data_sources/edit_profile_data_source.dart'
+    as _i87;
+import '../../features/profile_tab/data/repositories/edit_profile_repository_impl.dart'
+    as _i628;
+import '../../features/profile_tab/domain/repositories/edit_profile_repository.dart'
+    as _i724;
+import '../../features/profile_tab/domain/use_cases/edit_profile_use_case.dart'
+    as _i550;
+import '../../features/profile_tab/features/change_password/api/api_client/change_password_api_client.dart'
+    as _i295;
+import '../../features/profile_tab/features/change_password/api/data_sources/change_password_data_source_impl.dart'
+    as _i1051;
+import '../../features/profile_tab/features/change_password/data/datasources/change_password_data_source.dart'
+    as _i321;
+import '../../features/profile_tab/features/change_password/data/repositories/change_password_repository_impl.dart'
+    as _i919;
+import '../../features/profile_tab/features/change_password/domain/repositories/change_passwprd_repository.dart'
+    as _i1045;
+import '../../features/profile_tab/features/change_password/domain/usecases/change_password_use_case.dart'
+    as _i188;
+import '../../features/profile_tab/features/change_password/presentation/cubit/change_password_cubit.dart'
+    as _i571;
+import '../../features/profile_tab/presentation/cubit/edit_profile_cubit.dart'
+    as _i520;
 import '../../features/home/presentation/views/screens/tabs/explore_tab/api/api_client/explore_tab_api_client.dart'
     as _i439;
 import '../../features/home/presentation/views/screens/tabs/explore_tab/api/datasources/explore_tab_local_data_source_impl.dart'
@@ -233,8 +261,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i744.Box<_i52.CachedExamResultModel>>(
       () => hiveModule.cachedResultsBox(gh<_i744.HiveInterface>()),
     );
+    gh.factory<_i761.EditProfileApiClient>(
+      () => _i761.EditProfileApiClient(gh<_i361.Dio>()),
+    );
+    gh.factory<_i295.ChangePasswordApiClient>(
+      () => _i295.ChangePasswordApiClient(gh<_i361.Dio>()),
+    );
     gh.factory<_i743.LoginRemoteDataSource>(
       () => _i433.LoginRemoteDataSourceImpl(gh<_i32.LoginApiClient>()),
+    );
+    gh.factory<_i87.EditProfileDataSource>(
+      () => _i19.EditProfileDataSourceImpl(gh<_i761.EditProfileApiClient>()),
     );
     gh.singleton<_i645.SignUpRemoteDataSourceContract>(
       () => _i522.SignUpRemoteDataSourceImpl(
@@ -314,10 +351,18 @@ extension GetItInjectableX on _i174.GetIt {
         localDataSource: gh<_i582.GetQuestionLocalDataSource>(),
       ),
     );
+    gh.factory<_i321.ChangePasswordDataSource>(
+      () => _i1051.ChangePasswordDataSourceImpl(
+        gh<_i295.ChangePasswordApiClient>(),
+      ),
+    );
     gh.factory<_i950.ForgetPasswordRemoteDataSource>(
       () => _i163.ForgetPasswordRemoteDataSourceImpl(
         forgetPasswordApiClient: gh<_i478.ForgetPasswordApiClient>(),
       ),
+    );
+    gh.factory<_i724.EditProfileRepository>(
+      () => _i628.EditProfileRepositoryImpl(gh<_i87.EditProfileDataSource>()),
     );
     gh.factory<_i1007.GetAllExamsUseCase>(
       () => _i1007.GetAllExamsUseCase(
@@ -388,6 +433,14 @@ extension GetItInjectableX on _i174.GetIt {
         localDataSource: gh<_i129.ForgetPasswordLocalDataSource>(),
       ),
     );
+    gh.factory<_i1045.ChangePasswprdRepository>(
+      () => _i919.ChangePasswordRepositoryImpl(
+        gh<_i321.ChangePasswordDataSource>(),
+      ),
+    );
+    gh.factory<_i550.EditProfileUseCase>(
+      () => _i550.EditProfileUseCase(gh<_i724.EditProfileRepository>()),
+    );
     gh.factory<_i200.StartExamUseCase>(
       () => _i200.StartExamUseCase(gh<_i420.StartExamRepository>()),
     );
@@ -422,12 +475,18 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i126.LoginCubit>(
       () => _i126.LoginCubit(gh<_i50.LoginUseCase>()),
     );
+    gh.factory<_i188.ChangePasswordUseCase>(
+      () => _i188.ChangePasswordUseCase(gh<_i1045.ChangePasswprdRepository>()),
+    );
     gh.factory<_i231.ForgetPasswordCubit>(
       () => _i231.ForgetPasswordCubit(
         gh<_i913.ForgetPasswordUseCase>(),
         gh<_i22.ResetPasswordUseCase>(),
         gh<_i295.VerifyResetCodeUseCase>(),
       ),
+    );
+    gh.factory<_i571.ChangePasswordCubit>(
+      () => _i571.ChangePasswordCubit(gh<_i188.ChangePasswordUseCase>()),
     );
     gh.singleton<_i992.GetLocalResultsHistoryUseCase>(
       () =>
@@ -440,6 +499,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i521.StartExamCubit>(
       () => _i521.StartExamCubit(gh<_i200.StartExamUseCase>()),
+    );
+    gh.factory<_i520.EditProfileCubit>(
+      () => _i520.EditProfileCubit(
+        gh<_i550.EditProfileUseCase>(),
+        gh<_i245.LoginLocalDataSource>(),
+      ),
     );
     gh.singleton<_i809.SignUpCubit>(
       () => _i809.SignUpCubit(gh<_i45.SignUpUseCase>()),

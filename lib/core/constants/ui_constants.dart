@@ -74,7 +74,16 @@ class UiConstants {
       "Lorem ipsum dolor sit amet consectetur.";
   static const String startText = "Start";
   static const String failedToSaveUser = 'Failed To Save User';
-  static const String updata = 'Update';
+  static const String change = 'Change';
+  static const String profileUpdatedSuccessfully = 'Profile updated Successfuly';
+  static const String noChanesToUpdate = 'NO Changes To Update';
+  static const String failedToUpdateProfile = 'Failed To Update Profile';
+  static const String pleaseCompleteYourData = 'Please complete Your Data';
+  static const String currentPassword = 'Current Password';
+  static const String newPassword = 'New Password';
+  static const String passwordsdontMatch = 'Passwords do not match';
+  static const String passwordUpdatedSuccessfully = 'Password Updated Successfully';
+  static const String failedToUpdatepassword = 'Failed To Update The Password';  static const String updata = 'Update';
   static const String loading = 'Loading...';
   static const String answers = 'Answers';
   static const String exam = 'Exam';
@@ -110,5 +119,6 @@ class GoogleFontsKeys {
 }
 
 class PathsConstants {
-  static const String profileImage = 'assets/images/image.png';
+  static const String profileImage = 'assets/images/person.jpg';
+  static const String cameraIcon = 'assets/icons/Camera.svg';
 }
