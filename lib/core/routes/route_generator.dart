@@ -8,7 +8,7 @@ import 'package:exam_app/features/auth/login/presentation/views/screens/login_sc
 import 'package:exam_app/features/auth/sign_up/presentation/cubit/sign_up_cubit.dart';
 import 'package:exam_app/features/auth/sign_up/presentation/views/screens/sign_up_screen.dart';
 import 'package:exam_app/features/home/presentation/views/screens/home_screen.dart';
-import 'package:exam_app/features/profile_tab/features/change_password/presentation/view/change_password_screen.dart';
+import 'package:exam_app/features/home/tabs/profile_tab/features/change_password/presentation/view/change_password_screen.dart';
 import 'package:exam_app/features/questions/presentation/cubit/answer_cubit/answer_cubit.dart';
 import 'package:exam_app/features/questions/presentation/cubit/get_questions_cubit/get_questions_cubit.dart';
 import 'package:exam_app/features/questions/presentation/views/screens/answers_screen.dart';
