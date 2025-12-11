@@ -15,7 +15,7 @@ class CustomTextFormField extends StatefulWidget {
   final TextInputType keyboardType;
   final int maxLines;
   final Color labelColor;
-
+  final Color borderColor;
   final Widget? prefixIcon;
   final double? radius;
 
@@ -30,6 +30,7 @@ class CustomTextFormField extends StatefulWidget {
     this.keyboardType = TextInputType.text,
     this.maxLines = 1,
     this.labelColor = ColorManager.darkGrey,
+    this.borderColor=ColorManager.black,
     this.prefixIcon,
     this.radius,
   });
@@ -77,14 +78,14 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           prefixIcon: widget.prefixIcon,
           labelText: widget.label,
           labelStyle: getRegularStyle(
-            color: hasError ? ColorManager.red : ColorManager.darkGrey,
+            color: widget.labelColor,
           ),
           errorMaxLines: 2,
           floatingLabelBehavior: FloatingLabelBehavior.always,
           floatingLabelStyle: TextStyle(
             fontSize: 18.sp,
             fontWeight: FontWeightManager.regular,
-            color: hasError ? ColorManager.red : ColorManager.darkGrey,
+            color: widget.labelColor,
           ),
           hintText: widget.hintText,
           hintStyle: TextStyle(
@@ -97,12 +98,12 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             top: Insets.s16.sp,
             bottom: Insets.s16.sp,
           ),
-          border: _buildBorder(color: ColorManager.black),
-          enabledBorder: _buildBorder(color: ColorManager.black),
+          border: _buildBorder(color: widget.borderColor),
+          enabledBorder: _buildBorder(color: widget.borderColor),
           errorBorder: _buildBorder(color: ColorManager.red),
           focusedErrorBorder: _buildBorder(color: ColorManager.red, width: 2),
           focusedBorder: _buildBorder(
-            color: hasError ? ColorManager.red : ColorManager.black,
+            color: widget.borderColor,
             width: 2,
           ),
         ),

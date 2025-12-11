@@ -41,28 +41,23 @@ class ResetPasswordScreen extends StatelessWidget {
             listener: (context, state) {
               final resetState = state.resetPasswordState;
               if (resetState?.isLoading == true) {
-                UIUtils.showLoadingMessage(
-                  context: context,
-                  loadingText: UiConstants.resetingPasswordLoadingMessage,
+                UIUtils.showEasyLoading(
+                  status: UiConstants.resetingPasswordLoadingMessage,
                 );
               } else if (resetState?.data != null) {
-                UIUtils.hideLoading(context);
-                UIUtils.showMessageWithNav(
-                  context: context,
-                  title: UiConstants.successTitle,
-                  message: resetState!.data!.message!,
-                  posActionName: UiConstants.okButton,
-                  posAction: () {
-                    Navigator.pushReplacementNamed(context, Routes.home);
-                  },
+                UIUtils.hideEasyLoading();
+                UIUtils.showMessage(
+                  resetState!.data!.message!, 
+                  backGroundColor: ColorManager.green, 
+                  textColor: ColorManager.white
                 );
+                Navigator.pushReplacementNamed(context, Routes.home);
               } else if (resetState?.errorMessage != null) {
-                UIUtils.hideLoading(context);
-                UIUtils.showMessageWithNav(
-                  context: context,
-                  title: UiConstants.failureTitle,
-                  message: resetState!.errorMessage!,
-                  negActionName: UiConstants.okButton,
+                UIUtils.hideEasyLoading();
+                UIUtils.showMessage(
+                  resetState!.errorMessage!, 
+                  backGroundColor: ColorManager.red, 
+                  textColor: ColorManager.white
                 );
               }
             },
@@ -74,11 +69,12 @@ class ResetPasswordScreen extends StatelessWidget {
               final bool hasAnyError = hasApiError || hasFormError;
               Color labelColor;
               Color buttonColor;
-
+              Color borderColor;
               String? errorText;
               if (state.hasUserInteracted == false) {
                 labelColor = ColorManager.darkGrey;
                 buttonColor = ColorManager.blue;
+                borderColor = ColorManager.black;
               } else {
                 labelColor = hasAnyError
                     ? ColorManager.red
@@ -86,6 +82,9 @@ class ResetPasswordScreen extends StatelessWidget {
                 buttonColor = hasAnyError
                     ? ColorManager.grey
                     : ColorManager.blue;
+                borderColor = hasAnyError
+                    ? ColorManager.red
+                    : ColorManager.black;
                 errorText = !hasApiError
                     ? null
                     : state.resetPasswordState!.errorMessage!;
@@ -148,7 +147,7 @@ class ResetPasswordScreen extends StatelessWidget {
                           SizedBox(height: Sizes.s32.h),
                           CustomTextFormField(
                             controller: _passwordController,
-
+                            borderColor: borderColor,
                             label: UiConstants.newPasswordLabel,
                             labelColor: labelColor,
                             hintText: UiConstants.passwordHintText,
@@ -178,6 +177,7 @@ class ResetPasswordScreen extends StatelessWidget {
                             controller: _confirmPasswordController,
                             label: UiConstants.confirmPasswordLabelAndHintText,
                             labelColor: labelColor,
+                            borderColor: borderColor,
                             hintText:
                                 UiConstants.confirmPasswordLabelAndHintText,
                             validator: (text) {
