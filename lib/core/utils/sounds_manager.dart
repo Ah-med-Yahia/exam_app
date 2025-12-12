@@ -8,8 +8,4 @@ class SoundManager {
     await _audioPlayer.seek(Duration.zero);
     await _audioPlayer.resume();
   }
-
-  static void disposeSoundPlayer() {
-    _audioPlayer.dispose();
-  }
 }

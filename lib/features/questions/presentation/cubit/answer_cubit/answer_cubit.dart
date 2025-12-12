@@ -67,6 +67,7 @@ class AnswerCubit extends Cubit<AnswerState> {
   }
 
   void _calculateScore(List<AnswerCheckEntity> answers, int time) async {
+    
     emit(
       state.copyWith(
         scoreState: BaseState<CheckAnswersResponseEntity>(isLoading: true),
@@ -77,6 +78,7 @@ class AnswerCubit extends Cubit<AnswerState> {
     );
     switch (response) {
       case SuccessResponse<CheckAnswersResponseEntity>():
+     
         emit(
           state.copyWith(
             scoreState: BaseState<CheckAnswersResponseEntity>(

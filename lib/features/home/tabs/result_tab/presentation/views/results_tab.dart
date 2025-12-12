@@ -1,4 +1,5 @@
 import 'package:exam_app/core/constants/ui_constants.dart';
+import 'package:exam_app/core/resources/assets_managar.dart';
 import 'package:exam_app/core/resources/color_managar.dart';
 import 'package:exam_app/core/resources/font_managar.dart';
 import 'package:exam_app/core/resources/styles_manager.dart';
@@ -12,6 +13,7 @@ import 'package:exam_app/features/home/tabs/result_tab/presentation/views/widget
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 
 class ResultsTab extends StatefulWidget {
   const ResultsTab({super.key});
@@ -66,28 +68,43 @@ class _ResultsTabState extends State<ResultsTab> {
               child: BlocBuilder<ResultTabCubit, ResultTabState>(
                 builder: (context, state) {
                   if (state.resultState?.data != null) {
-                    return Expanded(
-                      child: ListView.separated(
-                        itemCount: results.length,
-                        separatorBuilder: (context, index) =>
-                            SizedBox(height: 10.h),
-                        itemBuilder: (_, index) => ExamHistoryCard(
-                          examEntity: results[index].exam,
-                          numOfCorrectedAnswers: results[index].answers.correct
-                              .toString(),
-                          onTap: () {
-                            Navigator.pushNamed(
-                              context,
-                              Routes.answers,
-                              arguments: {
-                                'score': results[index].answers,
-                                'questions': results[index].questions,
-                              },
-                            );
-                          },
-                        ),
-                      ),
-                    );
+                    return results.isNotEmpty
+                        ? Expanded(
+                            child: ListView.separated(
+                              itemCount: results.length,
+                              separatorBuilder: (context, index) =>
+                                  SizedBox(height: 10.h),
+                              itemBuilder: (_, index) => ExamHistoryCard(
+                                examEntity: results[index].exam,
+                                numOfCorrectedAnswers: results[index]
+                                    .answers
+                                    .correct
+                                    .toString(),
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    Routes.answers,
+                                    arguments: {
+                                      'score': results[index].answers,
+                                      'questions': results[index].questions,
+                                    },
+                                  );
+                                },
+                              ),
+                            ),
+                          )
+                        : Column(
+                            children: [
+                              Lottie.asset(AnimationsAssets.empty),
+                              Text(
+                                UiConstants.noRsutlsYet,
+                                style: getBoldStyle(
+                                  color: ColorManager.blueAccent,
+                                  fontSize: FontSize.s24,
+                                ),
+                              ),
+                            ],
+                          );
                   } else {
                     return SizedBox.shrink();
                   }

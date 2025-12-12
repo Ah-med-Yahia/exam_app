@@ -66,7 +66,6 @@ class _ExploreTabState extends State<ExploreTab> {
                     final searchQuery = state.searchQuery;
                     if (subjectsState?.data == null &&
                         subjectsState?.isLoading == false) {
-                      
                       UIUtils.hideEasyLoading();
                       return Center(
                         child: Text(
@@ -80,7 +79,6 @@ class _ExploreTabState extends State<ExploreTab> {
                       );
                     } else if (subjectsState?.errorMessage != null &&
                         subjectsState?.isLoading == false) {
-                     
                       UIUtils.hideEasyLoading();
                       return Center(
                         child: Text(
@@ -94,7 +92,6 @@ class _ExploreTabState extends State<ExploreTab> {
                       );
                     } else if (displayedSubjects != null &&
                         subjectsState?.isLoading == false) {
-                    
                       UIUtils.hideEasyLoading();
                       if (searchQuery.isNotEmpty && displayedSubjects.isEmpty) {
                         return Center(
@@ -126,7 +123,6 @@ class _ExploreTabState extends State<ExploreTab> {
                         ],
                       );
                     } else {
-                     
                       UIUtils.showEasyLoading();
                       return SizedBox.shrink();
                     }

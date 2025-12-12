@@ -59,6 +59,8 @@ dependencies:
   cached_network_image: ^3.4.1
   image_picker: ^1.2.1
   skeletonizer: ^2.1.1
+  lottie: ^3.3.2
+  confetti: ^0.8.0
 
 dev_dependencies:
   flutter_test:
@@ -95,6 +97,7 @@ flutter:
     - assets/icons/
     - assets/sounds/
     - assets/images/
+    - assets/animations/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

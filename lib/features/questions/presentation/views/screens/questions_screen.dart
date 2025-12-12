@@ -55,7 +55,6 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   void dispose() {
     _timer?.cancel();
     pageController.dispose();
-    SoundManager.disposeSoundPlayer();
     super.dispose();
   }
 
@@ -141,6 +140,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                                             } else if (state.scoreState?.data !=
                                                 null) {
                                               UIUtils.hideEasyLoading();
+
                                               context
                                                   .read<AnswerCubit>()
                                                   .doIntent(
@@ -396,42 +396,45 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                           ),
                           const SizedBox(width: 12),
                           Expanded(
-                            child: BlocBuilder<AnswerCubit, AnswerState>(
-                              builder: (context, state) {
-                                final isLastQustion =
-                                    state.currentQuestionIndex ==
-                                    questions.length - 1;
-                                return BlocListener<AnswerCubit, AnswerState>(
-                                  listener: (context, state) {
-                                    if (state.scoreState?.isLoading == true) {
-                                      UIUtils.showEasyLoading();
-                                    } else if (state.scoreState?.data != null) {
-                                      UIUtils.hideEasyLoading();
-                                      context.read<AnswerCubit>().doIntent(
-                                        CacheAnswersEvent(
-                                          answers: state.scoreState!.data!,
-                                          questions: questions,
-                                          exam: exam!,
-                                        ),
-                                      );
+                            child: BlocListener<AnswerCubit, AnswerState>(
+                              listenWhen: (previous, current) =>
+                                  previous.scoreState != current.scoreState &&
+                                  current.scoreState != null,
+                              listener: (context, state) {
+                                if (state.scoreState?.isLoading == true) {
+                                  UIUtils.showEasyLoading();
+                                } else if (state.scoreState?.data != null) {
+                                  UIUtils.hideEasyLoading();
+                                  context.read<AnswerCubit>().doIntent(
+                                    CacheAnswersEvent(
+                                      answers: state.scoreState!.data!,
+                                      questions: questions,
+                                      exam: exam!,
+                                    ),
+                                  );
 
-                                      Navigator.pushNamedAndRemoveUntil(
-                                        context,
-                                        Routes.score,
-                                        (route) =>
-                                            route.settings.name == Routes.home,
-                                        arguments: {
-                                          'score': state.scoreState!.data!,
-                                          'questions': questions,
-                                          'examId': examId,
-                                        },
-                                      );
-                                    } else if (state.scoreState?.errorMessage !=
-                                        null) {
-                                      UIUtils.hideEasyLoading();
-                                    }
-                                  },
-                                  child: CustomElevatedButton(
+                                  Navigator.pushNamedAndRemoveUntil(
+                                    context,
+                                    Routes.score,
+                                    (route) =>
+                                        route.settings.name == Routes.home,
+                                    arguments: {
+                                      'score': state.scoreState!.data!,
+                                      'questions': questions,
+                                      'examId': examId,
+                                    },
+                                  );
+                                } else if (state.scoreState?.errorMessage !=
+                                    null) {
+                                  UIUtils.hideEasyLoading();
+                                }
+                              },
+                              child: BlocBuilder<AnswerCubit, AnswerState>(
+                                builder: (context, state) {
+                                  final isLastQustion =
+                                      state.currentQuestionIndex ==
+                                      questions.length - 1;
+                                  return CustomElevatedButton(
                                     label: isLastQustion
                                         ? UiConstants.finish
                                         : UiConstants.next,
@@ -504,9 +507,9 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                                         }
                                       }
                                     },
-                                  ),
-                                );
-                              },
+                                  );
+                                },
+                              ),
                             ),
                           ),
                         ],

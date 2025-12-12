@@ -1,6 +1,6 @@
 class ImageAssets {
   static const String imagePath = 'assets/images';
-  static const String examImage='$imagePath/exam_image.png';
+  static const String examImage = '$imagePath/exam_image.png';
 }
 
 class SvgAssets {
@@ -18,5 +18,11 @@ class IconsAssets {
 class SoundAssets {
   static const String soundPath = 'sounds';
   static const String selectClickSound = '$soundPath/select_click.wav';
-  static const String timeOutSound='$soundPath/time_out_sound.wav';
+  static const String timeOutSound = '$soundPath/time_out_sound.wav';
+  static const String success = '$soundPath/success.mp3';
+  static const String faliure = '$soundPath/failure.mp3';
+}
+
+class AnimationsAssets {
+  static const String empty = 'assets/animations/Empty_box.json';
 }
