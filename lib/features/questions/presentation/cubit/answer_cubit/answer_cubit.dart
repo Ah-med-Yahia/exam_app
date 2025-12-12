@@ -16,32 +16,32 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class AnswerCubit extends Cubit<AnswerState> {
-  AnswerCubit(this.answersCheckUseCase, this.cacheAnswersUseCase)
+  AnswerCubit(this._answersCheckUseCase, this._cacheAnswersUseCase)
     : super(AnswerState());
 
-  final AnswersCheckUseCase answersCheckUseCase;
-  final CacheAnswersUseCase cacheAnswersUseCase;
+  final AnswersCheckUseCase _answersCheckUseCase;
+  final CacheAnswersUseCase _cacheAnswersUseCase;
 
   void doIntent(AnswerEvent event) {
     switch (event) {
       case SelectAnswerEvent(:final questionId, :final selectedAnswer):
-        selectAnswer(questionId, selectedAnswer);
+        _selectAnswer(questionId, selectedAnswer);
       case CalculateScoreEvent(:final answers, :final time):
-        calculateScore(answers, time);
+        _calculateScore(answers, time);
       case NextQuestionEvent(:final currentQuestionIndex):
-        nextQuestion(currentQuestionIndex);
+        _nextQuestion(currentQuestionIndex);
       case InitializeAnswersEvent(:final questions):
-        initialAnswers(questions);
+        _initialAnswers(questions);
       case CacheAnswersEvent(:final exam, :final answers, :final questions):
-        cacheAnswers(exam, answers, questions);
+        _cacheAnswers(exam, answers, questions);
     }
   }
 
-  void nextQuestion(int currentQuestionIndex) {
+  void _nextQuestion(int currentQuestionIndex) {
     emit(state.copyWith(currentQuestionIndex: currentQuestionIndex));
   }
 
-  void initialAnswers(List<QuestionEntity> questions) {
+  void _initialAnswers(List<QuestionEntity> questions) {
     emit(
       state.copyWith(
         answers: questions
@@ -51,7 +51,7 @@ class AnswerCubit extends Cubit<AnswerState> {
     );
   }
 
-  void selectAnswer(String questionId, KeyEntity? selectedAnswer) {
+  void _selectAnswer(String questionId, KeyEntity? selectedAnswer) {
     final updatedList = List<AnswerCheckEntity>.from(state.answers);
 
     final index = updatedList.indexWhere((e) => e.questionId == questionId);
@@ -66,13 +66,13 @@ class AnswerCubit extends Cubit<AnswerState> {
     emit(state.copyWith(answers: updatedList));
   }
 
-  void calculateScore(List<AnswerCheckEntity> answers, int time) async {
+  void _calculateScore(List<AnswerCheckEntity> answers, int time) async {
     emit(
       state.copyWith(
         scoreState: BaseState<CheckAnswersResponseEntity>(isLoading: true),
       ),
     );
-    final response = await answersCheckUseCase(
+    final response = await _answersCheckUseCase(
       answers: AnswersRequestEntity(answers: answers, time: time),
     );
     switch (response) {
@@ -95,12 +95,12 @@ class AnswerCubit extends Cubit<AnswerState> {
     }
   }
 
-  void cacheAnswers(
+  void _cacheAnswers(
     ExamEntity exam,
     CheckAnswersResponseEntity answers,
     List<QuestionEntity> questions,
   ) async {
-    final response = await cacheAnswersUseCase(
+    final response = await _cacheAnswersUseCase(
       result: CachedExamResultEntity(
         answers: answers,
         exam: exam,

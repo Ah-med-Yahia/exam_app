@@ -6,6 +6,7 @@ import 'package:exam_app/core/resources/styles_manager.dart';
 import 'package:exam_app/core/utils/sounds_manager.dart';
 import 'package:exam_app/features/questions/domain/entities/question_entity/question_entity.dart';
 import 'package:exam_app/features/questions/presentation/cubit/answer_cubit/answer_cubit.dart';
+import 'package:exam_app/features/questions/presentation/cubit/answer_cubit/answer_event.dart';
 import 'package:exam_app/features/questions/presentation/cubit/answer_cubit/answer_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' show BlocBuilder, ReadContext;
@@ -38,7 +39,9 @@ class AnswersWidget extends StatelessWidget {
           groupValue: selectedValue,
           onChanged: (value) {
             SoundManager.playSound(SoundAssets.selectClickSound);
-            context.read<AnswerCubit>().selectAnswer(questionId, value);
+            context.read<AnswerCubit>().doIntent(
+              SelectAnswerEvent(questionId: questionId, selectedAnswer: value),
+            );
           },
           child: ListView.separated(
             physics: NeverScrollableScrollPhysics(),

@@ -4,6 +4,7 @@ import 'package:exam_app/core/resources/color_managar.dart';
 import 'package:exam_app/core/resources/styles_manager.dart';
 import 'package:exam_app/core/resources/values_managar.dart';
 import 'package:exam_app/core/routes/routes.dart';
+import 'package:exam_app/core/utils/ui_utils.dart';
 import 'package:exam_app/core/widgets/custom_text_form_field.dart';
 import 'package:exam_app/features/home/presentation/views/screens/tabs/explore_tab/presentation/cubit/explore_tab_cubit.dart';
 import 'package:exam_app/features/home/presentation/views/screens/tabs/explore_tab/presentation/cubit/explore_tab_events.dart';
@@ -21,7 +22,7 @@ class ExploreTab extends StatefulWidget {
 }
 
 class _ExploreTabState extends State<ExploreTab> {
-  final ExploreTabCubit cubit=getIt<ExploreTabCubit>();
+  final ExploreTabCubit cubit = getIt<ExploreTabCubit>();
 
   final TextEditingController _searchController = TextEditingController();
 
@@ -36,52 +37,101 @@ class _ExploreTabState extends State<ExploreTab> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                SizedBox(height: Sizes.s24.h,),
-                Text(UiConstants.surveyHeader,style: getMediumStyle(color: ColorManager.blue,fontSize: Sizes.s20.sp,fontFamily: GoogleFontsKeys.inter),),
-                SizedBox(height: Sizes.s16.h,),
+                SizedBox(height: Sizes.s24.h),
+                Text(
+                  UiConstants.surveyHeader,
+                  style: getMediumStyle(
+                    color: ColorManager.blue,
+                    fontSize: Sizes.s20.sp,
+                    fontFamily: GoogleFontsKeys.inter,
+                  ),
+                ),
+                SizedBox(height: Sizes.s16.h),
                 _buildSearchField(),
-                SizedBox(height: Sizes.s40.h,),
-                Text(UiConstants.browsingText,style: getMediumStyle(color: ColorManager.black,fontSize: Sizes.s18.sp,fontFamily: GoogleFontsKeys.inter),),
-                SizedBox(height: Sizes.s24.h,),
-                BlocBuilder<ExploreTabCubit,ExploreTabStates>(
+                SizedBox(height: Sizes.s40.h),
+                Text(
+                  UiConstants.browsingText,
+                  style: getMediumStyle(
+                    color: ColorManager.black,
+                    fontSize: Sizes.s18.sp,
+                    fontFamily: GoogleFontsKeys.inter,
+                  ),
+                ),
+                SizedBox(height: Sizes.s24.h),
+                BlocBuilder<ExploreTabCubit, ExploreTabStates>(
                   builder: (context, state) {
-                    final subjectsState=state.gettingAllSubjects;
-                    final displayedSubjects = state.filteredSubjects ?? subjectsState?.data;
+                    final subjectsState = state.gettingAllSubjects;
+                    final displayedSubjects =
+                        state.filteredSubjects ?? subjectsState?.data;
                     final searchQuery = state.searchQuery;
-                    if(subjectsState?.data==null && subjectsState?.isLoading==false){
+                    if (subjectsState?.data == null &&
+                        subjectsState?.isLoading == false) {
+                      
+                      UIUtils.hideEasyLoading();
                       return Center(
-                        child: Text(UiConstants.emptySubjects,style: getMediumStyle(color: ColorManager.black,fontSize: Sizes.s18.sp,fontFamily: GoogleFontsKeys.inter),),
+                        child: Text(
+                          UiConstants.emptySubjects,
+                          style: getMediumStyle(
+                            color: ColorManager.black,
+                            fontSize: Sizes.s18.sp,
+                            fontFamily: GoogleFontsKeys.inter,
+                          ),
+                        ),
                       );
-                    }else if (subjectsState?.errorMessage!=null && subjectsState?.isLoading==false){
+                    } else if (subjectsState?.errorMessage != null &&
+                        subjectsState?.isLoading == false) {
+                     
+                      UIUtils.hideEasyLoading();
                       return Center(
-                        child: Text(subjectsState!.errorMessage!,style: getMediumStyle(color: ColorManager.black,fontSize: Sizes.s18.sp,fontFamily: GoogleFontsKeys.inter)),
+                        child: Text(
+                          subjectsState!.errorMessage!,
+                          style: getMediumStyle(
+                            color: ColorManager.black,
+                            fontSize: Sizes.s18.sp,
+                            fontFamily: GoogleFontsKeys.inter,
+                          ),
+                        ),
                       );
-                    }else if(displayedSubjects!=null && subjectsState?.isLoading==false){
-                      if(searchQuery.isNotEmpty && displayedSubjects.isEmpty){
+                    } else if (displayedSubjects != null &&
+                        subjectsState?.isLoading == false) {
+                    
+                      UIUtils.hideEasyLoading();
+                      if (searchQuery.isNotEmpty && displayedSubjects.isEmpty) {
                         return Center(
-                          child: Text(UiConstants.misMatchSearchResults,style: getMediumStyle(color: ColorManager.black,fontSize: Sizes.s18.sp,fontFamily: GoogleFontsKeys.inter)),
+                          child: Text(
+                            UiConstants.misMatchSearchResults,
+                            style: getMediumStyle(
+                              color: ColorManager.black,
+                              fontSize: Sizes.s18.sp,
+                              fontFamily: GoogleFontsKeys.inter,
+                            ),
+                          ),
                         );
                       }
                       return Column(
                         children: [
-                          for (int i=0;i<displayedSubjects.length;i++) ...[
+                          for (
+                            int i = 0;
+                            i < displayedSubjects.length;
+                            i++
+                          ) ...[
                             SubjectCard(
                               subjectEntity: displayedSubjects[i],
                               onPressed: () {
                                 Navigator.pushNamed(context, Routes.allExams);
                               },
                             ),
-                            SizedBox(height: Sizes.s16.h,)
-                          ]
+                            SizedBox(height: Sizes.s16.h),
+                          ],
                         ],
                       );
-                    }else{
-                      return Center(
-                        child: CircularProgressIndicator(color: ColorManager.blue,),
-                      );
+                    } else {
+                     
+                      UIUtils.showEasyLoading();
+                      return SizedBox.shrink();
                     }
                   },
-                )
+                ),
               ],
             ),
           ),
@@ -90,18 +140,20 @@ class _ExploreTabState extends State<ExploreTab> {
     );
   }
 
-  Widget _buildSearchField(){
-    return BlocBuilder<ExploreTabCubit,ExploreTabStates>(
+  Widget _buildSearchField() {
+    return BlocBuilder<ExploreTabCubit, ExploreTabStates>(
       builder: (context, state) {
         return CustomTextFormField(
           radius: Sizes.s20.r,
-          hintText:UiConstants.searchText,
-          prefixIcon: Icon(Icons.search,color: ColorManager.darkGrey,),
+          hintText: UiConstants.searchText,
+          prefixIcon: Icon(Icons.search, color: ColorManager.darkGrey),
           controller: _searchController,
           onChanged: (value) {
             final allSubjects = state.gettingAllSubjects?.data;
-            if(allSubjects!=null){
-              context.read<ExploreTabCubit>().doIntent(SearchSubjectsEvent(value, allSubjects));
+            if (allSubjects != null) {
+              context.read<ExploreTabCubit>().doIntent(
+                SearchSubjectsEvent(value, allSubjects),
+              );
             }
           },
         );

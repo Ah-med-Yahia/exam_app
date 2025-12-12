@@ -22,54 +22,52 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Widget> tabs = [
     const ExploreTab(),
-    BlocProvider(create: (context) => getIt.get<ResultTabCubit>(), child: const ResultsTab()),
+    BlocProvider(
+      create: (context) => getIt.get<ResultTabCubit>(),
+      child: const ResultsTab(),
+    ),
     const ProfileTab(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomAppBar(
-        clipBehavior: Clip.antiAlias,
-        notchMargin: 2,
-        shape: const CircularNotchedRectangle(),
-        padding: EdgeInsets.zero,
-        child: BottomNavigationBar(
-          elevation: 0,
-          onTap: (index) {
-            if (currrentIndex == index) return;
-            currrentIndex = index;
-            setState(() {});
-          },
-          currentIndex: currrentIndex,
-          selectedItemColor: ColorManager.blue,
-          items: const [
-            BottomNavigationBarItem(
-              icon: NavBarIcon(image: IconsAssets.exploreIcon, isActive: false),
-              activeIcon: NavBarIcon(
-                image: IconsAssets.exploreIcon,
-                isActive: true,
-              ),
-              label: UiConstants.explore,
+      bottomNavigationBar: BottomNavigationBar(
+        elevation: 0,
+        backgroundColor: ColorManager.blueGrey,
+        onTap: (index) {
+          if (currrentIndex == index) return;
+          currrentIndex = index;
+          setState(() {});
+        },
+        currentIndex: currrentIndex,
+        selectedItemColor: ColorManager.blue,
+        items: const [
+          BottomNavigationBarItem(
+            icon: NavBarIcon(image: IconsAssets.exploreIcon, isActive: false),
+            activeIcon: NavBarIcon(
+              image: IconsAssets.exploreIcon,
+              isActive: true,
             ),
-            BottomNavigationBarItem(
-              icon: NavBarIcon(image: IconsAssets.resultIcon, isActive: false),
-              activeIcon: NavBarIcon(
-                image: IconsAssets.resultIcon,
-                isActive: true,
-              ),
-              label: UiConstants.result,
+            label: UiConstants.explore,
+          ),
+          BottomNavigationBarItem(
+            icon: NavBarIcon(image: IconsAssets.resultIcon, isActive: false),
+            activeIcon: NavBarIcon(
+              image: IconsAssets.resultIcon,
+              isActive: true,
             ),
-            BottomNavigationBarItem(
-              icon: NavBarIcon(image: IconsAssets.profileIcon, isActive: false),
-              activeIcon: NavBarIcon(
-                image: IconsAssets.profileIcon,
-                isActive: true,
-              ),
-              label: UiConstants.profile,
+            label: UiConstants.result,
+          ),
+          BottomNavigationBarItem(
+            icon: NavBarIcon(image: IconsAssets.profileIcon, isActive: false),
+            activeIcon: NavBarIcon(
+              image: IconsAssets.profileIcon,
+              isActive: true,
             ),
-          ],
-        ),
+            label: UiConstants.profile,
+          ),
+        ],
       ),
       body: tabs[currrentIndex],
     );

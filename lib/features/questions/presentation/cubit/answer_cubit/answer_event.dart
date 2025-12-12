@@ -7,7 +7,7 @@ sealed class AnswerEvent {}
 
 class SelectAnswerEvent extends AnswerEvent {
   final String questionId;
-  final KeyEntity selectedAnswer;
+  final KeyEntity? selectedAnswer;
 
   SelectAnswerEvent({required this.questionId, required this.selectedAnswer});
 }

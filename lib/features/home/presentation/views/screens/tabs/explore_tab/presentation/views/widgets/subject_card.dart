@@ -6,11 +6,16 @@ import 'package:exam_app/core/resources/values_managar.dart';
 import 'package:exam_app/features/home/presentation/views/screens/tabs/explore_tab/domain/entities/subject_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class SubjectCard extends StatelessWidget {
   final VoidCallback onPressed;
   final SubjectEntity subjectEntity;
-  const SubjectCard({super.key,required this.subjectEntity,required this.onPressed});
+  const SubjectCard({
+    super.key,
+    required this.subjectEntity,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,30 +30,49 @@ class SubjectCard extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               color: ColorManager.subjectCardShadowColor,
-              blurRadius: Sizes.s8.r
-            )
-          ]
+              blurRadius: Sizes.s8.r,
+            ),
+          ],
         ),
         child: Row(
           children: [
-            SizedBox(width: Sizes.s22.w,),
+            SizedBox(width: Sizes.s22.w),
             CachedNetworkImage(
               imageUrl: subjectEntity.icon!,
               imageBuilder: (context, imageProvider) => Container(
                 height: Sizes.s48.h,
                 width: Sizes.s48.w,
                 decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
                   image: DecorationImage(
                     image: imageProvider,
-                    fit: BoxFit.cover
-                  )
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-              placeholder: (context, url) => Center(child: CircularProgressIndicator(color: ColorManager.blue,),),
-              errorWidget: (context, url, error) => Icon(Icons.error,color: ColorManager.red,),
+              placeholder: (context, url) => Skeletonizer(
+                enabled: true,
+                child: Container(
+                  height: Sizes.s48.h,
+                  width: Sizes.s48.w,
+                  decoration: BoxDecoration(
+                    color: ColorManager.blueGrey,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+              ),
+              errorWidget: (context, url, error) =>
+                  Icon(Icons.error, color: ColorManager.red),
             ),
-            SizedBox(width: Sizes.s8.w,),
-            Text(subjectEntity.name!,style: getRegularStyle(color: ColorManager.black_0,fontSize: Sizes.s16.sp,fontFamily: GoogleFontsKeys.inter),)
+            SizedBox(width: Sizes.s8.w),
+            Text(
+              subjectEntity.name!,
+              style: getRegularStyle(
+                color: ColorManager.black_0,
+                fontSize: Sizes.s16.sp,
+                fontFamily: GoogleFontsKeys.inter,
+              ),
+            ),
           ],
         ),
       ),

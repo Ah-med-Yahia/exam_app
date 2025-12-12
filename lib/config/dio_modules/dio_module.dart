@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:exam_app/core/constants/api_constants.dart';
 import 'package:exam_app/features/auth/sign_up/data/models/user_adapter.dart';
@@ -37,7 +35,7 @@ abstract class DioModule {
 
               if (token != null && token.isNotEmpty) {
                 options.headers[CacheConstants.tokenKey] = token;
-                log("TOKEN FROM HIVE: $token");
+                
               }
 
               return handler.next(options);

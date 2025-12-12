@@ -24,9 +24,10 @@ class ScoreScreen extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pushNamedAndRemoveUntil(
-              Routes.home,
-              (Route<dynamic> route) => false,
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              Routes.home, 
+              (route) => false, 
             );
           },
           icon: Icon(Icons.home_max, color: ColorManager.blue),

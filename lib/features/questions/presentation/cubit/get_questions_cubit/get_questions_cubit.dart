@@ -10,9 +10,9 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class GetQuestionsCubit extends Cubit<GetQuestionsStates> {
-  GetQuestionsCubit(this.getQuestionsUseCase) : super(GetQuestionsStates());
+  GetQuestionsCubit(this._getQuestionsUseCase) : super(GetQuestionsStates());
 
-  final GetQuestionsUseCase getQuestionsUseCase;
+  final GetQuestionsUseCase _getQuestionsUseCase;
 
   void doIntent(GetQuestionsEvents event) {
     switch (event) {
@@ -28,7 +28,7 @@ class GetQuestionsCubit extends Cubit<GetQuestionsStates> {
       ),
     );
 
-    final result = await getQuestionsUseCase(examId: examId);
+    final result = await _getQuestionsUseCase(examId: examId);
     switch (result) {
       case SuccessResponse<GetQuestionsResponseEntity>():
         emit(

@@ -19,5 +19,4 @@ class SoundAssets {
   static const String soundPath = 'sounds';
   static const String selectClickSound = '$soundPath/select_click.wav';
   static const String timeOutSound='$soundPath/time_out_sound.wav';
-
 }
