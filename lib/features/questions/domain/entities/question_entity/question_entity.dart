@@ -48,4 +48,6 @@ enum KeyEntity {
   
   @HiveField(3)
   a4,
+  @HiveField(4)
+  a5,
 }

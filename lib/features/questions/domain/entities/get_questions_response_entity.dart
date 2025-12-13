@@ -3,7 +3,7 @@ import 'package:exam_app/features/questions/domain/entities/question_entity/ques
 
 class GetQuestionsResponseEntity {
   final List<QuestionEntity> questions;
-  final ExamEntity exam;
+  final ExamEntity? exam;
 
   GetQuestionsResponseEntity({
     required this.questions,

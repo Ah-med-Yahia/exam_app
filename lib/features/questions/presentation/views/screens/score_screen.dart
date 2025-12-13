@@ -37,18 +37,19 @@ class _ScoreScreenState extends State<ScoreScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if (_hasInitialized) {
-      final args = ModalRoute.of(context)!.settings.arguments as Map;
-      result = args['score'] as CheckAnswersResponseEntity;
-      examId = args['examId'] as String;
-      total = result.total.replaceAll('%', '');
-      double number = double.tryParse(total) ?? 0;
+    final args = ModalRoute.of(context)!.settings.arguments as Map;
+    result = args['score'] as CheckAnswersResponseEntity;
+    examId = args['examId'] as String;
+    total = result.total.replaceAll('%', '');
+    double number = double.tryParse(total) ?? 0;
+    if (!_hasInitialized) {
       SoundManager.playSound(
         number >= 50 ? SoundAssets.success : SoundAssets.faliure,
       );
       if (number >= 50) {
         _confettiController.play();
       }
+      _hasInitialized = true;
     }
   }
 

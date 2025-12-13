@@ -37,6 +37,7 @@ const _$KeyModelEnumMap = {
   KeyModel.a2: 'A2',
   KeyModel.a3: 'A3',
   KeyModel.a4: 'A4',
+  KeyModel.a5: 'A5',
 };
 
 AnswerModel _$AnswerModelFromJson(Map<String, dynamic> json) => AnswerModel(

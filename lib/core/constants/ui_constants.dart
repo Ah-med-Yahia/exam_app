@@ -113,6 +113,7 @@ class UiConstants {
   static const String correctedAnswers = 'corrected answers in ';
   static const String minText = ' min.';
   static const String noRsutlsYet = 'No Results Yet';
+  static const String noQuestions = 'Sorry NO Questions';
 }
 
 class GoogleFontsKeys {

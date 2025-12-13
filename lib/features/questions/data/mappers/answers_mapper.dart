@@ -2,10 +2,7 @@ import 'package:exam_app/features/questions/data/models/question_model/question_
 import 'package:exam_app/features/questions/domain/entities/question_entity/question_entity.dart';
 
 extension AnswersMapper on AnswerModel {
-  AnswerEntity toEntity() => AnswerEntity(
-        answer: answer,
-        key: key.toEntity(),
-      );
+  AnswerEntity toEntity() => AnswerEntity(answer: answer, key: key.toEntity());
 }
 
 extension KeyMapper on KeyModel {
@@ -19,6 +16,8 @@ extension KeyMapper on KeyModel {
         return KeyEntity.a3;
       case KeyModel.a4:
         return KeyEntity.a4;
+      case KeyModel.a5:
+        return KeyEntity.a5;
     }
   }
 }

@@ -20,6 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lottie/lottie.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class QuestionsScreen extends StatefulWidget {
@@ -75,7 +76,8 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
             child: BlocBuilder<GetQuestionsCubit, GetQuestionsStates>(
               builder: (context, state) {
                 final cubitContext = context;
-                if (state.questionsState?.data != null) {
+                if (state.questionsState?.data != null &&
+                    (state.questionsState?.data?.isNotEmpty ?? false)) {
                   final questions = state.questionsState!.data!;
                   final exam = state.examDetails;
                   _remainingSeconds = (exam!.duration) * 60;
@@ -240,7 +242,22 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
           },
           child: BlocBuilder<GetQuestionsCubit, GetQuestionsStates>(
             builder: (context, state) {
-              if (state.questionsState?.data != null) {
+              if (state.questionsState?.data != null &&
+                  (state.questionsState?.data?.isEmpty ?? false)) {
+                return Column(
+                  children: [
+                    Lottie.asset(AnimationsAssets.empty),
+                    Text(
+                      UiConstants.noQuestions,
+                      style: getBoldStyle(
+                        color: ColorManager.blueAccent,
+                        fontSize: FontSize.s24,
+                      ),
+                    ),
+                  ],
+                );
+              } else if (state.questionsState?.data != null &&
+                  (state.questionsState?.data?.isNotEmpty ?? false)) {
                 final questions = state.questionsState!.data!;
                 final exam = state.examDetails;
                 context.read<AnswerCubit>().doIntent(

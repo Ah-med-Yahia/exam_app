@@ -121,6 +121,9 @@ class KeyEntityAdapter extends TypeAdapter<KeyEntity> {
       case KeyEntity.a4:
         writer.writeByte(3);
         break;
+      case KeyEntity.a5:
+        writer.writeByte(4);
+        break;
     }
   }
 

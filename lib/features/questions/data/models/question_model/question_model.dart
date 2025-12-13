@@ -70,5 +70,6 @@ enum KeyModel {
   a3,
   @JsonValue("A4")
   a4,
-  
+  @JsonValue("A4")
+  a5,
 }

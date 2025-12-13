@@ -11,6 +11,6 @@ extension GetQuestionsResponseMapper on GetQuestionsResponseModel {
         )
         .toList(),
 
-    exam: questions[0].exam.toEntity()
+    exam:questions.isEmpty?null: questions[0].exam.toEntity() 
   );
 }
