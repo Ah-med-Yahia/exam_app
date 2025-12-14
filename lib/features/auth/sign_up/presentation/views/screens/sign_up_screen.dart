@@ -215,7 +215,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       label: UiConstants.signUp,
                       backgroundColor: state.isFormValid
                           ? ColorManager.blue
-                          : ColorManager.grey,
+                          : ColorManager.lightGrey,
                       onTap: state.isFormValid
                           ? () {
                               if (_formKey.currentState!.validate()) {

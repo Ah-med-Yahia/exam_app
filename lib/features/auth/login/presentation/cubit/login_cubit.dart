@@ -43,7 +43,15 @@ class LoginCubit extends Cubit<LoginStates> {
   }
 
   Future<void> _performLogin(LoginButtonPressed intent) async {
-    emit(state.copyWith(isLoading: true, data: null, errorMessage: null));
+    emit(
+      state.copyWith(
+        isLoading: true,
+        data: null,
+        errorMessage: null,
+        clearData: true,
+        clearError: true,
+      ),
+    );
 
     final response = await _loginUseCase(
       LoginRequest(email: intent.email, password: intent.password),
