@@ -26,6 +26,7 @@ class _ScoreScreenState extends State<ScoreScreen> {
   late String examId;
   late String total;
   late ConfettiController _confettiController;
+  late Size screenSize;
   bool _hasInitialized = false;
 
   @override
@@ -38,6 +39,7 @@ class _ScoreScreenState extends State<ScoreScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     final args = ModalRoute.of(context)!.settings.arguments as Map;
+    screenSize = MediaQuery.of(context).size;
     result = args['score'] as CheckAnswersResponseEntity;
     examId = args['examId'] as String;
     total = result.total.replaceAll('%', '');
@@ -221,9 +223,15 @@ class _ScoreScreenState extends State<ScoreScreen> {
           alignment: Alignment.topCenter,
           child: ConfettiWidget(
             confettiController: _confettiController,
-            blastDirection: pi / 2,
-            numberOfParticles: 30,
+            blastDirection: pi / 2, 
+            blastDirectionality: BlastDirectionality
+                .explosive, // This spreads confetti in all directions
+            numberOfParticles: 60,
             colors: [ColorManager.blue, ColorManager.green, Colors.yellow],
+            emissionFrequency: 0.05,
+            maxBlastForce: 20, // Increased force to reach further
+            minBlastForce: 5, 
+            gravity: 0.1, // Lower gravity so particles travel further
           ),
         ),
       ],
