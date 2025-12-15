@@ -42,7 +42,10 @@ class _ScoreScreenState extends State<ScoreScreen> {
     screenSize = MediaQuery.of(context).size;
     result = args['score'] as CheckAnswersResponseEntity;
     examId = args['examId'] as String;
-    total = result.total.replaceAll('%', '');
+    total = double.parse(
+      result.total.replaceAll('%', ''),
+    ).toStringAsFixed(2);
+
     double number = double.tryParse(total) ?? 0;
     if (!_hasInitialized) {
       SoundManager.playSound(
@@ -223,14 +226,14 @@ class _ScoreScreenState extends State<ScoreScreen> {
           alignment: Alignment.topCenter,
           child: ConfettiWidget(
             confettiController: _confettiController,
-            blastDirection: pi / 2, 
+            blastDirection: pi / 2,
             blastDirectionality: BlastDirectionality
                 .explosive, // This spreads confetti in all directions
             numberOfParticles: 60,
             colors: [ColorManager.blue, ColorManager.green, Colors.yellow],
             emissionFrequency: 0.05,
             maxBlastForce: 20, // Increased force to reach further
-            minBlastForce: 5, 
+            minBlastForce: 5,
             gravity: 0.1, // Lower gravity so particles travel further
           ),
         ),
